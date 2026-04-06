@@ -1,0 +1,590 @@
+[
+  {
+    "content": "# loading Linux os + python preinstalled\nFROM python:3.9-slim \n\n# creating folder in container to hold the application\nWORKDIR /app\n\n# copying requirements.txt from local to container\nCOPY requirements.txt . \n\n# Install Python dependencies inside the container\nRUN pip install --no-cache-dir -r requirements.txt\n\n\n# Copy the entire project code into the container\nCOPY /app .\n\n# Inform Docker that the container will use port 8501\nEXPOSE 8501\n\n# Command to run Streamlit when the container starts\n# -",
+    "metadata": {
+      "file_name": "Dockerfile",
+      "file_type": "text",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "94d48f4c-ec8e-46f6-b4ee-5edac04a76b6"
+  },
+  {
+    "content": "e container will use port 8501\nEXPOSE 8501\n\n# Command to run Streamlit when the container starts\n# --server.port=8501 \u2192 Streamlit listens on port 8501 inside the container\n# --server.address=0.0.0.0 \u2192 Streamlit listens on all network interfaces inside the container\n# This allows you to access the app from your host machine when using port mapping (-p)\nCMD [\"streamlit\", \"run\", \"app.py\", \"--server.port=8501\", \"--server.address=0.0.0.0\"]\n\n ",
+    "metadata": {
+      "file_name": "Dockerfile",
+      "file_type": "text",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "50d5ef88-04b4-4fdd-873d-925013a06419"
+  },
+  {
+    "content": "ort=8501\", \"--server.address=0.0.0.0\"]\n\n ",
+    "metadata": {
+      "file_name": "Dockerfile",
+      "file_type": "text",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "2695aad5-d9ac-4f09-a249-ce49551f981e"
+  },
+  {
+    "content": "# Power Consumption Prediction App\n<div>\n<img width=\"1699\" height=\"930\" alt=\"Screenshot 2026-01-04 144915\" src=\"https://github.com/user-attachments/assets/d3e701eb-a958-4c20-9a40-bea9894f02f9\" />\n<img width=\"1687\" height=\"893\" alt=\"Screenshot 2026-01-04 144932\" src=\"https://github.com/user-attachments/assets/f91e1054-0f70-4858-9e21-dc81338dcf41\" />\n</div>\nThis project predicts household power consumption using historical electrical measurements and time-based features.  \nIt includes a trained machine learning model, a Streamlit web application, and a Docker setup for easy deployment.\n\n---\n\n## Overview\n\nThe goal of this project is to predict **Global Active Power (kW)** using:\n- Electrical sensor readings\n- Past power usage (lag features)\n- Time information such as hour, day of week, and month\n\nThe model is trained on the *Individual Household Electric Power Consumption* dataset.\n\n---\n\n## Features Used",
+    "metadata": {
+      "file_name": "README.md",
+      "file_type": "markdown",
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "3571a48d-76df-426b-91bf-885a51c78bba"
+  },
+  {
+    "content": "The model is trained on the *Individual Household Electric Power Consumption* dataset.\n\n---\n\n## Features Used\n\n- Global reactive power  \n- Voltage  \n- Global intensity  \n- Sub-metering (1, 2, 3)  \n- Lag features (`lag_1`, `lag_2`)  \n- Hour of day  \n- Day of week  \n- Month  \n\nLag features help the model capture time-based patterns in electricity usage.\n\n---\n\n## Model Details\n\n- **Algorithm:** Random Forest Regressor  \n- **Preprocessing:**\n  - Median imputation for missing values\n  - Feature selection using Mutual Information\n- **Train/Test Split:** Time-based split to avoid data leakage\n\n---\n\n## Model Performance\n\nPerformance on unseen test data:\n\n- **MAE:** ~0.0177  \n- **RMSE:** ~0.0329  \n- **R\u00b2 Score:** ~0.9987  \n\n---\n\n## Streamlit Application\n\nThe app provides:\n- Single power consumption prediction\n- Batch prediction using CSV upload\n- Automatic lag feature creation\n- Error metric display (MAE) when actual values are available\n\n---",
+    "metadata": {
+      "file_name": "README.md",
+      "file_type": "markdown",
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "3571a48d-76df-426b-91bf-885a51c78bba"
+  },
+  {
+    "content": "The app provides:\n- Single power consumption prediction\n- Batch prediction using CSV upload\n- Automatic lag feature creation\n- Error metric display (MAE) when actual values are available\n\n---\n\n## Running Locally\n```bash\nInstall dependencies:\npip install -r requirements.txt\n\n\nRun the app:\nstreamlit run app/app.py\n\nRunning with Docker\n\nBuild the image:\ndocker build -t power-consumption-app .\n\n\nRun the container:\ndocker run -p 5000:8501 power-consumption-app\n\n\nOpen:\nhttp://localhost:5000",
+    "metadata": {
+      "file_name": "README.md",
+      "file_type": "markdown",
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "3571a48d-76df-426b-91bf-885a51c78bba"
+  },
+  {
+    "content": "streamlit==1.52.2\nnumpy==2.0.2\npandas==2.2.2\nscikit-learn==1.6.1\njoblib==1.5.3\nmatplotlib==3.10.0\nseaborn==0.13.2\n",
+    "metadata": {
+      "file_name": "requirements.txt",
+      "file_type": "text",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "d813e5ff-a9ef-42ae-ba33-cc164d0ec005"
+  },
+  {
+    "content": "import streamlit as st\nimport pandas as pd\nimport joblib\nimport numpy as np\nfrom sklearn.metrics import mean_absolute_error\nimport os\n\nBASE_DIR = os.path.dirname(__file__) \nMODEL_PATH = os.path.join(BASE_DIR, \"power_consumption_model.pkl\")\n\n@st.cache_resource\ndef load_model():\n    return joblib.load(MODEL_PATH)\n\nmodel = load_model()\n\nst.title(\" Power Consumption Predictor\")\n\nnum_cols = [\n    'Global_reactive_power','Voltage','Global_intensity',\n    'Sub_metering_1','Sub_metering_2','Sub_metering",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "56c12d02-9ce3-47b5-8669-e743c9e7238b"
+  },
+  {
+    "content": "al_reactive_power','Voltage','Global_intensity',\n    'Sub_metering_1','Sub_metering_2','Sub_metering_3',\n    'lag_1','lag_2','hour','day_of_week','month'\n]\n\ncol1, col2 = st.columns(2)\n\n \nwith col1:\n    st.header(\"Single Prediction\")\n\n    inputs = {\n        'Global_reactive_power': st.number_input(\"Global Reactive Power\", 0.0, 1.0),\n        'Voltage': st.number_input(\"Voltage\", 200.0, 260.0),\n        'Global_intensity': st.number_input(\"Global Intensity\", 0.0, 50.0),\n        'Sub_metering_1': st.",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "ff736810-a6d6-4fdb-a46b-a5e6533f33a2"
+  },
+  {
+    "content": "   'Global_intensity': st.number_input(\"Global Intensity\", 0.0, 50.0),\n        'Sub_metering_1': st.number_input(\"Sub_metering_1\", 0.0, 50.0),\n        'Sub_metering_2': st.number_input(\"Sub_metering_2\", 0.0, 50.0),\n        'Sub_metering_3': st.number_input(\"Sub_metering_3\", 0.0, 50.0),\n        'lag_1': st.number_input(\"Lag 1\", 0.0, 10.0),\n        'lag_2': st.number_input(\"Lag 2\", 0.0, 10.0),\n        'hour': st.slider(\"Hour\", 0, 23),\n        'day_of_week': st.slider(\"Day of Week (0=Mon)\", 0, 6),\n",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "82a55ebb-f782-4da8-9175-2a093a9916cb"
+  },
+  {
+    "content": "   'hour': st.slider(\"Hour\", 0, 23),\n        'day_of_week': st.slider(\"Day of Week (0=Mon)\", 0, 6),\n        'month': st.slider(\"Month\", 1, 12)\n    }\n\n    if st.button(\"Predict\"):\n        sample = pd.DataFrame([inputs])\n        pred = model.predict(sample)[0]\n        st.success(f\"Predicted Power: {pred:.3f} kW\")\n \nwith col2:\n    st.header(\"Batch Prediction\")\n\n    file = st.file_uploader(\"Upload CSV\", type=\"csv\")\n    if st.button(\"Predict Batch\", key=\"batch_predict\"):\n\n        if file:\n           ",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "6b81f052-c6b4-4fab-a9bc-1690b2a6717d"
+  },
+  {
+    "content": "\", type=\"csv\")\n    if st.button(\"Predict Batch\", key=\"batch_predict\"):\n\n        if file:\n            df = pd.read_csv(file)\n\n            # Ensure Datetime exists\n            if {'Date', 'Time'}.issubset(df.columns):\n                df['Datetime'] = pd.to_datetime(df['Date'] + ' ' + df['Time'])\n                df = df.sort_values('Datetime')\n\n                # Time features\n                df['hour'] = df['Datetime'].dt.hour\n                df['day_of_week'] = df['Datetime'].dt.dayofweek\n        ",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "1cb303ca-383a-4e47-8507-f264b5401e0c"
+  },
+  {
+    "content": "'] = df['Datetime'].dt.hour\n                df['day_of_week'] = df['Datetime'].dt.dayofweek\n                df['month'] = df['Datetime'].dt.month\n            else:\n                st.error(\"CSV must contain Date and Time columns\")\n                st.stop()\n                \n            if df.empty:\n                st.error(\"No valid rows left after creating lag features.\")\n                st.stop()\n\n            # Create lag features (SAME AS TRAINING)\n            if 'Global_active_power' in df.co",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "39586093-60d8-4876-b254-719073908da2"
+  },
+  {
+    "content": "\n\n            # Create lag features (SAME AS TRAINING)\n            if 'Global_active_power' in df.columns:\n                df['lag_1'] = df['Global_active_power'].shift(1)\n                df['lag_2'] = df['Global_active_power'].shift(2)\n            else:\n                st.error(\"Global_active_power required to create lag features\")\n                st.stop()\n\n            # Drop rows with missing lags\n            df = df.dropna(subset=['lag_1', 'lag_2'])\n     \n            # Predict\n            pr",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "87a886c3-9a0c-48e9-a1b9-035d463a1483"
+  },
+  {
+    "content": "ags\n            df = df.dropna(subset=['lag_1', 'lag_2'])\n     \n            # Predict\n            preds = model.predict(df)\n            df[\"Predicted_Power\"] = preds\n\n            # Metrics if actual exists\n            if 'Global_active_power' in df.columns:\n                mae = mean_absolute_error(df['Global_active_power'], preds)\n                st.metric(\"MAE\", f\"{mae:.4f}\")\n\n            st.dataframe(df)\n     \n",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "1adc810a-cfbc-4803-b33f-59ac497c5b5a"
+  },
+  {
+    "content": "aframe(df)\n     \n",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 3200,
+      "end_index": 3700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "9bba608f-218a-498b-bb0e-14737bb97fda"
+  },
+  {
+    "content": "# -*- coding: utf-8 -*-\n\"\"\"power_consumption_exploration.ipynb\n\nAutomatically generated by Colab.\n\nOriginal file is located at\n    https://colab.research.google.com/drive/1hDPyE7zsm65ttCcZ8G-uR8om_h350y4d\n\"\"\"\n\n# Household Power Consumption Forecasting\nimport pandas as pd\nimport numpy as np\nfrom  sklearn.preprocessing import RobustScaler, OneHotEncoder\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.ensemble import RandomForestRe",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "5582223a-081b-4aba-9c9d-1b76ec752fe6"
+  },
+  {
+    "content": "_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.impute import SimpleImputer\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.metrics import mean_squared_error\n\n\n# UCI ML Repository, Sceaux, France which contains 4 years of minute-level measurements of power consumption for a household in Sceaux, France.\n#  link https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption\n\n\ndf = pd.read_c",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "b45795e4-9fa4-4096-b9a6-b18249fa3da2"
+  },
+  {
+    "content": "s://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption\n\n\ndf = pd.read_csv('household_power_consumption.txt', sep=';', low_memory=False)\nprint(df.head()) # Global_active_power -> target\nprint(df.info())\nprint(df.describe())\n\n\"\"\"Numeric Columns given as Object Handle it\"\"\"\n\n# df['Sub_metering_3'].value_counts() -> all columns except Date and Time are numbers given as object\n\nnum_cols = ['Global_active_power','Global_reactive_power','Voltage',\n            'Global_intens",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "0fb2a056-b8a0-4e25-ae61-7abcb5aaac1e"
+  },
+  {
+    "content": "ect\n\nnum_cols = ['Global_active_power','Global_reactive_power','Voltage',\n            'Global_intensity','Sub_metering_1','Sub_metering_2','Sub_metering_3']\n\nfor col in num_cols:\n    df[col] = df[col].replace([' ','?'], np.nan).astype(float)\n\ndf.info()\n\n\"\"\"Creating Lag Features\"\"\"\n\n# Create lag features\ndf['lag_1'] = df['Global_active_power'].shift(1)  # 1 step back\ndf['lag_2'] = df['Global_active_power'].shift(2)  # 2 steps back\ndf = df.dropna(subset=['lag_1', 'lag_2']) # dropping rather than u",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "60d0bf8b-d0e8-44d4-8d9d-7e84eb8171d0"
+  },
+  {
+    "content": "_power'].shift(2)  # 2 steps back\ndf = df.dropna(subset=['lag_1', 'lag_2']) # dropping rather than using ffill and bfill to get false information\n\n\"\"\"Adding Datetime feature\"\"\"\n\ndf['Datetime'] = pd.to_datetime(df['Date'] + ' ' + df['Time'], format='%d/%m/%Y %H:%M:%S')\ndf = df.sort_values('Datetime').reset_index(drop=True)\ndf.head()\n\ndf.head()\n\n\"\"\"Time Based Split\"\"\"\n\nimport pandas as pd\n\n\nx = df.drop(columns=['Global_active_power', 'Date', 'Time']) # we have combined Datetime so dont need date t",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "b2a0fd2c-7bd4-4ac9-b10c-ee778b4d8baa"
+  },
+  {
+    "content": "rop(columns=['Global_active_power', 'Date', 'Time']) # we have combined Datetime so dont need date time separately\n#combining Datetime help us with extracting[hours , weeks, ...] , Sorting, Splitting easier & less complicated.\ny = df['Global_active_power']   # target\n\n# splitting the data by Datetime\nsplit_date = '2010-01-01'\n\nx_train = x[x['Datetime'] < split_date]\nx_test  = x[x['Datetime'] >= split_date]\n\ny_train = y[df['Datetime'] < split_date]\ny_test  = y[df['Datetime'] >= split_date]\n\n# spl",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "bb02ad0c-4690-497e-ae76-5f973144a8ac"
+  },
+  {
+    "content": "lit_date]\n\ny_train = y[df['Datetime'] < split_date]\ny_test  = y[df['Datetime'] >= split_date]\n\n# splitting the data into 80% train & 20% test -> not good mix future and past data which allows model to learn from future data leading to overly optimistic result\n# split_idx = int(len(df) * 0.8)\n\n# x_train = x.iloc[:split_idx]\n# x_test  = x.iloc[split_idx:]\n\n# y_train = y.iloc[:split_idx]\n# y_test  = y.iloc[split_idx:]\n\nx_train.head()\n\ny_train.head()\n\n\"\"\"Checking and Handling the missing values\"\"\"\n\n",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "06884bf8-c6c9-4438-93aa-5efc16772fa9"
+  },
+  {
+    "content": "y.iloc[split_idx:]\n\nx_train.head()\n\ny_train.head()\n\n\"\"\"Checking and Handling the missing values\"\"\"\n\nx_train.isna().sum()\n\nx_train.head()\n\nx_test.head()\n\nfrom sklearn.impute import SimpleImputer\n\nnum_cols = ['Global_reactive_power','Voltage',\n            'Global_intensity','Sub_metering_1','Sub_metering_2','Sub_metering_3']\n\nimputer = SimpleImputer(strategy='mean')\nx_train[num_cols] = imputer.fit_transform(x_train[num_cols])\nx_test[num_cols] = imputer.transform(x_test[num_cols])\nprint(x_train.isn",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "de53aa7d-c664-4622-bff0-e2e8187ac392"
+  },
+  {
+    "content": "ransform(x_train[num_cols])\nx_test[num_cols] = imputer.transform(x_test[num_cols])\nprint(x_train.isna().sum())\n\nx_train.isna().sum()\n\ny_train.isna().sum()\n\n# dropping NaN from train and test data\nx_train, y_train = x_train[y_train.notna()], y_train[y_train.notna()]\nx_test, y_test = x_test[y_test.notna()], y_test[y_test.notna()]\n\n\"\"\"Checking and handling the outlier\"\"\"\n\noutliers_dict = {}\nfor col in x_train.select_dtypes(include=['float64', 'int64']).columns:\n    Q1 = x_train[col].quantile(0.25)\n",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 3200,
+      "end_index": 3700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "9904ee11-f704-46b0-b439-d83f3f854125"
+  },
+  {
+    "content": "n x_train.select_dtypes(include=['float64', 'int64']).columns:\n    Q1 = x_train[col].quantile(0.25)\n    Q3 = x_train[col].quantile(0.75)\n    IQR = Q3 - Q1\n    lower_bound = Q1 - 1.5 * IQR\n    upper_bound = Q3 + 1.5 * IQR\n\n    outlier_rows = x_train[(x_train[col] < lower_bound) | (x_train[col] > upper_bound)][col]\n    outliers_dict[col] = outlier_rows\n\n    print(f\"{col}: {len(outlier_rows)} outliers\")\n\n\n#dtected outliers via IQR but kept them because power data has natural spikes\nprint(\"\\nOutlier",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 3600,
+      "end_index": 4100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "13a113dd-b27f-4f29-a43a-a1a4d5fecc83"
+  },
+  {
+    "content": "s\")\n\n\n#dtected outliers via IQR but kept them because power data has natural spikes\nprint(\"\\nOutliers per column:\")\nfor col, outliers in outliers_dict.items():\n    print(f\"{col}: {outliers.values}\")\n\n\"\"\"checking and handling skewness\"\"\"\n\nnumeric_cols = x_train.select_dtypes(include=['float64', 'int64']).columns #'DatetimeArray' with dtype datetime64[ns] does not support reduction 'skew'\nskewness = x_train[numeric_cols].skew()\nprint(skewness.sort_values(ascending=False))\ntransform_cols = skewness",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 4000,
+      "end_index": 4500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "9155d1ed-6ea2-4f45-ac19-bf61a7696ae2"
+  },
+  {
+    "content": " x_train[numeric_cols].skew()\nprint(skewness.sort_values(ascending=False))\ntransform_cols = skewness[skewness > 2].index\n\ntransform_cols\n\nfrom sklearn.preprocessing import PowerTransformer\npt = PowerTransformer()#default is yeo-johnson\nx_train.loc[:, transform_cols]  = pt.fit_transform(x_train[transform_cols])\nx_test.loc[:, transform_cols] = pt.transform(x_test[transform_cols])\n\n\"\"\"Checking variance & correlation\"\"\"\n\nx_train[num_cols].var()\n\nx_train.corr()\n\nx_train.corrwith(y_train) # checking c",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 4400,
+      "end_index": 4900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "24b775d3-095d-4529-89d2-3ca38896ac6e"
+  },
+  {
+    "content": "ce & correlation\"\"\"\n\nx_train[num_cols].var()\n\nx_train.corr()\n\nx_train.corrwith(y_train) # checking correlation of features with target\n\nx_train['hour'] = x_train['Datetime'].dt.hour\nx_train['day_of_week'] = x_train['Datetime'].dt.dayofweek\nx_train['month'] = x_train['Datetime'].dt.month\n\nx_test['hour'] = x_test['Datetime'].dt.hour\nx_test['day_of_week'] = x_test['Datetime'].dt.dayofweek\nx_test['month'] = x_test['Datetime'].dt.month\n\nx_train = x_train.drop(columns=['Datetime'])\nx_test = x_test.dro",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 4800,
+      "end_index": 5300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "f09d3ddd-5718-43d0-8891-b392dcb3838d"
+  },
+  {
+    "content": "th'] = x_test['Datetime'].dt.month\n\nx_train = x_train.drop(columns=['Datetime'])\nx_test = x_test.drop(columns=['Datetime'])\n\nfrom sklearn.feature_selection import mutual_info_regression\nmutual_info = mutual_info_regression\nsample_size = 100_000\nsample_idx = x_train.sample(n=sample_size, random_state=42).index\ntest_sample_size = 20_000\n\nx_train_sample = x_train.sample(n=sample_size, random_state=42)\ny_train_sample = y_train.loc[x_train_sample.index]\n\nx_test_sample = x_test.sample(n=test_sample_si",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 5200,
+      "end_index": 5700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "09b5ff98-619d-42c4-a24d-12a03bcf8bd6"
+  },
+  {
+    "content": ")\ny_train_sample = y_train.loc[x_train_sample.index]\n\nx_test_sample = x_test.sample(n=test_sample_size, random_state=42)\ny_test_sample = y_test.loc[x_test_sample.index]\n\nmi_scores = mutual_info_regression(x_train_sample, y_train_sample)\n\nmi_scores = pd.Series(mi_scores, name=\"MI Scores\", index=x_train_sample.columns)\nmi_scores = mi_scores.sort_values(ascending=False)\nprint(mi_scores)\n\nx_test.isna().sum()\n\nprint(y_test.isna().sum())\n\nx_test_sample.head()\n\nx_train_sample.head()\n\ny_train_sample\n\nfr",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 5600,
+      "end_index": 6100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "207b0747-1ce9-4bad-92b5-f1d6ae4397e3"
+  },
+  {
+    "content": ").sum()\n\nprint(y_test.isna().sum())\n\nx_test_sample.head()\n\nx_train_sample.head()\n\ny_train_sample\n\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.metrics import mean_absolute_error\nfrom sklearn.metrics import r2_score\n#models dont take Dat",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 6000,
+      "end_index": 6500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "717526ad-8f13-4f1d-8f38-9c684484260e"
+  },
+  {
+    "content": "klearn.metrics import mean_absolute_error\nfrom sklearn.metrics import r2_score\n#models dont take Datetime type\nmodels = {\n    'Linear Regression': LinearRegression(),\n    'Random Forest': RandomForestRegressor(n_estimators=50, max_depth=10, n_jobs=-1)\n}\nresults = {}\nfor name,model in models.items():\n    model.fit(x_train_sample, y_train_sample)\n    y_pred = model.predict(x_test_sample)\n    results[name] = {\n        \"Mean Square Error(MSE)\":mean_squared_error(y_test_sample, y_pred),\n        \"Root",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 6400,
+      "end_index": 6900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "a2b0946a-16df-42dc-9d05-c9afd864c8e5"
+  },
+  {
+    "content": "[name] = {\n        \"Mean Square Error(MSE)\":mean_squared_error(y_test_sample, y_pred),\n        \"Root Mean Squared Error (RMSE)\": np.sqrt(mean_squared_error(y_test_sample, y_pred)),\n        \"Mean Absolute Error (MAE)\" : mean_absolute_error(y_test_sample, y_pred),\n        \"R\u00b2 Score (Coefficient of Determination)\":r2_score(y_test_sample, y_pred)\n        }\n\n(results)\n# MSE, RMSE, MAE: smaller \u2192 better. Zero is perfect.\n\n# R\u00b2: closer to 1 \u2192 better. Negative \u2192 model is bad.\n# {'Linear Regression': {'M",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 6800,
+      "end_index": 7300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "738a7d43-1481-472d-a43a-b29e6a198bd8"
+  },
+  {
+    "content": ". Zero is perfect.\n\n# R\u00b2: closer to 1 \u2192 better. Negative \u2192 model is bad.\n# {'Linear Regression': {'Mean Square Error(MSE)': 0.0014928603441541196,\n#   'Root Mean Squared Error (RMSE)': np.float64(0.03863755095957972),\n#   'Mean Absolute Error (MAE)': 0.02440409811272028,\n#   'R\u00b2 Score (Coefficient of Determination)': 0.9983136307610663},\n#  'Random Forest': {'Mean Square Error(MSE)': 0.0010555048181503089,\n#   'Root Mean Squared Error (RMSE)': np.float64(0.03248853364112189),\n#   'Mean Absolute ",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 7200,
+      "end_index": 7700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "2d7abcd2-f026-4fe0-ae61-67a8877ad1ff"
+  },
+  {
+    "content": "81503089,\n#   'Root Mean Squared Error (RMSE)': np.float64(0.03248853364112189),\n#   'Mean Absolute Error (MAE)': 0.017403584654765256,\n#   'R\u00b2 Score (Coefficient of Determination)': 0.9988076775809304}}\n\n\"\"\"Groupwise Average Power prediction\"\"\"\n\nx_test_copy = x_test_sample.copy()\nx_test_copy['Predicted_Power'] = y_pred\n\nx_test_copy['Voltage_bin'] = pd.cut(x_test_copy['Voltage'], bins=10)\nprint(x_test_copy.groupby('Voltage_bin', observed=True)['Predicted_Power'].mean())\nx_test_copy['Global_inten",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 7600,
+      "end_index": 8100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "ca999250-7bf4-4938-8c26-af7aa38da1fd"
+  },
+  {
+    "content": "test_copy.groupby('Voltage_bin', observed=True)['Predicted_Power'].mean())\nx_test_copy['Global_intensity'] = pd.cut(x_test_copy['Global_intensity'], bins=10)\nprint(x_test_copy.groupby('Global_intensity', observed=True)['Predicted_Power'].mean())\nx_test_copy['Global_reactive_power'] = pd.cut(x_test_copy['Global_reactive_power'], bins=10)\nprint(x_test_copy.groupby('Global_reactive_power', observed=True)['Predicted_Power'].mean())\nx_test_copy['Sub_metering_1'] = pd.cut(x_test_copy['Sub_metering_1']",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 8000,
+      "end_index": 8500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "d844df77-bee8-4d84-bd3e-08dd8cef2e40"
+  },
+  {
+    "content": "rue)['Predicted_Power'].mean())\nx_test_copy['Sub_metering_1'] = pd.cut(x_test_copy['Sub_metering_1'], bins=10)\nprint(x_test_copy.groupby('Sub_metering_1', observed=True)['Predicted_Power'].mean())\n\nfrom sklearn.model_selection import RandomizedSearchCV\nx_train_small = x_train_sample.sample(n=20000, random_state=42)\ny_train_small = y_train_sample.loc[x_train_small.index]\nparam_dist = {\n    'n_estimators': [10, 20],  # very small numbers for hyperparameter search\n    'max_depth': [6, 8, 10],\n    '",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 8400,
+      "end_index": 8900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "fe985a75-1fab-4815-b70e-3c96663338e7"
+  },
+  {
+    "content": "ators': [10, 20],  # very small numbers for hyperparameter search\n    'max_depth': [6, 8, 10],\n    'min_samples_leaf': [1, 2, 4],\n}\n\nrs = RandomizedSearchCV(\n    RandomForestRegressor(),\n    param_distributions=param_dist,\n    n_iter=5,  # try only 5 random combinations\n    scoring='neg_mean_squared_error',\n    cv=2,\n    n_jobs=-1,\n    random_state=42\n)\n\nrs.fit(x_train_small, y_train_small)\nbest_model = rs.best_estimator_\nprint(\"Best CV AUC:\", rs.best_score_)\nprint(rs.best_params_) #{'n_estimato",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 8800,
+      "end_index": 9300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "18712e13-7b4b-4857-8315-e1e33e9a34ea"
+  },
+  {
+    "content": "odel = rs.best_estimator_\nprint(\"Best CV AUC:\", rs.best_score_)\nprint(rs.best_params_) #{'n_estimators': 10, 'min_samples_leaf': 2, 'max_depth': 8}\n\nfrom sklearn.model_selection import GridSearchCV\nfrom sklearn.ensemble import RandomForestRegressor\nx_train_small = x_train_sample.sample(n=20000, random_state=42)\ny_train_small = y_train_sample.loc[x_train_small.index]\nparam_grid = {\n    'n_estimators': [10, 20],\n    'max_depth': [6, 8, 10],\n    'min_samples_leaf': [1, 2, 4],\n}\n\ng = GridSearchCV(\n ",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 9200,
+      "end_index": 9700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "30649517-725c-4522-bacc-5a0698899549"
+  },
+  {
+    "content": "s': [10, 20],\n    'max_depth': [6, 8, 10],\n    'min_samples_leaf': [1, 2, 4],\n}\n\ng = GridSearchCV(\n    estimator=RandomForestRegressor(),\n    param_grid=param_grid,\n    scoring='neg_mean_squared_error', #smaller and more close to zero->better model\n    cv=2,\n    n_jobs=-1\n\n)\n\ng.fit(x_train_sample, y_train_sample)\nbest_model = g.best_estimator_\nprint(g.best_params_)#{'max_depth': 10, 'min_samples_leaf': 1, 'n_estimators': 20}\nprint(g.best_score_) #-0.0011332923599805017\n#took close to 2 minute fo",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 9600,
+      "end_index": 10100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "02dabc02-bd0d-46e3-b9e6-007732e92bed"
+  },
+  {
+    "content": "eaf': 1, 'n_estimators': 20}\nprint(g.best_score_) #-0.0011332923599805017\n#took close to 2 minute for execution\n\nfrom sklearn.model_selection import learning_curve\nfrom matplotlib import pyplot as plt\ntrain_sizes, train_scores, val_scores = learning_curve(\n    best_model,\n    x_train_small,\n    y_train_small,\n    cv=2,\n    scoring='neg_mean_squared_error',\n    train_sizes=np.linspace(0.1, 1.0, 5),\n    n_jobs=-1\n)\n\nplt.figure(figsize=(6,5))\nplt.plot(train_sizes, train_scores.mean(axis=1), label='",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 10000,
+      "end_index": 10500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "c3ba6447-de6f-464b-965c-1a8807e81a8f"
+  },
+  {
+    "content": "\n    n_jobs=-1\n)\n\nplt.figure(figsize=(6,5))\nplt.plot(train_sizes, train_scores.mean(axis=1), label='Train AUC')\nplt.plot(train_sizes, val_scores.mean(axis=1), label='Validation AUC')\nplt.xlabel(\"Training Size\")\nplt.ylabel(\"AUC\")\nplt.title(\"Learning Curve \u2013 Power consumption\")\nplt.legend()\nplt.show()\n\n",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 10400,
+      "end_index": 10900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "3b8589ea-3a51-4f8f-92db-971e5d3c1731"
+  },
+  {
+    "content": "# -*- coding: utf-8 -*-\n\"\"\"power_consumption_prod.ipynb\n\nAutomatically generated by Colab.\n\nOriginal file is located at\n    https://colab.research.google.com/drive/10XC9_E9IDltnLwLNrHSRcmUXMWcM9BSN\n\"\"\"\n\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import GridSearchCV\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.impute import SimpleImputer\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.compose import",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "918bc046-b7f7-4d87-849d-97c8669c0d5d"
+  },
+  {
+    "content": "klearn.impute import SimpleImputer\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.metrics import r2_score, mean_absolute_error,mean_squared_error\nfrom sklearn.feature_selection import SelectKBest,mutual_info_regression\n\n\n# Dataset uses ';' as a separator and contains missing values represented by '?' or blank spaces\ndf = pd.read_csv('household_power_consumption.txt', sep=';',na_values= [' ', '?']",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "f460e6cc-252b-451e-8b47-aaece7c205c7"
+  },
+  {
+    "content": "?' or blank spaces\ndf = pd.read_csv('household_power_consumption.txt', sep=';',na_values= [' ', '?'] , low_memory=False)\n\n\n# lag features represent past values of the target variable. They help the model capture temporal dependency.\ndf['lag_1'] = df['Global_active_power'].shift(1)  # 1 step back\ndf['lag_2'] = df['Global_active_power'].shift(2)  # 2 steps back\ndf = df.dropna(subset=['lag_1', 'lag_2']) # dropping rather than using ffill and bfill to get false information\ndf['Global_active_power'] ",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "f95b26e0-b999-4935-b1e1-62aa628cebc8"
+  },
+  {
+    "content": "']) # dropping rather than using ffill and bfill to get false information\ndf['Global_active_power'] =  pd.to_numeric(df['Global_active_power'].replace(['?', ' '], np.nan), errors='coerce')\ndf = df.dropna(subset=['Global_active_power'])\ndf['Datetime'] = pd.to_datetime(df['Date'] + ' ' + df['Time'], format='%d/%m/%Y %H:%M:%S')\ndf = df.sort_values('Datetime').reset_index(drop=True)\ndf['hour'] = df['Datetime'].dt.hour\ndf['day_of_week'] = df['Datetime'].dt.dayofweek\ndf['month'] = df['Datetime'].dt.mo",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "6e391fe2-06db-4e52-91ad-ad6e76827ac9"
+  },
+  {
+    "content": "atetime'].dt.hour\ndf['day_of_week'] = df['Datetime'].dt.dayofweek\ndf['month'] = df['Datetime'].dt.month\n\nnum_cols = ['Global_reactive_power','Voltage','Global_intensity','Sub_metering_1'\t,'Sub_metering_2','Sub_metering_3','lag_1','lag_2',\t'hour','day_of_week','month']\nfor col in num_cols:\n  df[col] = pd.to_numeric(df[col].replace(['?', ' '], np.nan), errors='coerce')\n\nx = df.drop(columns=['Global_active_power', 'Date', 'Time']) # we have combined Datetime so dont need date time separately\nx.isna",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "d94c016f-3c80-4e1e-8b51-6ed5ca221318"
+  },
+  {
+    "content": "active_power', 'Date', 'Time']) # we have combined Datetime so dont need date time separately\nx.isna().sum()\ndf.isna().sum()\n# #combining Datetime help us with extracting[hours , weeks, ...] , Sorting, Splitting easier & less complicated.\ny = df['Global_active_power']   # target\n\n# #  # splitting the data by Datetime\nsplit_date = '2010-01-01'\n\nx_train = x[x['Datetime'] < split_date]\nx_test  = x[x['Datetime'] >= split_date]\n\ny_train = y[df['Datetime'] < split_date]\ny_test  = y[df['Datetime'] >= s",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "fbe2f598-1c24-47ce-9d3d-486fc22f1567"
+  },
+  {
+    "content": "'Datetime'] >= split_date]\n\ny_train = y[df['Datetime'] < split_date]\ny_test  = y[df['Datetime'] >= split_date]\n\n# # # x_train.loc[:, 'hour'] = x_train['Datetime'].dt.hour\n# # # x_train.loc[:, 'day_of_week'] = x_train['Datetime'].dt.dayofweek\n# # # x_train.loc[:, 'month'] = x_train['Datetime'].dt.month\n\n\n# # # x_test.loc[:, 'hour'] = x_test['Datetime'].dt.hour\n# # # x_test.loc[:, 'day_of_week'] = x_test['Datetime'].dt.dayofweek\n# # # x_test.loc[:, 'month'] = x_test['Datetime'].dt.month\n\n\nx_train ",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "330c278a-a717-405c-8a7e-4a8125bbbb76"
+  },
+  {
+    "content": "_test['Datetime'].dt.dayofweek\n# # # x_test.loc[:, 'month'] = x_test['Datetime'].dt.month\n\n\nx_train = x_train.drop(columns=['Datetime'])\nx_test = x_test.drop(columns=['Datetime'])\n\n# # num_cols = ['Global_reactive_power','Voltage','Global_intensity','Sub_metering_1'\t,'Sub_metering_2','Sub_metering_3','lag_1','lag_2',\t'hour','day_of_week','month']\n\n\n\nnum_preprocess = Pipeline([\n    (\"imputer\", SimpleImputer(strategy=\"median\"))\n])\n\npreprocessor = ColumnTransformer([\n    (\"num\", num_preprocess, num",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "998cc8b4-639a-441a-b3b9-ccf1949ad1b8"
+  },
+  {
+    "content": "leImputer(strategy=\"median\"))\n])\n\npreprocessor = ColumnTransformer([\n    (\"num\", num_preprocess, num_cols)\n])\n\n\npipeline = Pipeline([\n    ('preprocess', preprocessor),\n    ('selector', SelectKBest(mutual_info_regression, k=10)),\n    ('classifier',   RandomForestRegressor(max_depth= 10, min_samples_leaf= 1, n_estimators= 20,random_state=42))\n])\n\npipeline.fit(x_train, y_train)\n\ny_pred = pipeline.predict(x_test)\n\nprint(\"Mean Square Error(MSE)\",mean_squared_error(y_test, y_pred))\nprint(\"Root Mean Sq",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 3200,
+      "end_index": 3700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "321c074b-e1b6-4218-bd8c-7a490a37612d"
+  },
+  {
+    "content": "dict(x_test)\n\nprint(\"Mean Square Error(MSE)\",mean_squared_error(y_test, y_pred))\nprint(\"Root Mean Squared Error (RMSE)\",np.sqrt(mean_squared_error(y_test, y_pred)))\nprint(\"Mean Absolute Error (MAE)\" , mean_absolute_error(y_test, y_pred))\nprint(\"R\u00b2 Score (Coefficient of Determination)\",r2_score(y_test, y_pred))\n\n\n# Mean Square Error(MSE) 0.0010836584181480387\n# Root Mean Squared Error (RMSE) 0.032918967452641015\n# Mean Absolute Error (MAE) 0.01776634578802409\n# R\u00b2 Score (Coefficient of Determinat",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 3600,
+      "end_index": 4100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "63afe6b5-28d5-4ee2-9f2d-d64c49b98c6c"
+  },
+  {
+    "content": "18967452641015\n# Mean Absolute Error (MAE) 0.01776634578802409\n# R\u00b2 Score (Coefficient of Determination) 0.998755059914892\n\nimport joblib\n\n# Saving the pipeline\njoblib.dump(pipeline, 'power_consumption_model.pkl')\nprint(\"Pipeline saved as power_consumption_model.pkl\")\n\n",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 4000,
+      "end_index": 4500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35"
+    },
+    "id": "20e241aa-315d-46c6-bb47-95f5f557b04e"
+  }
+]

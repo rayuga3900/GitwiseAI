@@ -1,0 +1,644 @@
+[
+  {
+    "content": "# loading Linux os + python preinstalled\nFROM python:3.9-slim \n\n# creating folder in container to hold the application\nWORKDIR /app\n\n# copying requirements.txt from local to container\nCOPY requirements.txt . \n\n# Install Python dependencies inside the container\nRUN pip install --no-cache-dir -r requirements.txt\n\n\n# Copy the entire project code into the container\nCOPY /app .\n\n# Inform Docker that the container will use port 8501\nEXPOSE 8501\n\n# Command to run Streamlit when the container starts\n# -",
+    "metadata": {
+      "file_name": "Dockerfile",
+      "file_type": "text",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "2fd63e95-75ce-4cc2-99a3-cc44242be28b"
+  },
+  {
+    "content": "e container will use port 8501\nEXPOSE 8501\n\n# Command to run Streamlit when the container starts\n# --server.port=8501 \u2192 Streamlit listens on port 8501 inside the container\n# --server.address=0.0.0.0 \u2192 Streamlit listens on all network interfaces inside the container\n# This allows you to access the app from your host machine when using port mapping (-p)\nCMD [\"streamlit\", \"run\", \"app.py\", \"--server.port=8501\", \"--server.address=0.0.0.0\"]\n\n ",
+    "metadata": {
+      "file_name": "Dockerfile",
+      "file_type": "text",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "162d2e05-3ff1-4ca8-8aec-8fc75786b919"
+  },
+  {
+    "content": "ort=8501\", \"--server.address=0.0.0.0\"]\n\n ",
+    "metadata": {
+      "file_name": "Dockerfile",
+      "file_type": "text",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "80e0c55b-dcbc-4723-8679-fc1763253d03"
+  },
+  {
+    "content": "# Power Consumption Prediction App\n<div>\n<img width=\"1699\" height=\"930\" alt=\"Screenshot 2026-01-04 144915\" src=\"https://github.com/user-attachments/assets/d3e701eb-a958-4c20-9a40-bea9894f02f9\" />\n<img width=\"1687\" height=\"893\" alt=\"Screenshot 2026-01-04 144932\" src=\"https://github.com/user-attachments/assets/f91e1054-0f70-4858-9e21-dc81338dcf41\" />\n</div>\nThis project predicts household power consumption using historical electrical measurements and time-based features.  \nIt includes a trained machine learning model, a Streamlit web application, and a Docker setup for easy deployment.\n\n---\n\n## Overview\n\nThe goal of this project is to predict **Global Active Power (kW)** using:\n- Electrical sensor readings\n- Past power usage (lag features)\n- Time information such as hour, day of week, and month\n\nThe model is trained on the *Individual Household Electric Power Consumption* dataset.\n\n---\n\n## Features Used",
+    "metadata": {
+      "file_name": "README.md",
+      "file_type": "markdown",
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "89b7f77a-673d-49ac-a014-00f2335e7126"
+  },
+  {
+    "content": "The model is trained on the *Individual Household Electric Power Consumption* dataset.\n\n---\n\n## Features Used\n\n- Global reactive power  \n- Voltage  \n- Global intensity  \n- Sub-metering (1, 2, 3)  \n- Lag features (`lag_1`, `lag_2`)  \n- Hour of day  \n- Day of week  \n- Month  \n\nLag features help the model capture time-based patterns in electricity usage.\n\n---\n\n## Model Details\n\n- **Algorithm:** Random Forest Regressor  \n- **Preprocessing:**\n  - Median imputation for missing values\n  - Feature selection using Mutual Information\n- **Train/Test Split:** Time-based split to avoid data leakage\n\n---\n\n## Model Performance\n\nPerformance on unseen test data:\n\n- **MAE:** ~0.0177  \n- **RMSE:** ~0.0329  \n- **R\u00b2 Score:** ~0.9987  \n\n---\n\n## Streamlit Application\n\nThe app provides:\n- Single power consumption prediction\n- Batch prediction using CSV upload\n- Automatic lag feature creation\n- Error metric display (MAE) when actual values are available\n\n---",
+    "metadata": {
+      "file_name": "README.md",
+      "file_type": "markdown",
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "e776227c-0191-4fd9-8dbe-ddcafe4d2e90"
+  },
+  {
+    "content": "The app provides:\n- Single power consumption prediction\n- Batch prediction using CSV upload\n- Automatic lag feature creation\n- Error metric display (MAE) when actual values are available\n\n---\n\n## Running Locally\n```bash\nInstall dependencies:\npip install -r requirements.txt\n\n\nRun the app:\nstreamlit run app/app.py\n\nRunning with Docker\n\nBuild the image:\ndocker build -t power-consumption-app .\n\n\nRun the container:\ndocker run -p 5000:8501 power-consumption-app\n\n\nOpen:\nhttp://localhost:5000",
+    "metadata": {
+      "file_name": "README.md",
+      "file_type": "markdown",
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "1dea843b-a390-43e8-80eb-a8f7a33748ca"
+  },
+  {
+    "content": "streamlit==1.52.2\nnumpy==2.0.2\npandas==2.2.2\nscikit-learn==1.6.1\njoblib==1.5.3\nmatplotlib==3.10.0\nseaborn==0.13.2\n",
+    "metadata": {
+      "file_name": "requirements.txt",
+      "file_type": "text",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "40f4aa06-bca2-4ff1-b18d-7f6220c46aac"
+  },
+  {
+    "content": "import streamlit as st\nimport pandas as pd\nimport joblib\nimport numpy as np\nfrom sklearn.metrics import mean_absolute_error\nimport os\n\nBASE_DIR = os.path.dirname(__file__) \nMODEL_PATH = os.path.join(BASE_DIR, \"power_consumption_model.pkl\")\n\n@st.cache_resource\ndef load_model():\n    return joblib.load(MODEL_PATH)\n\nmodel = load_model()\n\nst.title(\" Power Consumption Predictor\")\n\nnum_cols = [\n    'Global_reactive_power','Voltage','Global_intensity',\n    'Sub_metering_1','Sub_metering_2','Sub_metering",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "c51f15fb-c1a5-440a-9a7f-996a5fa2ebac"
+  },
+  {
+    "content": "al_reactive_power','Voltage','Global_intensity',\n    'Sub_metering_1','Sub_metering_2','Sub_metering_3',\n    'lag_1','lag_2','hour','day_of_week','month'\n]\n\ncol1, col2 = st.columns(2)\n\n \nwith col1:\n    st.header(\"Single Prediction\")\n\n    inputs = {\n        'Global_reactive_power': st.number_input(\"Global Reactive Power\", 0.0, 1.0),\n        'Voltage': st.number_input(\"Voltage\", 200.0, 260.0),\n        'Global_intensity': st.number_input(\"Global Intensity\", 0.0, 50.0),\n        'Sub_metering_1': st.",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "5921f052-267a-4c1b-9259-07c760ad1c54"
+  },
+  {
+    "content": "   'Global_intensity': st.number_input(\"Global Intensity\", 0.0, 50.0),\n        'Sub_metering_1': st.number_input(\"Sub_metering_1\", 0.0, 50.0),\n        'Sub_metering_2': st.number_input(\"Sub_metering_2\", 0.0, 50.0),\n        'Sub_metering_3': st.number_input(\"Sub_metering_3\", 0.0, 50.0),\n        'lag_1': st.number_input(\"Lag 1\", 0.0, 10.0),\n        'lag_2': st.number_input(\"Lag 2\", 0.0, 10.0),\n        'hour': st.slider(\"Hour\", 0, 23),\n        'day_of_week': st.slider(\"Day of Week (0=Mon)\", 0, 6),\n",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "5a8d604f-1956-40a9-b2aa-5ec618e8963e"
+  },
+  {
+    "content": "   'hour': st.slider(\"Hour\", 0, 23),\n        'day_of_week': st.slider(\"Day of Week (0=Mon)\", 0, 6),\n        'month': st.slider(\"Month\", 1, 12)\n    }\n\n    if st.button(\"Predict\"):\n        sample = pd.DataFrame([inputs])\n        pred = model.predict(sample)[0]\n        st.success(f\"Predicted Power: {pred:.3f} kW\")\n \nwith col2:\n    st.header(\"Batch Prediction\")\n\n    file = st.file_uploader(\"Upload CSV\", type=\"csv\")\n    if st.button(\"Predict Batch\", key=\"batch_predict\"):\n\n        if file:\n           ",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "92c47691-0b8e-4db4-a4fa-475912a70856"
+  },
+  {
+    "content": "\", type=\"csv\")\n    if st.button(\"Predict Batch\", key=\"batch_predict\"):\n\n        if file:\n            df = pd.read_csv(file)\n\n            # Ensure Datetime exists\n            if {'Date', 'Time'}.issubset(df.columns):\n                df['Datetime'] = pd.to_datetime(df['Date'] + ' ' + df['Time'])\n                df = df.sort_values('Datetime')\n\n                # Time features\n                df['hour'] = df['Datetime'].dt.hour\n                df['day_of_week'] = df['Datetime'].dt.dayofweek\n        ",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "3675e4fc-482b-49b5-bd94-148d4fe5199c"
+  },
+  {
+    "content": "'] = df['Datetime'].dt.hour\n                df['day_of_week'] = df['Datetime'].dt.dayofweek\n                df['month'] = df['Datetime'].dt.month\n            else:\n                st.error(\"CSV must contain Date and Time columns\")\n                st.stop()\n                \n            if df.empty:\n                st.error(\"No valid rows left after creating lag features.\")\n                st.stop()\n\n            # Create lag features (SAME AS TRAINING)\n            if 'Global_active_power' in df.co",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "a9ba12e5-5518-4772-988b-d47a64609068"
+  },
+  {
+    "content": "\n\n            # Create lag features (SAME AS TRAINING)\n            if 'Global_active_power' in df.columns:\n                df['lag_1'] = df['Global_active_power'].shift(1)\n                df['lag_2'] = df['Global_active_power'].shift(2)\n            else:\n                st.error(\"Global_active_power required to create lag features\")\n                st.stop()\n\n            # Drop rows with missing lags\n            df = df.dropna(subset=['lag_1', 'lag_2'])\n     \n            # Predict\n            pr",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "37fb1b5f-0476-4e18-9a76-26e52fbe5adf"
+  },
+  {
+    "content": "ags\n            df = df.dropna(subset=['lag_1', 'lag_2'])\n     \n            # Predict\n            preds = model.predict(df)\n            df[\"Predicted_Power\"] = preds\n\n            # Metrics if actual exists\n            if 'Global_active_power' in df.columns:\n                mae = mean_absolute_error(df['Global_active_power'], preds)\n                st.metric(\"MAE\", f\"{mae:.4f}\")\n\n            st.dataframe(df)\n     \n",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "521e5506-43c6-4adc-85b1-968948148a38"
+  },
+  {
+    "content": "aframe(df)\n     \n",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 3200,
+      "end_index": 3700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "1d490e27-2039-40bb-a07a-4d13ed22389d"
+  },
+  {
+    "content": "# -*- coding: utf-8 -*-\n\"\"\"power_consumption_exploration.ipynb\n\nAutomatically generated by Colab.\n\nOriginal file is located at\n    https://colab.research.google.com/drive/1hDPyE7zsm65ttCcZ8G-uR8om_h350y4d\n\"\"\"\n\n# Household Power Consumption Forecasting\nimport pandas as pd\nimport numpy as np\nfrom  sklearn.preprocessing import RobustScaler, OneHotEncoder\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.ensemble import RandomForestRe",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "010adf05-4aef-4af8-bd86-a058bf013b4a"
+  },
+  {
+    "content": "_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.impute import SimpleImputer\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.metrics import mean_squared_error\n\n\n# UCI ML Repository, Sceaux, France which contains 4 years of minute-level measurements of power consumption for a household in Sceaux, France.\n#  link https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption\n\n\ndf = pd.read_c",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "34a3b012-13a7-49a5-a71a-d839fdf5f013"
+  },
+  {
+    "content": "s://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption\n\n\ndf = pd.read_csv('household_power_consumption.txt', sep=';', low_memory=False)\nprint(df.head()) # Global_active_power -> target\nprint(df.info())\nprint(df.describe())\n\n\"\"\"Numeric Columns given as Object Handle it\"\"\"\n\n# df['Sub_metering_3'].value_counts() -> all columns except Date and Time are numbers given as object\n\nnum_cols = ['Global_active_power','Global_reactive_power','Voltage',\n            'Global_intens",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "be5df1e1-85de-464d-a59c-f0d441fd4dbd"
+  },
+  {
+    "content": "ect\n\nnum_cols = ['Global_active_power','Global_reactive_power','Voltage',\n            'Global_intensity','Sub_metering_1','Sub_metering_2','Sub_metering_3']\n\nfor col in num_cols:\n    df[col] = df[col].replace([' ','?'], np.nan).astype(float)\n\ndf.info()\n\n\"\"\"Creating Lag Features\"\"\"\n\n# Create lag features\ndf['lag_1'] = df['Global_active_power'].shift(1)  # 1 step back\ndf['lag_2'] = df['Global_active_power'].shift(2)  # 2 steps back\ndf = df.dropna(subset=['lag_1', 'lag_2']) # dropping rather than u",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "c4931154-6655-49c8-8007-596e18ab8237"
+  },
+  {
+    "content": "_power'].shift(2)  # 2 steps back\ndf = df.dropna(subset=['lag_1', 'lag_2']) # dropping rather than using ffill and bfill to get false information\n\n\"\"\"Adding Datetime feature\"\"\"\n\ndf['Datetime'] = pd.to_datetime(df['Date'] + ' ' + df['Time'], format='%d/%m/%Y %H:%M:%S')\ndf = df.sort_values('Datetime').reset_index(drop=True)\ndf.head()\n\ndf.head()\n\n\"\"\"Time Based Split\"\"\"\n\nimport pandas as pd\n\n\nx = df.drop(columns=['Global_active_power', 'Date', 'Time']) # we have combined Datetime so dont need date t",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "ff3b2bfd-426d-46e4-bb8d-71c30ae0aa50"
+  },
+  {
+    "content": "rop(columns=['Global_active_power', 'Date', 'Time']) # we have combined Datetime so dont need date time separately\n#combining Datetime help us with extracting[hours , weeks, ...] , Sorting, Splitting easier & less complicated.\ny = df['Global_active_power']   # target\n\n# splitting the data by Datetime\nsplit_date = '2010-01-01'\n\nx_train = x[x['Datetime'] < split_date]\nx_test  = x[x['Datetime'] >= split_date]\n\ny_train = y[df['Datetime'] < split_date]\ny_test  = y[df['Datetime'] >= split_date]\n\n# spl",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "ae47d76d-fa65-4a88-a0fe-896953100493"
+  },
+  {
+    "content": "lit_date]\n\ny_train = y[df['Datetime'] < split_date]\ny_test  = y[df['Datetime'] >= split_date]\n\n# splitting the data into 80% train & 20% test -> not good mix future and past data which allows model to learn from future data leading to overly optimistic result\n# split_idx = int(len(df) * 0.8)\n\n# x_train = x.iloc[:split_idx]\n# x_test  = x.iloc[split_idx:]\n\n# y_train = y.iloc[:split_idx]\n# y_test  = y.iloc[split_idx:]\n\nx_train.head()\n\ny_train.head()\n\n\"\"\"Checking and Handling the missing values\"\"\"\n\n",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "e47cef3d-5b58-4377-be60-8348cc53f88a"
+  },
+  {
+    "content": "y.iloc[split_idx:]\n\nx_train.head()\n\ny_train.head()\n\n\"\"\"Checking and Handling the missing values\"\"\"\n\nx_train.isna().sum()\n\nx_train.head()\n\nx_test.head()\n\nfrom sklearn.impute import SimpleImputer\n\nnum_cols = ['Global_reactive_power','Voltage',\n            'Global_intensity','Sub_metering_1','Sub_metering_2','Sub_metering_3']\n\nimputer = SimpleImputer(strategy='mean')\nx_train[num_cols] = imputer.fit_transform(x_train[num_cols])\nx_test[num_cols] = imputer.transform(x_test[num_cols])\nprint(x_train.isn",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "b01ca8ae-523d-4267-9504-0be0ecfa19db"
+  },
+  {
+    "content": "ransform(x_train[num_cols])\nx_test[num_cols] = imputer.transform(x_test[num_cols])\nprint(x_train.isna().sum())\n\nx_train.isna().sum()\n\ny_train.isna().sum()\n\n# dropping NaN from train and test data\nx_train, y_train = x_train[y_train.notna()], y_train[y_train.notna()]\nx_test, y_test = x_test[y_test.notna()], y_test[y_test.notna()]\n\n\"\"\"Checking and handling the outlier\"\"\"\n\noutliers_dict = {}\nfor col in x_train.select_dtypes(include=['float64', 'int64']).columns:\n    Q1 = x_train[col].quantile(0.25)\n",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 3200,
+      "end_index": 3700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "16ef7b3a-3c99-4b8d-9ec4-e253be0e2999"
+  },
+  {
+    "content": "n x_train.select_dtypes(include=['float64', 'int64']).columns:\n    Q1 = x_train[col].quantile(0.25)\n    Q3 = x_train[col].quantile(0.75)\n    IQR = Q3 - Q1\n    lower_bound = Q1 - 1.5 * IQR\n    upper_bound = Q3 + 1.5 * IQR\n\n    outlier_rows = x_train[(x_train[col] < lower_bound) | (x_train[col] > upper_bound)][col]\n    outliers_dict[col] = outlier_rows\n\n    print(f\"{col}: {len(outlier_rows)} outliers\")\n\n\n#dtected outliers via IQR but kept them because power data has natural spikes\nprint(\"\\nOutlier",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 3600,
+      "end_index": 4100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "30789e38-5ecd-4141-bd51-13a357d8e66b"
+  },
+  {
+    "content": "s\")\n\n\n#dtected outliers via IQR but kept them because power data has natural spikes\nprint(\"\\nOutliers per column:\")\nfor col, outliers in outliers_dict.items():\n    print(f\"{col}: {outliers.values}\")\n\n\"\"\"checking and handling skewness\"\"\"\n\nnumeric_cols = x_train.select_dtypes(include=['float64', 'int64']).columns #'DatetimeArray' with dtype datetime64[ns] does not support reduction 'skew'\nskewness = x_train[numeric_cols].skew()\nprint(skewness.sort_values(ascending=False))\ntransform_cols = skewness",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 4000,
+      "end_index": 4500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "e4356d98-e4cc-465c-9ed2-54ddc3e05ea7"
+  },
+  {
+    "content": " x_train[numeric_cols].skew()\nprint(skewness.sort_values(ascending=False))\ntransform_cols = skewness[skewness > 2].index\n\ntransform_cols\n\nfrom sklearn.preprocessing import PowerTransformer\npt = PowerTransformer()#default is yeo-johnson\nx_train.loc[:, transform_cols]  = pt.fit_transform(x_train[transform_cols])\nx_test.loc[:, transform_cols] = pt.transform(x_test[transform_cols])\n\n\"\"\"Checking variance & correlation\"\"\"\n\nx_train[num_cols].var()\n\nx_train.corr()\n\nx_train.corrwith(y_train) # checking c",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 4400,
+      "end_index": 4900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "f8a779b5-cdbf-4401-881c-81564eec612c"
+  },
+  {
+    "content": "ce & correlation\"\"\"\n\nx_train[num_cols].var()\n\nx_train.corr()\n\nx_train.corrwith(y_train) # checking correlation of features with target\n\nx_train['hour'] = x_train['Datetime'].dt.hour\nx_train['day_of_week'] = x_train['Datetime'].dt.dayofweek\nx_train['month'] = x_train['Datetime'].dt.month\n\nx_test['hour'] = x_test['Datetime'].dt.hour\nx_test['day_of_week'] = x_test['Datetime'].dt.dayofweek\nx_test['month'] = x_test['Datetime'].dt.month\n\nx_train = x_train.drop(columns=['Datetime'])\nx_test = x_test.dro",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 4800,
+      "end_index": 5300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "7c7d2b41-56dd-4451-bab1-336979cc7d05"
+  },
+  {
+    "content": "th'] = x_test['Datetime'].dt.month\n\nx_train = x_train.drop(columns=['Datetime'])\nx_test = x_test.drop(columns=['Datetime'])\n\nfrom sklearn.feature_selection import mutual_info_regression\nmutual_info = mutual_info_regression\nsample_size = 100_000\nsample_idx = x_train.sample(n=sample_size, random_state=42).index\ntest_sample_size = 20_000\n\nx_train_sample = x_train.sample(n=sample_size, random_state=42)\ny_train_sample = y_train.loc[x_train_sample.index]\n\nx_test_sample = x_test.sample(n=test_sample_si",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 5200,
+      "end_index": 5700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "eee227f4-946b-4e0a-a801-9e1d2067d14b"
+  },
+  {
+    "content": ")\ny_train_sample = y_train.loc[x_train_sample.index]\n\nx_test_sample = x_test.sample(n=test_sample_size, random_state=42)\ny_test_sample = y_test.loc[x_test_sample.index]\n\nmi_scores = mutual_info_regression(x_train_sample, y_train_sample)\n\nmi_scores = pd.Series(mi_scores, name=\"MI Scores\", index=x_train_sample.columns)\nmi_scores = mi_scores.sort_values(ascending=False)\nprint(mi_scores)\n\nx_test.isna().sum()\n\nprint(y_test.isna().sum())\n\nx_test_sample.head()\n\nx_train_sample.head()\n\ny_train_sample\n\nfr",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 5600,
+      "end_index": 6100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "db7a4112-fd71-45fd-86b7-ea326d8f5856"
+  },
+  {
+    "content": ").sum()\n\nprint(y_test.isna().sum())\n\nx_test_sample.head()\n\nx_train_sample.head()\n\ny_train_sample\n\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn.preprocessing import OneHotEncoder, StandardScaler\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.metrics import mean_absolute_error\nfrom sklearn.metrics import r2_score\n#models dont take Dat",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 6000,
+      "end_index": 6500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "dfda0309-1ef4-475d-8546-0642a47f1a82"
+  },
+  {
+    "content": "klearn.metrics import mean_absolute_error\nfrom sklearn.metrics import r2_score\n#models dont take Datetime type\nmodels = {\n    'Linear Regression': LinearRegression(),\n    'Random Forest': RandomForestRegressor(n_estimators=50, max_depth=10, n_jobs=-1)\n}\nresults = {}\nfor name,model in models.items():\n    model.fit(x_train_sample, y_train_sample)\n    y_pred = model.predict(x_test_sample)\n    results[name] = {\n        \"Mean Square Error(MSE)\":mean_squared_error(y_test_sample, y_pred),\n        \"Root",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 6400,
+      "end_index": 6900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "fea50598-2d2d-4db3-9682-083884f11b1b"
+  },
+  {
+    "content": "[name] = {\n        \"Mean Square Error(MSE)\":mean_squared_error(y_test_sample, y_pred),\n        \"Root Mean Squared Error (RMSE)\": np.sqrt(mean_squared_error(y_test_sample, y_pred)),\n        \"Mean Absolute Error (MAE)\" : mean_absolute_error(y_test_sample, y_pred),\n        \"R\u00b2 Score (Coefficient of Determination)\":r2_score(y_test_sample, y_pred)\n        }\n\n(results)\n# MSE, RMSE, MAE: smaller \u2192 better. Zero is perfect.\n\n# R\u00b2: closer to 1 \u2192 better. Negative \u2192 model is bad.\n# {'Linear Regression': {'M",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 6800,
+      "end_index": 7300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "53871aa3-10de-4301-bd4d-0dab78495367"
+  },
+  {
+    "content": ". Zero is perfect.\n\n# R\u00b2: closer to 1 \u2192 better. Negative \u2192 model is bad.\n# {'Linear Regression': {'Mean Square Error(MSE)': 0.0014928603441541196,\n#   'Root Mean Squared Error (RMSE)': np.float64(0.03863755095957972),\n#   'Mean Absolute Error (MAE)': 0.02440409811272028,\n#   'R\u00b2 Score (Coefficient of Determination)': 0.9983136307610663},\n#  'Random Forest': {'Mean Square Error(MSE)': 0.0010555048181503089,\n#   'Root Mean Squared Error (RMSE)': np.float64(0.03248853364112189),\n#   'Mean Absolute ",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 7200,
+      "end_index": 7700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "7c958b74-7ecb-4d4a-adde-da5f719c517c"
+  },
+  {
+    "content": "81503089,\n#   'Root Mean Squared Error (RMSE)': np.float64(0.03248853364112189),\n#   'Mean Absolute Error (MAE)': 0.017403584654765256,\n#   'R\u00b2 Score (Coefficient of Determination)': 0.9988076775809304}}\n\n\"\"\"Groupwise Average Power prediction\"\"\"\n\nx_test_copy = x_test_sample.copy()\nx_test_copy['Predicted_Power'] = y_pred\n\nx_test_copy['Voltage_bin'] = pd.cut(x_test_copy['Voltage'], bins=10)\nprint(x_test_copy.groupby('Voltage_bin', observed=True)['Predicted_Power'].mean())\nx_test_copy['Global_inten",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 7600,
+      "end_index": 8100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "caacd3a4-bf2f-4796-bc01-c61742308b68"
+  },
+  {
+    "content": "test_copy.groupby('Voltage_bin', observed=True)['Predicted_Power'].mean())\nx_test_copy['Global_intensity'] = pd.cut(x_test_copy['Global_intensity'], bins=10)\nprint(x_test_copy.groupby('Global_intensity', observed=True)['Predicted_Power'].mean())\nx_test_copy['Global_reactive_power'] = pd.cut(x_test_copy['Global_reactive_power'], bins=10)\nprint(x_test_copy.groupby('Global_reactive_power', observed=True)['Predicted_Power'].mean())\nx_test_copy['Sub_metering_1'] = pd.cut(x_test_copy['Sub_metering_1']",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 8000,
+      "end_index": 8500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "19d90410-7648-40fc-b870-1f1adb11493e"
+  },
+  {
+    "content": "rue)['Predicted_Power'].mean())\nx_test_copy['Sub_metering_1'] = pd.cut(x_test_copy['Sub_metering_1'], bins=10)\nprint(x_test_copy.groupby('Sub_metering_1', observed=True)['Predicted_Power'].mean())\n\nfrom sklearn.model_selection import RandomizedSearchCV\nx_train_small = x_train_sample.sample(n=20000, random_state=42)\ny_train_small = y_train_sample.loc[x_train_small.index]\nparam_dist = {\n    'n_estimators': [10, 20],  # very small numbers for hyperparameter search\n    'max_depth': [6, 8, 10],\n    '",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 8400,
+      "end_index": 8900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "e256798c-85db-4139-9f6e-99059dfebe78"
+  },
+  {
+    "content": "ators': [10, 20],  # very small numbers for hyperparameter search\n    'max_depth': [6, 8, 10],\n    'min_samples_leaf': [1, 2, 4],\n}\n\nrs = RandomizedSearchCV(\n    RandomForestRegressor(),\n    param_distributions=param_dist,\n    n_iter=5,  # try only 5 random combinations\n    scoring='neg_mean_squared_error',\n    cv=2,\n    n_jobs=-1,\n    random_state=42\n)\n\nrs.fit(x_train_small, y_train_small)\nbest_model = rs.best_estimator_\nprint(\"Best CV AUC:\", rs.best_score_)\nprint(rs.best_params_) #{'n_estimato",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 8800,
+      "end_index": 9300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "b0f1473e-ce46-4267-9b0c-836b25110df1"
+  },
+  {
+    "content": "odel = rs.best_estimator_\nprint(\"Best CV AUC:\", rs.best_score_)\nprint(rs.best_params_) #{'n_estimators': 10, 'min_samples_leaf': 2, 'max_depth': 8}\n\nfrom sklearn.model_selection import GridSearchCV\nfrom sklearn.ensemble import RandomForestRegressor\nx_train_small = x_train_sample.sample(n=20000, random_state=42)\ny_train_small = y_train_sample.loc[x_train_small.index]\nparam_grid = {\n    'n_estimators': [10, 20],\n    'max_depth': [6, 8, 10],\n    'min_samples_leaf': [1, 2, 4],\n}\n\ng = GridSearchCV(\n ",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 9200,
+      "end_index": 9700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "2c51065b-e75f-44ab-aa09-df264359a52a"
+  },
+  {
+    "content": "s': [10, 20],\n    'max_depth': [6, 8, 10],\n    'min_samples_leaf': [1, 2, 4],\n}\n\ng = GridSearchCV(\n    estimator=RandomForestRegressor(),\n    param_grid=param_grid,\n    scoring='neg_mean_squared_error', #smaller and more close to zero->better model\n    cv=2,\n    n_jobs=-1\n\n)\n\ng.fit(x_train_sample, y_train_sample)\nbest_model = g.best_estimator_\nprint(g.best_params_)#{'max_depth': 10, 'min_samples_leaf': 1, 'n_estimators': 20}\nprint(g.best_score_) #-0.0011332923599805017\n#took close to 2 minute fo",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 9600,
+      "end_index": 10100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "4ad25577-a797-4ef2-83a2-51f7018695ac"
+  },
+  {
+    "content": "eaf': 1, 'n_estimators': 20}\nprint(g.best_score_) #-0.0011332923599805017\n#took close to 2 minute for execution\n\nfrom sklearn.model_selection import learning_curve\nfrom matplotlib import pyplot as plt\ntrain_sizes, train_scores, val_scores = learning_curve(\n    best_model,\n    x_train_small,\n    y_train_small,\n    cv=2,\n    scoring='neg_mean_squared_error',\n    train_sizes=np.linspace(0.1, 1.0, 5),\n    n_jobs=-1\n)\n\nplt.figure(figsize=(6,5))\nplt.plot(train_sizes, train_scores.mean(axis=1), label='",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 10000,
+      "end_index": 10500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "84905b05-6864-4ef6-830a-879fb6d8d526"
+  },
+  {
+    "content": "\n    n_jobs=-1\n)\n\nplt.figure(figsize=(6,5))\nplt.plot(train_sizes, train_scores.mean(axis=1), label='Train AUC')\nplt.plot(train_sizes, val_scores.mean(axis=1), label='Validation AUC')\nplt.xlabel(\"Training Size\")\nplt.ylabel(\"AUC\")\nplt.title(\"Learning Curve \u2013 Power consumption\")\nplt.legend()\nplt.show()\n\n",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_exploration.py",
+      "file_type": "python",
+      "start_index": 10400,
+      "end_index": 10900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "e3ae697d-23ea-4ced-82e3-f9f4914c7c38"
+  },
+  {
+    "content": "# -*- coding: utf-8 -*-\n\"\"\"power_consumption_prod.ipynb\n\nAutomatically generated by Colab.\n\nOriginal file is located at\n    https://colab.research.google.com/drive/10XC9_E9IDltnLwLNrHSRcmUXMWcM9BSN\n\"\"\"\n\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.model_selection import GridSearchCV\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.impute import SimpleImputer\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.compose import",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "c721620a-13ec-4dac-bcb3-ef66775b53b3"
+  },
+  {
+    "content": "klearn.impute import SimpleImputer\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.metrics import r2_score, mean_absolute_error,mean_squared_error\nfrom sklearn.feature_selection import SelectKBest,mutual_info_regression\n\n\n# Dataset uses ';' as a separator and contains missing values represented by '?' or blank spaces\ndf = pd.read_csv('household_power_consumption.txt', sep=';',na_values= [' ', '?']",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "f8d17340-d4c8-440a-8a30-0c6a80f7511f"
+  },
+  {
+    "content": "?' or blank spaces\ndf = pd.read_csv('household_power_consumption.txt', sep=';',na_values= [' ', '?'] , low_memory=False)\n\n\n# lag features represent past values of the target variable. They help the model capture temporal dependency.\ndf['lag_1'] = df['Global_active_power'].shift(1)  # 1 step back\ndf['lag_2'] = df['Global_active_power'].shift(2)  # 2 steps back\ndf = df.dropna(subset=['lag_1', 'lag_2']) # dropping rather than using ffill and bfill to get false information\ndf['Global_active_power'] ",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "f5559471-43c6-4c2c-a96e-3f111f6bda7d"
+  },
+  {
+    "content": "']) # dropping rather than using ffill and bfill to get false information\ndf['Global_active_power'] =  pd.to_numeric(df['Global_active_power'].replace(['?', ' '], np.nan), errors='coerce')\ndf = df.dropna(subset=['Global_active_power'])\ndf['Datetime'] = pd.to_datetime(df['Date'] + ' ' + df['Time'], format='%d/%m/%Y %H:%M:%S')\ndf = df.sort_values('Datetime').reset_index(drop=True)\ndf['hour'] = df['Datetime'].dt.hour\ndf['day_of_week'] = df['Datetime'].dt.dayofweek\ndf['month'] = df['Datetime'].dt.mo",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "dc8860db-d3bc-4611-b0ae-1e18485c1cc3"
+  },
+  {
+    "content": "atetime'].dt.hour\ndf['day_of_week'] = df['Datetime'].dt.dayofweek\ndf['month'] = df['Datetime'].dt.month\n\nnum_cols = ['Global_reactive_power','Voltage','Global_intensity','Sub_metering_1'\t,'Sub_metering_2','Sub_metering_3','lag_1','lag_2',\t'hour','day_of_week','month']\nfor col in num_cols:\n  df[col] = pd.to_numeric(df[col].replace(['?', ' '], np.nan), errors='coerce')\n\nx = df.drop(columns=['Global_active_power', 'Date', 'Time']) # we have combined Datetime so dont need date time separately\nx.isna",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "413654ad-ab8c-4a2d-9c87-d547cabd4464"
+  },
+  {
+    "content": "active_power', 'Date', 'Time']) # we have combined Datetime so dont need date time separately\nx.isna().sum()\ndf.isna().sum()\n# #combining Datetime help us with extracting[hours , weeks, ...] , Sorting, Splitting easier & less complicated.\ny = df['Global_active_power']   # target\n\n# #  # splitting the data by Datetime\nsplit_date = '2010-01-01'\n\nx_train = x[x['Datetime'] < split_date]\nx_test  = x[x['Datetime'] >= split_date]\n\ny_train = y[df['Datetime'] < split_date]\ny_test  = y[df['Datetime'] >= s",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "7c6db5cc-9c67-4237-b1ff-c93e06ee3fbf"
+  },
+  {
+    "content": "'Datetime'] >= split_date]\n\ny_train = y[df['Datetime'] < split_date]\ny_test  = y[df['Datetime'] >= split_date]\n\n# # # x_train.loc[:, 'hour'] = x_train['Datetime'].dt.hour\n# # # x_train.loc[:, 'day_of_week'] = x_train['Datetime'].dt.dayofweek\n# # # x_train.loc[:, 'month'] = x_train['Datetime'].dt.month\n\n\n# # # x_test.loc[:, 'hour'] = x_test['Datetime'].dt.hour\n# # # x_test.loc[:, 'day_of_week'] = x_test['Datetime'].dt.dayofweek\n# # # x_test.loc[:, 'month'] = x_test['Datetime'].dt.month\n\n\nx_train ",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "1638507b-78cc-4eb0-a671-34c53b125ada"
+  },
+  {
+    "content": "_test['Datetime'].dt.dayofweek\n# # # x_test.loc[:, 'month'] = x_test['Datetime'].dt.month\n\n\nx_train = x_train.drop(columns=['Datetime'])\nx_test = x_test.drop(columns=['Datetime'])\n\n# # num_cols = ['Global_reactive_power','Voltage','Global_intensity','Sub_metering_1'\t,'Sub_metering_2','Sub_metering_3','lag_1','lag_2',\t'hour','day_of_week','month']\n\n\n\nnum_preprocess = Pipeline([\n    (\"imputer\", SimpleImputer(strategy=\"median\"))\n])\n\npreprocessor = ColumnTransformer([\n    (\"num\", num_preprocess, num",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "df01ea98-e4f2-4254-8cfd-ebdc11a024eb"
+  },
+  {
+    "content": "leImputer(strategy=\"median\"))\n])\n\npreprocessor = ColumnTransformer([\n    (\"num\", num_preprocess, num_cols)\n])\n\n\npipeline = Pipeline([\n    ('preprocess', preprocessor),\n    ('selector', SelectKBest(mutual_info_regression, k=10)),\n    ('classifier',   RandomForestRegressor(max_depth= 10, min_samples_leaf= 1, n_estimators= 20,random_state=42))\n])\n\npipeline.fit(x_train, y_train)\n\ny_pred = pipeline.predict(x_test)\n\nprint(\"Mean Square Error(MSE)\",mean_squared_error(y_test, y_pred))\nprint(\"Root Mean Sq",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 3200,
+      "end_index": 3700,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "5cf37fc9-b66a-4b76-b747-ecbb485a97d2"
+  },
+  {
+    "content": "dict(x_test)\n\nprint(\"Mean Square Error(MSE)\",mean_squared_error(y_test, y_pred))\nprint(\"Root Mean Squared Error (RMSE)\",np.sqrt(mean_squared_error(y_test, y_pred)))\nprint(\"Mean Absolute Error (MAE)\" , mean_absolute_error(y_test, y_pred))\nprint(\"R\u00b2 Score (Coefficient of Determination)\",r2_score(y_test, y_pred))\n\n\n# Mean Square Error(MSE) 0.0010836584181480387\n# Root Mean Squared Error (RMSE) 0.032918967452641015\n# Mean Absolute Error (MAE) 0.01776634578802409\n# R\u00b2 Score (Coefficient of Determinat",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 3600,
+      "end_index": 4100,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "3c016cab-6077-4954-9299-16675d5aa441"
+  },
+  {
+    "content": "18967452641015\n# Mean Absolute Error (MAE) 0.01776634578802409\n# R\u00b2 Score (Coefficient of Determination) 0.998755059914892\n\nimport joblib\n\n# Saving the pipeline\njoblib.dump(pipeline, 'power_consumption_model.pkl')\nprint(\"Pipeline saved as power_consumption_model.pkl\")\n\n",
+    "metadata": {
+      "file_name": "notebooks\\power_consumption_prod.py",
+      "file_type": "python",
+      "start_index": 4000,
+      "end_index": 4500,
+      "commit": "c69d03f2f57f5d474269d60a40fe02b7f809ed35",
+      "repo_name": "rayuga3900_Power_Consumption_Predictor"
+    },
+    "id": "7cc9756c-b161-4ad8-b2af-d7ee389a4801"
+  }
+]

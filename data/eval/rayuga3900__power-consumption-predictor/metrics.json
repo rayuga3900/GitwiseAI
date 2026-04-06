@@ -1,0 +1,158 @@
+[
+  {
+    "query": "How does the project preprocess the dataset before training?",
+    "precision": 0.15,
+    "recall": 0.5,
+    "embedding_similarity": -0.001490548832479885
+  },
+  {
+    "query": "How are missing values handled in the dataset?",
+    "precision": 0.05,
+    "recall": 1.0,
+    "embedding_similarity": -0.03794738932500589
+  },
+  {
+    "query": "What techniques are used to handle skewness in the data?",
+    "precision": 0.05,
+    "recall": 1.0,
+    "embedding_similarity": 0.024757694639694842
+  },
+  {
+    "query": "How does the system detect and treat outliers?",
+    "precision": 0.15,
+    "recall": 1.0,
+    "embedding_similarity": 0.018160777338739605
+  },
+  {
+    "query": "Which file contains the model training logic?",
+    "precision": 0.05,
+    "recall": 1.0,
+    "embedding_similarity": 0.05402095885799868
+  },
+  {
+    "query": "Where is feature engineering performed in the project?",
+    "precision": 0.05,
+    "recall": 0.14285714285714285,
+    "embedding_similarity": -0.0206449113523533
+  },
+  {
+    "query": "How are lag features created for time series prediction?",
+    "precision": 0.05,
+    "recall": 1.0,
+    "embedding_similarity": 0.05443017393370403
+  },
+  {
+    "query": "Which algorithms are used for power consumption prediction?",
+    "precision": 0.0,
+    "recall": 0.0,
+    "embedding_similarity": -0.0012564902342948707
+  },
+  {
+    "query": "How does the model evaluation process work?",
+    "precision": 0.05,
+    "recall": 0.5,
+    "embedding_similarity": -0.028273390629595437
+  },
+  {
+    "query": "Which file is responsible for defining the UI?",
+    "precision": 0.1,
+    "recall": 0.6666666666666666,
+    "embedding_similarity": 0.05447090251545225
+  },
+  {
+    "query": "What framework is used to build the frontend of the project?",
+    "precision": 0.05,
+    "recall": 1.0,
+    "embedding_similarity": 0.09379616437876565
+  },
+  {
+    "query": "How does the user interact with the prediction system?",
+    "precision": 0.1,
+    "recall": 1.0,
+    "embedding_similarity": 0.025166676349468217
+  },
+  {
+    "query": "How are input files processed when uploaded by the user?",
+    "precision": 0.05,
+    "recall": 0.25,
+    "embedding_similarity": 0.007521096317790694
+  },
+  {
+    "query": "Where are the dependencies of the project listed?",
+    "precision": 0.05,
+    "recall": 1.0,
+    "embedding_similarity": 0.15368675150143224
+  },
+  {
+    "query": "What libraries are required to run this project?",
+    "precision": 0.05,
+    "recall": 1.0,
+    "embedding_similarity": -0.023815345290933473
+  },
+  {
+    "query": "How is the trained model saved and loaded?",
+    "precision": 0.1,
+    "recall": 1.0,
+    "embedding_similarity": 0.13939805742197103
+  },
+  {
+    "query": "Which part of the code handles prediction generation?",
+    "precision": 0.1,
+    "recall": 1.0,
+    "embedding_similarity": 0.017736746503295816
+  },
+  {
+    "query": "How does the system ensure consistency between training and inference?",
+    "precision": 0.05,
+    "recall": 0.5,
+    "embedding_similarity": -0.0710319017988935
+  },
+  {
+    "query": "What is the role of notebooks in this project?",
+    "precision": 0.1,
+    "recall": 0.25,
+    "embedding_similarity": 0.00826416358039119
+  },
+  {
+    "query": "Where is hyperparameter tuning performed?",
+    "precision": 0.1,
+    "recall": 1.0,
+    "embedding_similarity": 0.09043218736200226
+  },
+  {
+    "query": "How does the project structure separate training and production code?",
+    "precision": 0.1,
+    "recall": 1.0,
+    "embedding_similarity": 0.06419776098398794
+  },
+  {
+    "query": "How does the system handle incorrect or missing user inputs?",
+    "precision": 0.05,
+    "recall": 1.0,
+    "embedding_similarity": -0.024418913427201552
+  },
+  {
+    "query": "Is the model retrained dynamically or pre-trained?",
+    "precision": 0.0,
+    "recall": 0.0,
+    "embedding_similarity": 0.0356243794010235
+  },
+  {
+    "query": "How does the project visualize results or predictions?",
+    "precision": 0.05,
+    "recall": 0.5,
+    "embedding_similarity": -0.02489602188696785
+  },
+  {
+    "query": "What is the role of the requirements.txt file?",
+    "precision": 0.05,
+    "recall": 1.0,
+    "embedding_similarity": 0.07090711976662678
+  },
+  {
+    "query": "How is the repository structured overall?",
+    "precision": 0.05,
+    "recall": 0.3333333333333333,
+    "embedding_similarity": 0.07191673959678108
+  }
+]

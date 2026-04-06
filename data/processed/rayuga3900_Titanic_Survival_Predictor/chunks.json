@@ -1,0 +1,689 @@
+[
+  {
+    "content": "# loading Linux os + python preinstalled\nFROM python:3.9-slim \n\n# creating folder in container to hold the application\nWORKDIR /app\n\n# copying requirements.txt from local to container\nCOPY requirements.txt . \n\n# Install Python dependencies inside the container\nRUN pip install --no-cache-dir -r requirements.txt\n\n\n# Copy the entire project code into the container\nCOPY /app .\n\n# Inform Docker that the container will use port 8501\nEXPOSE 8501\n\n# Command to run Streamlit when the container starts\n# -",
+    "metadata": {
+      "file_name": "Dockerfile",
+      "file_type": "text",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "5ca433a3-a4dc-4892-bdef-3da5bea496e5"
+  },
+  {
+    "content": "e container will use port 8501\nEXPOSE 8501\n\n# Command to run Streamlit when the container starts\n# --server.port=8501 \u2192 Streamlit listens on port 8501 inside the container\n# --server.address=0.0.0.0 \u2192 Streamlit listens on all network interfaces inside the container\n# This allows you to access the app from your host machine when using port mapping (-p)\nCMD [\"streamlit\", \"run\", \"app.py\", \"--server.port=8501\", \"--server.address=0.0.0.0\"]\n\n ",
+    "metadata": {
+      "file_name": "Dockerfile",
+      "file_type": "text",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "52352eaa-cefc-41ac-ae29-93a25dc3b801"
+  },
+  {
+    "content": "ort=8501\", \"--server.address=0.0.0.0\"]\n\n ",
+    "metadata": {
+      "file_name": "Dockerfile",
+      "file_type": "text",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "d39ef65b-8301-4ee5-a0d2-8b3961cae95c"
+  },
+  {
+    "content": "# Titanic Survival Prediction App\n<div>\n<img width=\"1677\" height=\"872\" alt=\"Screenshot 2026-01-04 144241\" src=\"https://github.com/user-attachments/assets/3fca7e84-35f3-499d-956f-1cd6bbabdedb\" />\n<img width=\"1687\" height=\"819\" alt=\"Screenshot 2026-01-04 144307\" src=\"https://github.com/user-attachments/assets/bcd4e49c-3d99-4472-a0cd-8a4e03d06af3\" />\n</div>\n\nThis project predicts whether a passenger survived the Titanic disaster using demographic and travel-related information.  \nIt includes a machine learning pipeline, a Streamlit web app, and a Docker setup for easy deployment.\n\n---\n\n## Overview\n\nThe goal of this project is to predict passenger survival based on:\n- Personal attributes\n- Family relationships\n- Ticket and travel details\n\nThe model is trained on the classic Titanic dataset and deployed as an interactive web application.\n\n---\n\n## Features Used\n\n### Engineered Features\n- FamilySize\n- IsAlone\n- Title (extracted from passenger name)",
+    "metadata": {
+      "file_name": "README.md",
+      "file_type": "markdown",
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "6a4a23dc-fc1e-4154-ae46-f3ada3b8f4b2"
+  },
+  {
+    "content": "---\n\n## Features Used\n\n### Engineered Features\n- FamilySize\n- IsAlone\n- Title (extracted from passenger name)\n\n### Original Features\n- Age\n- Fare\n- Passenger class\n- Sex\n- Embarkation port\n- Siblings / spouses aboard\n- Parents / children aboard\n\n---\n\n## Model Details\n\n- **Algorithm:** Decision Tree Classifier  \n- **Preprocessing:**\n  - Median imputation for numeric features\n  - Most frequent imputation for categorical features\n  - Power transformation for skewed numeric data\n  - One-hot encoding for categorical variables\n- **Pipeline:** End-to-end Scikit-learn pipeline\n\n---\n\n## Model Evaluation\n\nThe model is evaluated on a hold-out test set using:\n- Accuracy\n- ROC-AUC score\n- Confusion matrix\n\n---\n\n## Streamlit Application\n\nThe app supports:\n- Single passenger survival prediction\n- Batch prediction using CSV upload\n- Survival probability output\n- User-friendly interface\n\n---\n\n## Running Locally\n```bash\nInstall dependencies:\n\npip install -r requirements.txt",
+    "metadata": {
+      "file_name": "README.md",
+      "file_type": "markdown",
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "6a4a23dc-fc1e-4154-ae46-f3ada3b8f4b2"
+  },
+  {
+    "content": "---\n\n## Running Locally\n```bash\nInstall dependencies:\n\npip install -r requirements.txt\n\nRun the app:\nstreamlit run app/app.py\n\nRunning with Docker\n\nBuild the image:\ndocker build -t titanic-survival-app .\n\n\nRun the container:\ndocker run -p 5000:8501 titanic-survival-app\n\n\nOpen:\nhttp://localhost:5000",
+    "metadata": {
+      "file_name": "README.md",
+      "file_type": "markdown",
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "6a4a23dc-fc1e-4154-ae46-f3ada3b8f4b2"
+  },
+  {
+    "content": "streamlit==1.52.2\nnumpy==2.0.2\npandas==2.2.2\nscikit-learn==1.6.1\njoblib==1.5.3\nmatplotlib==3.10.0\nseaborn==0.13.2\n",
+    "metadata": {
+      "file_name": "requirements.txt",
+      "file_type": "text",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "159523b8-0bd8-443c-9196-9948c55bb940"
+  },
+  {
+    "content": "import streamlit as st\nimport pandas as pd\nimport joblib\nimport os\n\nBASE_DIR = os.path.dirname(__file__) \nMODEL_PATH = os.path.join(BASE_DIR, \"titanic_pipeline.pkl\")\n\n@st.cache_resource\ndef load_model():\n    return joblib.load(MODEL_PATH)\n\npipeline = load_model()\n\nst.title(\"Titanic Survival Predictor\")\n\n\n \n\ncol1,col2 = st.columns(2)\n\nwith col1:\n    age = st.number_input(\"Age\", 0, 100)\n    fare = st.number_input(\"Fare\", 0.0, 1000.0)\n    pclass = st.selectbox(\"Pclass\", [1, 2, 3])\n    sex = st.sele",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "7c1a41d0-1e95-4f73-b6a5-00cf3bc42fe4"
+  },
+  {
+    "content": "t.number_input(\"Fare\", 0.0, 1000.0)\n    pclass = st.selectbox(\"Pclass\", [1, 2, 3])\n    sex = st.selectbox(\"Sex\", [\"male\", \"female\"])\n    embarked = st.selectbox(\"Embarked\", [\"S\", \"C\", \"Q\"])\n    sibsp = st.number_input(\"Siblings/Spouses aboard\", 0, 10)\n    parch = st.number_input(\"Parents/Children aboard\", 0, 10)\n    title = st.selectbox(\"Title\", [\"Mr\", \"Mrs\", \"Miss\", \"Rare\"])\n    familysize = sibsp + parch + 1\n    isalone = 1 if familysize == 1 else 0\n    if st.button(\"Predict\"):\n         if age",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "7ad80161-f1f7-4f0e-b6bf-2fac526c96bd"
+  },
+  {
+    "content": "p + parch + 1\n    isalone = 1 if familysize == 1 else 0\n    if st.button(\"Predict\"):\n         if age <= 0 or fare <= 0:\n            st.warning(\"Age and Fare must be greater than 0\")\n         else:\n            sample = pd.DataFrame([{\n                \"age\": age, \"fare\": fare, \"FamilySize\": familysize, \"pclass\": pclass,\n                \"sex\": sex, \"embarked\": embarked, \"sibsp\": sibsp, \"parch\": parch,\n                \"Title\": title, \"IsAlone\": isalone\n            }])\n            pred = pipeline.pre",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "ff9cc572-eaf5-4595-96de-f7309dbd08e2"
+  },
+  {
+    "content": ",\n                \"Title\": title, \"IsAlone\": isalone\n            }])\n            pred = pipeline.predict(sample)[0]\n            proba = pipeline.predict_proba(sample)[0][1]\n            st.success(f\"Prediction: {'Survived' if pred==1 else 'Did not survive'}\")\n            st.info(f\"Probability: {proba:.2f}\")\n\nwith col2:\n    st.header(\"Upload a CSV file for batch prediction\")\n    uploaded_file = st.file_uploader(\"Choose a CSV file\", type=\"csv\")\n    if st.button(\"Predict Batch\", key=\"batch_predict\")",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "1f01e6c7-b10f-4d65-9634-168167478727"
+  },
+  {
+    "content": "ile_uploader(\"Choose a CSV file\", type=\"csv\")\n    if st.button(\"Predict Batch\", key=\"batch_predict\"):\n        if uploaded_file is not None:\n            df = pd.read_csv(uploaded_file)\n            # Validate columns\n            required_columns = [\"age\",\"fare\",\"pclass\",\"sex\",\"embarked\",\"sibsp\",\"parch\",\"Title\"]\n\n            df[\"FamilySize\"] = df[\"sibsp\"] + df[\"parch\"] + 1\n            df[\"IsAlone\"] = (df[\"FamilySize\"] == 1).astype(int)\n            df[\"Title\"] = df[\"name\"].str.extract(r' ([A-Za-z]+)",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "8b7ce323-054d-4522-93cc-043fffe0415f"
+  },
+  {
+    "content": " (df[\"FamilySize\"] == 1).astype(int)\n            df[\"Title\"] = df[\"name\"].str.extract(r' ([A-Za-z]+)\\.', expand=False)\n\n            if not all(col in df.columns for col in required_columns):\n                st.error(f\"CSV must contain columns: {required_columns}\")\n            else:\n                predictions = pipeline.predict(df)\n                probabilities = pipeline.predict_proba(df)[:,1]\n\n                df[\"Prediction\"] = [\"Survived\" if p==1 else \"Did not survive\" for p in predictions]\n ",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "352e1721-da66-4aa8-8c2a-d2eda0ae8d59"
+  },
+  {
+    "content": "               df[\"Prediction\"] = [\"Survived\" if p==1 else \"Did not survive\" for p in predictions]\n                df[\"Probability\"] = probabilities\n\n                st.success(\"Batch predictions completed!\")\n                st.dataframe(df)\n\n",
+    "metadata": {
+      "file_name": "app\\app.py",
+      "file_type": "python",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "887533d7-fc24-4b98-ac22-95868bf351ba"
+  },
+  {
+    "content": "# -*- coding: utf-8 -*-\n\"\"\"titanic_exploration.ipynb\n\nAutomatically generated by Colab.\n\nOriginal file is located at\n    https://colab.research.google.com/drive/1h6UAGT6Vu4IZY3Js8of69xFrP8Vd8UFg\n\"\"\"\n\nimport sklearn\nprint(sklearn.__version__)\n\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n\"\"\"Don\u2019t fit (learn) on test data.\nBut do apply the preprocessing transform to every dataset (train, test, unseen).\n\"\"\"\n\nimport pandas as pd\ndf = pd.read_csv(\"tita",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "3cca11d4-3092-4e57-bd7a-e1f0e17f8ac6"
+  },
+  {
+    "content": "ng transform to every dataset (train, test, unseen).\n\"\"\"\n\nimport pandas as pd\ndf = pd.read_csv(\"titanic.csv\")\ndf.head()\n\nsns.pairplot(df)\n# sns.heatmap(df)\n\ndf.describe()\n\ndf.info()\n\n\"\"\"Checking for the duplicates\"\"\"\n\ndf = df.drop(df[df.duplicated()].index)\ndf.duplicated().sum()\n\n\"\"\"Adding new features\"\"\"\n\ndf['FamilySize'] = df['sibsp'] + df['parch'] + 1\ndf['IsAlone'] = (df['FamilySize'] == 1).astype(int)\n# Extracting title from name\ndf['Title'] = df['name'].str.extract(r' ([A-Za-z]+)\\.', expand",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "8476521c-9922-42a7-9538-92fc0c8998b5"
+  },
+  {
+    "content": "ype(int)\n# Extracting title from name\ndf['Title'] = df['name'].str.extract(r' ([A-Za-z]+)\\.', expand=False)\n\n# Grouping  rare titles\ndf['Title'] = df['Title'].replace(\n    ['Lady','Countess','Capt','Col','Don','Dr','Major','Rev','Sir','Jonkheer','Dona'],\n    'Rare'\n)\ndf['Title'] = df['Title'].replace({'Mlle':'Miss','Ms':'Miss','Mme':'Mrs'})\n\n\"\"\"Splitting into feature and target\"\"\"\n\nx = df.drop('survived',axis=1)\ny = df['survived']\n\nx.head()\n\n\"\"\"Checking for class imbalance\n| **Minority:Majority ",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "7a9f14d4-c6cf-49c1-ae36-d31b1cc4a84e"
+  },
+  {
+    "content": "rvived',axis=1)\ny = df['survived']\n\nx.head()\n\n\"\"\"Checking for class imbalance\n| **Minority:Majority Ratio** | **Interpretation** | **Suggested Action**               |\n| --------------------------- | ------------------ | ---------------------------------- |\n| 1 \u2013 1.5                     | Balanced           | No action needed                   |\n| 1.5 \u2013 3                     | Slight imbalance   | Consider `class_weight`            |\n| 3 \u2013 5                       | Moderate imbalance | Use `clas",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "a6fb70f3-e2c2-494e-8262-2181f805a934"
+  },
+  {
+    "content": " Consider `class_weight`            |\n| 3 \u2013 5                       | Moderate imbalance | Use `class_weight` or oversampling |\n| Greater than 5              | Severe imbalance   | SMOTE / undersampling required     |\n\n\"\"\"\n\ny.value_counts()\n\ncounts = y.value_counts()\nratio = counts.max() / counts.min()\nprint(f\"Ratio: {ratio:.2f}x\")  # 1.72x\nprint(\"Imbalanced\" if ratio > 1.5 else \"Balanced\")\ncounts / len(y)  # Proportions: ~0.63, 0.37\n\n\"\"\"Splitting into train , test data\"\"\"\n\nfrom sklearn.model_se",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "facdb8c6-fd76-44a1-bba0-fd7fae1bb00b"
+  },
+  {
+    "content": " / len(y)  # Proportions: ~0.63, 0.37\n\n\"\"\"Splitting into train , test data\"\"\"\n\nfrom sklearn.model_selection import train_test_split\nx_train,x_test,y_train,y_test = train_test_split(x, y, test_size=0.2, random_state=42)\n\n\"\"\"Some categories are stored as number type so changing their datatype\"\"\"\n\nx_train['pclass'] =x_train['pclass'].astype('category')\nx_train['sibsp'] = x_train['sibsp'].astype('category')\nx_train['parch'] = x_train['parch'].astype('category')\nx_test['pclass'] = x_test['pclass'].as",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "1b72bc6f-8ab2-49fb-932e-307bb99d5298"
+  },
+  {
+    "content": "gory')\nx_train['parch'] = x_train['parch'].astype('category')\nx_test['pclass'] = x_test['pclass'].astype('category')\nx_test['sibsp'] = x_test['sibsp'].astype('category')\nx_test['parch'] = x_test['parch'].astype('category')\n\nprint(x_train.info())\nprint(x_test.info())\n\n\"\"\"The data has many missing values and you see it is not helping you in prediction or it occurs after prediction has happens, drop it\"\"\"\n\ndropped_columns = ['body','cabin','home.dest','boat','passenger_id','name','ticket']\n#droppin",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "4685bf12-3217-443a-8814-661c05dded17"
+  },
+  {
+    "content": "it\"\"\"\n\ndropped_columns = ['body','cabin','home.dest','boat','passenger_id','name','ticket']\n#dropping the columns which are not useful for prediction some of them are\n#post-event info like after surviving which boat they took ->boat\n#how many bodies were found - body\nx_train = x_train.drop(dropped_columns , axis=1)\nx_test = x_test.drop(dropped_columns, axis=1)\nprint(x_train.info())\nprint(x_test.info())\n\nx_num = x_train.select_dtypes(include=['int64','float64'])\nx_cat = x_train.select_dtypes(incl",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "288ec19c-d43b-4f41-b47d-ce706bbe2b77"
+  },
+  {
+    "content": "fo())\n\nx_num = x_train.select_dtypes(include=['int64','float64'])\nx_cat = x_train.select_dtypes(include=['object','category'])\nx_num_test = x_test.select_dtypes(include=['int64', 'float64'])\nx_cat_test = x_test.select_dtypes(include=['object', 'category'])\nprint(x_num)\nprint(x_cat)\nprint(x_num_test)\nprint(x_cat_test)\n\n\"\"\"Checking if null value exist\"\"\"\n\nx_num.isnull().sum()\n\n\"\"\"Using median imputer for age and fare for missing values\"\"\"\n\nx_num['age'] = x_num['age'].fillna(x_num['age'].median())\n",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 3200,
+      "end_index": 3700,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "7b924d5e-809e-4c4b-bc71-7952aac05692"
+  },
+  {
+    "content": "r for age and fare for missing values\"\"\"\n\nx_num['age'] = x_num['age'].fillna(x_num['age'].median())\nx_num['fare'] = x_num['fare'].fillna(x_num['fare'].median())\nx_num_test['age'] = x_num_test['age'].fillna(x_num['age'].median())\nx_num_test['fare'] = x_num_test['fare'].fillna(x_num['fare'].median())\n\n\nprint(x_num.isnull().sum())\nprint(x_num_test.isnull().sum())\n\nx_num\n\n\"\"\"Checking for the outliers\n\nReason we are not clipping the outlier is that outlier is not error here they are correct values li",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 3600,
+      "end_index": 4100,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "7ccf23e6-9f2b-4bf5-a701-b66066f23f38"
+  },
+  {
+    "content": "\nReason we are not clipping the outlier is that outlier is not error here they are correct values like In fare paying high for 1st class , in age some maybe old some may be young\n\"\"\"\n\n# outliers_dict = {}\n\n# for col in x_num.columns:\n#     q1 = x_num[col].quantile(0.25)\n#     q3 = x_num[col].quantile(0.75)\n#     iqr = q3 - q1\n#     lower = q1 - 1.5 * iqr\n#     upper = q3 + 1.5 * iqr\n#     mask = (x_num[col] < lower) | (x_num[col] > upper)\n#     outliers_dict[col] = x_num[col][mask]\n\n# # Print ou",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 4000,
+      "end_index": 4500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "eeaf4899-9364-48f9-9f5c-be5245fe8c4c"
+  },
+  {
+    "content": "x_num[col] < lower) | (x_num[col] > upper)\n#     outliers_dict[col] = x_num[col][mask]\n\n# # Print outliers per column\n# for col, outliers in outliers_dict.items():\n#     print(f\"Outliers in {col}:\\n{outliers}\\n\")\n\n\"\"\"finding and clipping the outliers\"\"\"\n\n# def clip_outliers(series):\n#     q1, q3 = series.quantile([0.25, 0.75])\n#     iqr = q3 - q1\n#     lower = q1 - 1.5 * iqr\n#     upper = q3 + 1.5 * iqr\n#     return series.clip(lower, upper)\n\n# x_num['age'] = clip_outliers(x_num['age'])\n# x_num[",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 4400,
+      "end_index": 4900,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "c55e9aea-aa54-4411-be00-ed3d40059560"
+  },
+  {
+    "content": " * iqr\n#     return series.clip(lower, upper)\n\n# x_num['age'] = clip_outliers(x_num['age'])\n# x_num['fare'] = clip_outliers(x_num['fare'])\n\n# x_num_test['age'] = clip_outliers(x_num_test['age'])\n# x_num_test['fare'] = clip_outliers(x_num_test['fare'])\n\n\"\"\"Checking the skewness\n\n| **Skewness Value** | **Interpretation**           |\n| ------------------ | ---------------------------- |\n| -0.5 to 0.5        | Approximately symmetric      |\n| 0.5 to 1           | Moderately positively skewed |\n| Gre",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 4800,
+      "end_index": 5300,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "0c5fe5a7-9f2c-4ddc-80a6-c110e944c696"
+  },
+  {
+    "content": "        | Approximately symmetric      |\n| 0.5 to 1           | Moderately positively skewed |\n| Greater than 1     | Highly positively skewed     |\n| -1 to -0.5         | Moderately negatively skewed |\n| Less than -1       | Highly negatively skewed     |\n\n\n\"\"\"\n\nx_num.skew()#fare is skewed\n\n\"\"\"Handling the skewness via transformation\"\"\"\n\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import PowerTransformer, StandardScaler\n\nskewed_cols = ['fare']   # only the skewed on",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 5200,
+      "end_index": 5700,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "18d59ce9-9b41-4170-b0ad-f115cadb359a"
+  },
+  {
+    "content": "preprocessing import PowerTransformer, StandardScaler\n\nskewed_cols = ['fare']   # only the skewed ones\nnon_skewed_cols = ['age']  # or whatever columns are not skewed\n\nct = ColumnTransformer(\n    transformers=[\n        ('yeojohnson', PowerTransformer(method='yeo-johnson'), skewed_cols)\n    ],\n    remainder='passthrough'   # keep all other columns as they are\n)\nnum_scaler = StandardScaler()\n\nx_num_final = ct.fit_transform(x_num)\nx_num_final = pd.DataFrame(\n    num_scaler.fit_transform(x_num_final",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 5600,
+      "end_index": 6100,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "85459c09-cc4d-420a-a381-7ae9e55ff222"
+  },
+  {
+    "content": "final = ct.fit_transform(x_num)\nx_num_final = pd.DataFrame(\n    num_scaler.fit_transform(x_num_final),\n    columns=skewed_cols + [c for c in x_num.columns if c not in skewed_cols],\n    index=x_num.index\n)\n\nx_num_test_final = ct.transform(x_num_test)\nx_num_test_final = pd.DataFrame(\n    num_scaler.transform(x_num_test_final),\n    columns=skewed_cols + [c for c in x_num.columns if c not in skewed_cols],\n    index=x_num_test.index\n)\n\nprint(x_num_final)\nprint(x_num_test_final)\n\n\"\"\"Checking missing v",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 6000,
+      "end_index": 6500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "c656c01d-15f5-4aff-a55d-3d4b858ab820"
+  },
+  {
+    "content": "ls],\n    index=x_num_test.index\n)\n\nprint(x_num_final)\nprint(x_num_test_final)\n\n\"\"\"Checking missing values in Categorical features\"\"\"\n\nx_cat.isnull().sum()\n\n\"\"\"Encoding the categorical features\"\"\"\n\n# from sklearn.preprocessing import OneHotEncoder\n\n# x_cat = OneHotEncoder().fit_transform(x_cat)\n# x_cat\n\n# x_cat.toarray()\n\n\"\"\"Checking the correlation\"\"\"\n\nx_num_final.corr()\n\n\"\"\"checking the variance\"\"\"\n\nx_num_final.var()\n\nprint(x_cat.isnull().sum())\n\nfrom sklearn.preprocessing import OneHotEncoder\n",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 6400,
+      "end_index": 6900,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "34f95a2d-2ff1-400f-a42a-f58e9215e39e"
+  },
+  {
+    "content": "\"\"\n\nx_num_final.var()\n\nprint(x_cat.isnull().sum())\n\nfrom sklearn.preprocessing import OneHotEncoder\n\nohe = OneHotEncoder(drop='first', handle_unknown='ignore', sparse_output=False)\n# drop='first' avoids multicollinearity[highly correlated features]: for a binary category like 'sex',\n# if 'male' = 0, we automatically know it's 'female' = 1, so we only need one column.\nx_cat_encoded = ohe.fit_transform(x_cat)\nx_cat_encoded = pd.DataFrame(x_cat_encoded, columns=ohe.get_feature_names_out(x_cat.colum",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 6800,
+      "end_index": 7300,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "31d31f42-681c-42a5-bec3-57ed5110fc3c"
+  },
+  {
+    "content": "orm(x_cat)\nx_cat_encoded = pd.DataFrame(x_cat_encoded, columns=ohe.get_feature_names_out(x_cat.columns), index=x_cat.index)\n\nx_cat_test_encoded = ohe.transform(x_cat_test)\nx_cat_test_encoded = pd.DataFrame(x_cat_test_encoded, columns=ohe.get_feature_names_out(x_cat.columns), index=x_cat_test.index)\n\nx_train_final = pd.concat([x_num_final, x_cat_encoded], axis=1)\nx_test_final = pd.concat([x_num_test_final, x_cat_test_encoded], axis=1)\n\n\"\"\"Training the model\"\"\"\n\nfrom sklearn.linear_model import Lo",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 7200,
+      "end_index": 7700,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "1014a5e8-b581-40d0-a8cc-68b0115c8eb1"
+  },
+  {
+    "content": "t_final, x_cat_test_encoded], axis=1)\n\n\"\"\"Training the model\"\"\"\n\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.svm import SVC\nfrom sklearn.neighbors import KNeighborsClassifier\nfrom sklearn.metrics import (\n    accuracy_score,\n    precision_score,\n    recall_score,\n    f1_score,\n    confusion_matrix,\n    roc_auc_score\n)\nfrom sklearn.tree import DecisionTreeClassifier\n\nmodels = {\n    \"Logistic Regression\": LogisticRegression(max_iter=500),\n    \"SVM\": SVC(probability=True),\n    ",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 7600,
+      "end_index": 8100,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "4013a4bc-5ba7-49ac-82ae-a5e5c4c77037"
+  },
+  {
+    "content": "\n    \"Logistic Regression\": LogisticRegression(max_iter=500),\n    \"SVM\": SVC(probability=True),\n    \"KNN\": KNeighborsClassifier(n_neighbors=5),\n    \"Decision Tree\": DecisionTreeClassifier(\n        max_depth=5,\n        min_samples_leaf=10,\n        random_state=42\n    )\n}\n\n\nresults = {}\n# custom threshold by default 0.5\n# threshold = 0.7\n# preds_custom = (proba[:,1] >= threshold).astype(int)\n\nfor name, model in models.items():\n    model.fit(x_train_final, y_train)\n    preds = model.predict(x_test_",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 8000,
+      "end_index": 8500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "745ee62f-c334-4172-91ca-cecaca280388"
+  },
+  {
+    "content": "me, model in models.items():\n    model.fit(x_train_final, y_train)\n    preds = model.predict(x_test_final)\n    proba = model.predict_proba(x_test_final)\n\n    results[name] = {\n        \"Accuracy\": accuracy_score(y_test, preds),\n        \"Precision (macro)\": precision_score(y_test, preds, average='macro'),\n        \"Recall (macro)\": recall_score(y_test, preds, average='macro'),\n        \"F1 (macro)\": f1_score(y_test, preds, average='macro'),\n        \"Confusion Matrix\": confusion_matrix(y_test, preds)",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 8400,
+      "end_index": 8900,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "a14528cb-f87d-4a90-89cd-031e43353d30"
+  },
+  {
+    "content": "1_score(y_test, preds, average='macro'),\n        \"Confusion Matrix\": confusion_matrix(y_test, preds),\n        \"AUC\": roc_auc_score(y_test, proba[:,1])\n    }\n\n\n\nprint(results)\n\n\"\"\"Groupwise average survival probability\"\"\"\n\nx_test_copy = x_test.copy()\n# Use original x_test for group-level analysis, since preprocessed features aren't human-readable.\n# Probabilities from the model can be safely mapped back to x_test.\n\nx_test_copy['Predicted_Survival_Prob'] = proba[:,1]\n\nprint(x_test_copy.groupby('se",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 8800,
+      "end_index": 9300,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "40ab6bfc-8102-4e0d-800a-7a77d7f139e6"
+  },
+  {
+    "content": " back to x_test.\n\nx_test_copy['Predicted_Survival_Prob'] = proba[:,1]\n\nprint(x_test_copy.groupby('sex')['Predicted_Survival_Prob'].mean())\nprint(x_test_copy.groupby('pclass')['Predicted_Survival_Prob'].mean())\nprint(x_test_copy.groupby('Title')['Predicted_Survival_Prob'].mean())\nprint(x_test_copy.groupby('FamilySize')['Predicted_Survival_Prob'].mean())\n\n# from sklearn.metrics import (\n#     accuracy_score,\n#     precision_score,\n#     recall_score,\n#     f1_score,\n#     confusion_matrix,\n#     r",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 9200,
+      "end_index": 9700,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "e0d08dc9-bb5b-4d8c-8c80-c290d8daf178"
+  },
+  {
+    "content": "cy_score,\n#     precision_score,\n#     recall_score,\n#     f1_score,\n#     confusion_matrix,\n#     roc_auc_score\n# )\n\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.svm import SVC\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.compose import ColumnTransformer\n# from sklearn.pipeline import Pipeline\n# from sklearn.preprocessing import StandardScaler, OneHotEncoder\n# from sklearn.impute import SimpleImputer\n# from sklearn.model_selection import GridSearch",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 9600,
+      "end_index": 10100,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "380d4864-2a47-4441-9d21-0c438e4b3b44"
+  },
+  {
+    "content": "tEncoder\n# from sklearn.impute import SimpleImputer\n# from sklearn.model_selection import GridSearchCV\n# # Numeric pipeline: fill missing with mean, then scale\n# numeric_transformer = Pipeline([\n#     ('imputer', SimpleImputer(strategy='mean')),\n#     ('scaler', StandardScaler())\n# ])\n\n# # Categorical pipeline: fill missing with most frequent, then one-hot encode\n# categorical_transformer = Pipeline([\n#     ('imputer', SimpleImputer(strategy='most_frequent')),\n#     ('onehot', OneHotEncoder(hand",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 10000,
+      "end_index": 10500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "920783d2-e912-480b-a6de-01c6130d9bb0"
+  },
+  {
+    "content": "ne([\n#     ('imputer', SimpleImputer(strategy='most_frequent')),\n#     ('onehot', OneHotEncoder(handle_unknown='ignore'))\n# ])\n\n# # ColumnTransformer combines both\n# preprocessor = ColumnTransformer(\n#     transformers=[\n#         ('num', numeric_transformer, x_num_final.columns),\n#         ('cat', categorical_transformer, x_cat.columns)\n#     ])\n\n# models = {\n#     \"Logistic Regression\": Pipeline([\n#         ('preprocess', preprocessor),\n#         ('logreg', LogisticRegression(max_iter=500))\n# ",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 10400,
+      "end_index": 10900,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "6387bed8-af5d-43bc-b0ba-4d916324f2e4"
+  },
+  {
+    "content": "([\n#         ('preprocess', preprocessor),\n#         ('logreg', LogisticRegression(max_iter=500))\n#     ]),\n\n#     \"SVM\": Pipeline([\n#         ('preprocess', preprocessor),\n#         ('svc', SVC(probability=True))\n#     ]),\n#     \"KNN\": Pipeline([\n#         ('preprocess', preprocessor),\n#         ('knn', KNeighborsClassifier(n_neighbors=5))\n#     ])\n# }\n# results = {}\n\n# for name, model in models.items():\n#     model.fit(x_train, y_train)\n#     preds = model.predict(x_test)\n#     proba = model.p",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 10800,
+      "end_index": 11300,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "f5ed4217-a464-4bac-8027-072a77a49706"
+  },
+  {
+    "content": "items():\n#     model.fit(x_train, y_train)\n#     preds = model.predict(x_test)\n#     proba = model.predict_proba(x_test)\n\n#     results[name] = {\n#         \"Accuracy\": accuracy_score(y_test, preds),\n#         \"Precision (macro)\": precision_score(y_test, preds, average='macro'),\n#         \"Recall (macro)\": recall_score(y_test, preds, average='macro'),\n#         \"F1 (macro)\": f1_score(y_test, preds, average='macro'),\n#         \"Confusion Matrix\": confusion_matrix(y_test, preds)\n#     }\n\n\n#     n_c",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 11200,
+      "end_index": 11700,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "169a211a-9c08-4e28-831b-5c430453e40f"
+  },
+  {
+    "content": " average='macro'),\n#         \"Confusion Matrix\": confusion_matrix(y_test, preds)\n#     }\n\n\n#     n_classes = len(np.unique(y_train))\n#     if n_classes == 2:\n#         # Binary: use probability of positive class (index 1)\n#         results[name][\"AUC\"] = roc_auc_score(y_test, proba[:, 1])\n#     else:\n#         # Multi-class: use full probability matrix\n#         results[name][\"AUC (ovr)\"] = roc_auc_score(y_test, proba, multi_class=\"ovr\")\n\n# print(results)\n\nfrom sklearn.model_selection import Gri",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 11600,
+      "end_index": 12100,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "0b884b91-ccaa-4aeb-8fae-e96d800dd4de"
+  },
+  {
+    "content": "c_score(y_test, proba, multi_class=\"ovr\")\n\n# print(results)\n\nfrom sklearn.model_selection import GridSearchCV\n\nparam_grid = {\n    'max_depth': [1,2,3,4,5,6,7,8,9,10],\n    'min_samples_leaf': [10,15,20,25],\n    'min_samples_split': [10,15,20,25,30]\n}\n\n\ngrid = GridSearchCV(\n    DecisionTreeClassifier(random_state=42),\n    param_grid=param_grid,\n    scoring='roc_auc',\n    cv=5,\n    n_jobs=-1\n)\n\ngrid.fit(x_train_final, y_train)\n\nbest_decision_tree= grid.best_estimator_\n\nprint(\"Best Params:\", grid.be",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 12000,
+      "end_index": 12500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "fa92cb19-786e-4109-94de-440903f3c3ef"
+  },
+  {
+    "content": "fit(x_train_final, y_train)\n\nbest_decision_tree= grid.best_estimator_\n\nprint(\"Best Params:\", grid.best_params_)\nprint(\"Best CV AUC:\", grid.best_score_)\n\n\"\"\"roc curve to see the TPR vs FPR\"\"\"\n\nfrom sklearn.metrics import roc_curve, auc\n\ny_proba = best_decision_tree.predict_proba(x_test_final)[:,1]\n\nfpr, tpr, _ = roc_curve(y_test, y_proba)\nroc_auc = auc(fpr, tpr)\n\nplt.figure(figsize=(6,5))\nplt.plot(fpr, tpr, label=f\"AUC = {roc_auc:.3f}\")\nplt.plot([0,1],[0,1],'k--')\nplt.xlabel(\"False Positive Rate\"",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 12400,
+      "end_index": 12900,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "e3e2b51f-4ac0-4d8f-be32-6f682a43a3fd"
+  },
+  {
+    "content": "fpr, tpr, label=f\"AUC = {roc_auc:.3f}\")\nplt.plot([0,1],[0,1],'k--')\nplt.xlabel(\"False Positive Rate\")\nplt.ylabel(\"True Positive Rate\")\nplt.title(\"ROC Curve \u2013 Manual Titanic\")\nplt.legend()\nplt.show()\n\nfrom sklearn.metrics import RocCurveDisplay\n\nRocCurveDisplay.from_estimator(best_decision_tree, x_test_final, y_test)\nplt.title(\"ROC Curve \u2013 Titanic\")\nplt.show()\n\n\"\"\"PR curve\"\"\"\n\nfrom sklearn.metrics import precision_recall_curve, average_precision_score\n\nprecision, recall, _ = precision_recall_curv",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 12800,
+      "end_index": 13300,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "c46070f6-c5bc-4e0e-8b51-78f69c64c25c"
+  },
+  {
+    "content": "import precision_recall_curve, average_precision_score\n\nprecision, recall, _ = precision_recall_curve(y_test, y_proba)\nap = average_precision_score(y_test, y_proba)\n\nplt.figure(figsize=(6,5))\nplt.plot(recall, precision, label=f\"AP = {ap:.3f}\")\nplt.xlabel(\"Recall\")\nplt.ylabel(\"Precision\")\nplt.title(\"Precision-Recall Curve \u2013 Manual Titanic\")\nplt.legend()\nplt.show()\n\nfrom sklearn.metrics import PrecisionRecallDisplay\n\nPrecisionRecallDisplay.from_estimator(best_decision_tree, x_test_final, y_test)\np",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 13200,
+      "end_index": 13700,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "57df146b-45a4-43b4-934c-3822e549f65f"
+  },
+  {
+    "content": "sionRecallDisplay\n\nPrecisionRecallDisplay.from_estimator(best_decision_tree, x_test_final, y_test)\nplt.title(\"Precision-Recall Curve \u2013 Titanic\")\nplt.show()\n\n\"\"\"Learning Curve\n\nX-axis \u2192 Size of the training set\n\nY-axis \u2192 Performance metric (train score and validation score)\n\nA learning curve trains the model multiple times, each time using a larger portion of the training data. For each size, it calculates the performance metric (like accuracy, AUC, or loss) on both:\n\nThe training set used for th",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 13600,
+      "end_index": 14100,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "817c4e92-dcd5-4ca3-b4d4-9dd695728e10"
+  },
+  {
+    "content": "lculates the performance metric (like accuracy, AUC, or loss) on both:\n\nThe training set used for that run\n\nThe validation/test set\n\nThen it plots the metric vs. training size.\n\"\"\"\n\nfrom sklearn.model_selection import learning_curve\n\ntrain_sizes, train_scores, val_scores = learning_curve(\n    best_decision_tree,\n    x_train_final,\n    y_train,\n    cv=5,\n    scoring='roc_auc',\n    train_sizes=np.linspace(0.1, 1.0, 5),\n    n_jobs=-1\n)\n\nplt.figure(figsize=(6,5))\nplt.plot(train_sizes, train_scores.m",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 14000,
+      "end_index": 14500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "0187f112-897b-4ff5-bf84-626c943e1228"
+  },
+  {
+    "content": "nspace(0.1, 1.0, 5),\n    n_jobs=-1\n)\n\nplt.figure(figsize=(6,5))\nplt.plot(train_sizes, train_scores.mean(axis=1), label='Train AUC')\nplt.plot(train_sizes, val_scores.mean(axis=1), label='Validation AUC')\nplt.xlabel(\"Training Size\")\nplt.ylabel(\"AUC\")\nplt.title(\"Learning Curve \u2013 Manual Titanic\")\nplt.legend()\nplt.show()\n\nfrom sklearn.model_selection import learning_curve\nfrom sklearn.model_selection import LearningCurveDisplay\n\ntrain_sizes, train_scores, val_scores = learning_curve(\n    best_decisio",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 14400,
+      "end_index": 14900,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "b61f4141-bb55-40c3-9bc7-dededf0dc45f"
+  },
+  {
+    "content": "mport LearningCurveDisplay\n\ntrain_sizes, train_scores, val_scores = learning_curve(\n    best_decision_tree, x_train_final, y_train, cv=5, scoring='roc_auc', n_jobs=-1\n)\n\ndisplay = LearningCurveDisplay(\n    train_sizes=train_sizes,\n    train_scores=train_scores,\n    test_scores=val_scores\n).plot()\n# display.plot()\nplt.title(\"Learning Curve \u2013 Titanic\")\nplt.show()\n\n\"\"\"To see how many correct and incorrect predictions were made by the model on train and test dataset\"\"\"\n\nfrom sklearn.metrics import C",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 14800,
+      "end_index": 15300,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "f2ff33c0-5c2a-4dce-8edc-3aacc734981c"
+  },
+  {
+    "content": "rrect predictions were made by the model on train and test dataset\"\"\"\n\nfrom sklearn.metrics import ConfusionMatrixDisplay\n\n# Train\nConfusionMatrixDisplay.from_estimator(\n    best_decision_tree, x_train_final, y_train\n)\nplt.title(\"Train Confusion Matrix\")\nplt.show()\n\n# Test\nConfusionMatrixDisplay.from_estimator(\n    best_decision_tree, x_test_final, y_test\n)\nplt.title(\"Test Confusion Matrix\")\nplt.show()\n\ny_pred = best_decision_tree.predict_proba(x_test_final)[:,1]\nresiduals = y_test - y_pred\n\nplt",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 15200,
+      "end_index": 15700,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "cb5b85d8-7fc7-44b7-aa0d-e5d7dc630dc3"
+  },
+  {
+    "content": "how()\n\ny_pred = best_decision_tree.predict_proba(x_test_final)[:,1]\nresiduals = y_test - y_pred\n\nplt.scatter(y_pred, residuals)\nplt.axhline(0, color='red')\nplt.xlabel(\"Predicted value\")\nplt.ylabel(\"Residual\")\nplt.show()\n\n",
+    "metadata": {
+      "file_name": "notebooks\\titanic_exploration.py",
+      "file_type": "python",
+      "start_index": 15600,
+      "end_index": 16100,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "e38bb1b3-408a-4539-89cd-52f7d2f7caf0"
+  },
+  {
+    "content": "# -*- coding: utf-8 -*-\n\"\"\"titanic_prod.ipynb\n\nAutomatically generated by Colab.\n\nOriginal file is located at\n    https://colab.research.google.com/drive/1EVuAgD0oh1e6X514uZpzGlnDhavwnfh4\n\"\"\"\n\npip freeze > requirements.txt\n\nfrom sklearn.preprocessing import PowerTransformer\nfrom sklearn.pipeline import Pipeline\nimport numpy as np\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import PowerTransforme",
+    "metadata": {
+      "file_name": "notebooks\\titanic_prod.py",
+      "file_type": "python",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "a17f2da8-6153-4a68-863a-032123aa0423"
+  },
+  {
+    "content": "plit\nfrom sklearn.compose import ColumnTransformer\nfrom sklearn.preprocessing import PowerTransformer, StandardScaler , OneHotEncoder\nfrom sklearn.metrics import (\n    accuracy_score,\n    precision_score,\n    recall_score,\n    f1_score,\n    confusion_matrix,\n    roc_auc_score\n)\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.impute import SimpleImputer\nfrom sklearn.tree import DecisionTreeClassifier\n\n\ndf = pd.read_csv(\"titanic.csv\")\ndf['FamilySize'] = df['sibsp'] + df['parch'] + 1\ndf['IsAlone",
+    "metadata": {
+      "file_name": "notebooks\\titanic_prod.py",
+      "file_type": "python",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "52edee12-664b-441f-9cde-4eae98851a4c"
+  },
+  {
+    "content": "ifier\n\n\ndf = pd.read_csv(\"titanic.csv\")\ndf['FamilySize'] = df['sibsp'] + df['parch'] + 1\ndf['IsAlone'] = (df['FamilySize'] == 1).astype(int)\ndf['Title'] = df['name'].str.extract(r' ([A-Za-z]+)\\.', expand=False)\n\ndf['Title'] = df['Title'].replace(\n    ['Lady','Countess','Capt','Col','Don','Dr','Major','Rev','Sir','Jonkheer','Dona'],\n    'Rare'\n)\ndf['Title'] = df['Title'].replace({'Mlle':'Miss','Ms':'Miss','Mme':'Mrs'})\n\nnum_cols = ['age','fare','FamilySize']\ncat_cols = ['pclass','sex','embarked',",
+    "metadata": {
+      "file_name": "notebooks\\titanic_prod.py",
+      "file_type": "python",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "144c50ff-24b6-489f-8ea6-e1d5c79ce182"
+  },
+  {
+    "content": ":'Miss','Mme':'Mrs'})\n\nnum_cols = ['age','fare','FamilySize']\ncat_cols = ['pclass','sex','embarked','sibsp','parch','Title','IsAlone']\nx = df[num_cols + cat_cols]\ny = df['survived']\nx_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)\nnum_preprocessing = Pipeline([\n    ('imputer',SimpleImputer(strategy='median')),#handled the missing data\n    ('power', PowerTransformer(method='yeo-johnson')),#handled skewness\n    ('standard', StandardScaler()) #Same Scale for",
+    "metadata": {
+      "file_name": "notebooks\\titanic_prod.py",
+      "file_type": "python",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "21522405-310e-442f-aa7a-2cc352ea7d75"
+  },
+  {
+    "content": "nsformer(method='yeo-johnson')),#handled skewness\n    ('standard', StandardScaler()) #Same Scale for each feature\n])\ncat_preprocessing = Pipeline([\n     ('imputer',SimpleImputer(strategy='most_frequent')),\n    ('onehot', OneHotEncoder(handle_unknown='ignore'))#encoding\n])\n\npreprocessor  = ColumnTransformer([\n    ('num', num_preprocessing, num_cols),\n    ('cat', cat_preprocessing, cat_cols)\n])\n\npipeline = Pipeline([\n    ('preprocess', preprocessor),\n    ('classifier',   DecisionTreeClassifier(max",
+    "metadata": {
+      "file_name": "notebooks\\titanic_prod.py",
+      "file_type": "python",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "58f756eb-8497-48e7-b9ad-9dca9662d344"
+  },
+  {
+    "content": "eline = Pipeline([\n    ('preprocess', preprocessor),\n    ('classifier',   DecisionTreeClassifier(max_depth=10,\n                                            min_samples_leaf=10,\n                                           min_samples_split= 25\n                                            ,random_state=42))    # Decision Tree classifier with controlled depth and leaf size to reduce overfitting\n])\n\npipeline.fit(x_train, y_train)\n\ny_pred = pipeline.predict(x_test)\ny_proba = pipeline.predict_proba(x_tes",
+    "metadata": {
+      "file_name": "notebooks\\titanic_prod.py",
+      "file_type": "python",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "7eddde45-ac30-44ea-93fa-11c4b6603961"
+  },
+  {
+    "content": "line.fit(x_train, y_train)\n\ny_pred = pipeline.predict(x_test)\ny_proba = pipeline.predict_proba(x_test)[:, 1]\n\nprint(\"Accuracy:\", accuracy_score(y_test, y_pred))# Overall fraction of correctly predicted samples\nprint(\"AUC:\", roc_auc_score(y_test, y_proba)) # Measures ability to rank positive samples higher than negative ones (useful for imbalanced data)\nprint(\"Confusion Matrix:\\n\", confusion_matrix(y_test, y_pred))\n\nimport joblib\n\njoblib.dump(pipeline, 'titanic_pipeline.pkl')\n\nloaded_pipeline = j",
+    "metadata": {
+      "file_name": "notebooks\\titanic_prod.py",
+      "file_type": "python",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "3f5879d3-bd09-4bb9-90ea-f19d600a2ee1"
+  },
+  {
+    "content": "(y_test, y_pred))\n\nimport joblib\n\njoblib.dump(pipeline, 'titanic_pipeline.pkl')\n\nloaded_pipeline = joblib.load('titanic_pipeline.pkl')\n\n\nsample_data = pd.DataFrame({\n    'age': [22, 35],\n    'fare': [7.25, 71.83],\n    'FamilySize': [1, 3],\n    'pclass': [3, 1],\n    'sex': ['male', 'female'],\n    'embarked': ['S', 'C'],\n    'sibsp': [0, 1],\n    'parch': [0, 2],\n    'Title': ['Mr', 'Mrs'],\n    'IsAlone': [1, 0]\n})\n\npreds = loaded_pipeline.predict(sample_data)\nprobs = loaded_pipeline.predict_proba(",
+    "metadata": {
+      "file_name": "notebooks\\titanic_prod.py",
+      "file_type": "python",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "cf225469-0481-460f-95c6-25e28c7a721f"
+  },
+  {
+    "content": "one': [1, 0]\n})\n\npreds = loaded_pipeline.predict(sample_data)\nprobs = loaded_pipeline.predict_proba(sample_data)[:, 1]\nprint(preds, probs)\n\n",
+    "metadata": {
+      "file_name": "notebooks\\titanic_prod.py",
+      "file_type": "python",
+      "start_index": 3200,
+      "end_index": 3700,
+      "commit": "5e7bd9c798980f11722e0c8d6e098b3d5f888f72"
+    },
+    "id": "c93aa004-b11c-4b5f-9929-5d1e6f1c446e"
+  }
+]

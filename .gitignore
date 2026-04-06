@@ -1,0 +1,33 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env/
+.env
+.gitwise_env/
+.env.bak/
+.venv/
+gitwise_env/
+
+# Packages
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Logs
+*.log
+
+# Data
+qdrant_storage/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db

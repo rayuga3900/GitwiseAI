@@ -1,0 +1,1366 @@
+[
+  {
+    "content": "\n<html>\n<head><meta name=\"viewport\"content=\"width=device-width,initial-scale=1\"/>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/colorpage.css\">\n\n<script>\n\nfunction re(val)\n{\nevent.preventDefault();//if you remove this the value will disappear automatically\n   document.getElementById(\"num\").value=num.value+val;\n\n}\n\n\n</script>\n</head>\n\n<body>\n<form action=''method='post'>\n\n<button id='red' value='#ff0000' onclick='re(this.value)'>\n\n</button>\n\n<button id='blue'value='#0000ff' onclick=\"re(this.",
+    "metadata": {
+      "file_name": "color_password.php",
+      "file_type": "php",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "56f0e72f-6f99-4fd2-a6d0-6154e64e3e47"
+  },
+  {
+    "content": "e='#ff0000' onclick='re(this.value)'>\n\n</button>\n\n<button id='blue'value='#0000ff' onclick=\"re(this.value)\">\n</button>\n\n<button id='green' value='#00ff00' onclick='re(this.value)'>\n</button>\n<b>pattern</b>\n<input type=\"password\" id='num' value='' size=50 name='col' multiple readonly>\n<button name='save'id='save'>save</button>\n<button name='reset'id='reset'>reset</button>\n<label id='l1'></label>\n</form>\n</body>\n\n</html>\n<?php\n  session_start();\n require('conn.php');\n\nif(isset($_SESSION['un']))\n{\n",
+    "metadata": {
+      "file_name": "color_password.php",
+      "file_type": "php",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "6411ce2d-19e0-49be-ae89-863bc5105a9f"
+  },
+  {
+    "content": "form>\n</body>\n\n</html>\n<?php\n  session_start();\n require('conn.php');\n\nif(isset($_SESSION['un']))\n{\n\n$un=$_SESSION['un'];\n\n}\nelse if(isset($_SESSION['un1']))\n{\n$un=$_SESSION['un1'];\n}\nelse\n{\necho \"not set sesssion\";\n echo '<script>window.location.href=\"index.html\";</script>';\n}\nif(isset($_POST['save'])&&$_POST['col']=='')\n{\n    \necho \"<label id='l1'>please select color combination</label>\";\n}\n\nif(isset($_POST['save'])&&isset($_POST['col'])&&$_POST['col']!='')\n { \n    $col=md5($_POST['col']);\n \n\n",
+    "metadata": {
+      "file_name": "color_password.php",
+      "file_type": "php",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "be89c207-db29-4397-a0d3-c6aae9cd818b"
+  },
+  {
+    "content": "isset($_POST['save'])&&isset($_POST['col'])&&$_POST['col']!='')\n { \n    $col=md5($_POST['col']);\n \n\n\nmysqli_query($con,\"update user_details1 set color_pswd='$col' where username='$un'\") or die(\"<br>query unsuccessful for insert\");\nif(isset($_POST['save'])&&isset($col))\n{ \n \n         echo \"<script>window.location.href='img_authenticate.php'</script>\";\n}\n mysqli_close($con);\n}\n\n?>\n\n",
+    "metadata": {
+      "file_name": "color_password.php",
+      "file_type": "php",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "ff0c5df8-00f2-401f-9731-5a1b5551adf1"
+  },
+  {
+    "content": "<?php\n  $con=mysqli_connect(\"localhost\",\"root\",\"\",\"project\");\n   if(!$con)\n   {\n   die('could not connect'.mysql_error());\n    }\n   // echo \"connected successfully <br>\";\n    ?>",
+    "metadata": {
+      "file_name": "conn.php",
+      "file_type": "php",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "a825043d-3211-45e8-92e7-ab85354feadf"
+  },
+  {
+    "content": "<?php \n\nsession_start();\n\nrequire('conn.php');\n\n?>\n<html>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/forgotpswdpage.css\">\n<script>\nvar k=document.getElementById('un');\nk.addEventListener('keypress',function(event) { \n                                                if(event.key=='Enter') \n                                                {\n                                                 event.preventDefault();\n                                                 document.getElementById('autosu",
+    "metadata": {
+      "file_name": "forgot_password.php",
+      "file_type": "php",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "1ee2782e-0c12-421b-adce-b8307f4cab96"
+  },
+  {
+    "content": "t.preventDefault();\n                                                 document.getElementById('autosubmit').click;\n                                                }\n                                              }\n                   );  \n</script>\n</head>\n<body>\n<form id='myfrom'action=\"\"method='post'>\nUsername:<input type=\"text\" id='un' name='un' ><br>\nSecurity Question:<input type='text' name='ques' id='ques' readonly> \n<br>\n\nAnswer:<input type=\"text\" name='ans'><br>\n<br>\n<button name='save'valu",
+    "metadata": {
+      "file_name": "forgot_password.php",
+      "file_type": "php",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "a0eaedb0-e496-4e26-bf5b-983d5feb815e"
+  },
+  {
+    "content": "s' id='ques' readonly> \n<br>\n\nAnswer:<input type=\"text\" name='ans'><br>\n<br>\n<button name='save'value='1'>save</button>\n<button name='autosubmit' id='autosubmit' style='display:none;'>autosubmit</button>\n</body>\n\n\n</html>\n<?php\n\n  if(isset($_POST['save'])&&$_POST['un']==null)\n{\n    echo \"<label id='l1'>please provide username</label>\";\n}\n\n\n\nif(isset($_POST['un'])&&$_POST['un']!='')\n{$un=$_POST['un'];\necho \"<script>document.getElementById('un').value='$un'</script>\";\n$res=mysqli_query($con,\"SELEC",
+    "metadata": {
+      "file_name": "forgot_password.php",
+      "file_type": "php",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "6df9b4ef-f8fd-46e7-bbb8-8f497aa6de98"
+  },
+  {
+    "content": "'];\necho \"<script>document.getElementById('un').value='$un'</script>\";\n$res=mysqli_query($con,\"SELECT * FROM user_details1 where username='$un'\") or die(\"<br>query unsuccessful for select\");\n      if(mysqli_num_rows($res)>0)\n  {\n    while($row=mysqli_fetch_assoc($res))\n   {\n   $q=$row['ques'];\nif(isset($_POST['save'])&&$_POST['save']!=''&&$_POST['ans']==\"\"&&isset($_POST['un'])\n&&$_POST['un']!=\"\"&&$_POST['ques']!=''&&isset($_POST['ques']))\n{\n    echo \"<label id='l1'>please provide answer</label>\"",
+    "metadata": {
+      "file_name": "forgot_password.php",
+      "file_type": "php",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "dac89d0e-7a8d-43c8-bc8d-46d9ef6dba6a"
+  },
+  {
+    "content": "$_POST['ques']!=''&&isset($_POST['ques']))\n{\n    echo \"<label id='l1'>please provide answer</label>\";\n}\necho \"<Script>\n\n/*to get question automatically when user presses enter key after writing username\nvar i=document.getElementById('un');\ni.addEventListener('keypress',function(event) { \n                                                if(event.key=='Enter') \n                                                {\n                                                 event.preventDefault();\n  document.getEl",
+    "metadata": {
+      "file_name": "forgot_password.php",
+      "file_type": "php",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "89d81018-3f8a-4d60-94d0-03018c3e18cb"
+  },
+  {
+    "content": "         {\n                                                 event.preventDefault();\n  document.getElementById('autosubmit').click;*/\n                                                 document.getElementById('ques').value='$q';\n                                               /* }\n                                              }\n                   );  */\n\n</script>\";\n\n   }\n  }\nelse\n{\necho \"<label id='l1'>username not found</label>\";\n\n}\n}\n   \n\n\n\nif(isset($_POST['ans'])&&isset($_POST['un'])\n&&isset($_P",
+    "metadata": {
+      "file_name": "forgot_password.php",
+      "file_type": "php",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "021155a3-b076-482c-849d-555a6eb0dd1f"
+  },
+  {
+    "content": "1'>username not found</label>\";\n\n}\n}\n   \n\n\n\nif(isset($_POST['ans'])&&isset($_POST['un'])\n&&isset($_POST['save'])&&$_POST['ans']!=''&&$_POST['un']!='')\n{ \n  \n    $ans=md5(mysqli_real_escape_string($con,$_POST['ans']));\n    $un=mysqli_real_escape_string($con,$_POST['un']);\n  \n$res=mysqli_query($con,\"SELECT * FROM user_details1 where username='$un'\") or die(\"<br>query unsuccessful for select\");\nif(mysqli_num_rows($res)>0)\n{\n    while($row=mysqli_fetch_assoc($res))\n{\n   $correctans=$row['ans'];\n   i",
+    "metadata": {
+      "file_name": "forgot_password.php",
+      "file_type": "php",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "0086ad72-9384-4a46-84d2-e21f7a120d93"
+  },
+  {
+    "content": "sqli_num_rows($res)>0)\n{\n    while($row=mysqli_fetch_assoc($res))\n{\n   $correctans=$row['ans'];\n   if($ans==$correctans)\n  {\n$_SESSION['un1']=$un;\n//echo \"<Script>alert('correct');</script>\";\n//here write redirection code\necho \"<Script>window.location.href='forgot_pswd_register.php'</script>\";  \n}\nelse{\n    echo \"<label id='l1'> Wrong answer</label>\";\n}\n}\n}\n\n}\n   \nmysqli_close($con);\n\n?>\n",
+    "metadata": {
+      "file_name": "forgot_password.php",
+      "file_type": "php",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "2271aaf2-6624-4cba-91b4-2d27a17f5496"
+  },
+  {
+    "content": "<?php\nsession_start();\nrequire('conn.php');\nif(isset($_SESSION))\n\n{\n       \n   \n     if(isset($_SESSION['unlog']))\n          \n    {\n                \n\t   $un=$_SESSION['unlog'];\n           \n    }\n    \nelse if(isset($_SESSION['un1']))\n{\n $un=$_SESSION['un1'];\n  \n}\n   else\n       \n {\n        \necho '<script>window.location.href=\"index.html\";</script>';\n\n        }\n\n}\n \n?>\n\n<html>\n<head><link rel=\"stylesheet\" type=\"text/css\" href=\"./css/forgotpswdpage.css\">\n<script>\nfunction redir()\n{\nevent.preventDef",
+    "metadata": {
+      "file_name": "forgot_pswd_register.php",
+      "file_type": "php",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "51fa9503-3731-4575-9cd4-221529039b26"
+  },
+  {
+    "content": "sheet\" type=\"text/css\" href=\"./css/forgotpswdpage.css\">\n<script>\nfunction redir()\n{\nevent.preventDefault();\nwindow.location=\"color_password.php\";\n}\n\n</script>\n</head>\n<body>\n<form action=\"\"method='post'>\nUsername:<input type=\"text\" name='un'value=\"<?php if(isset($un)) echo$un;?>\" readonly><br>\npassword:<input type='password' name='psw'id='equi'autocomplete=off> \n<br>\nconfirm password:<input type='password' name='cpsw'id='equi'><br>\n<button name='save'>save</button>\n\n</body>\n\n</html>\n<?php\n\nif(is",
+    "metadata": {
+      "file_name": "forgot_pswd_register.php",
+      "file_type": "php",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "deb8c27f-1f67-46c7-8704-2b40a6cf2659"
+  },
+  {
+    "content": "password' name='cpsw'id='equi'><br>\n<button name='save'>save</button>\n\n</body>\n\n</html>\n<?php\n\nif(isset($_POST['save'])&&$_POST['psw']==\"\"&&$_POST['un']!=\"\")\n{\n    echo \"<label id='l1'>please provide password</label>\";\n}\n if(isset($_POST['save'])&&isset($_POST['psw'])&&isset($_POST['cpsw'])\n&&$_POST['psw']!=$_POST['cpsw']&&$_POST['psw']!='')\n{\n    echo \"<label id='l1'>password didn't match</label>\";\n}\n\nif(isset($_POST['save']) && isset($_POST['psw']) && strlen($_POST['psw']) < 6 && $_POST['psw']",
+    "metadata": {
+      "file_name": "forgot_pswd_register.php",
+      "file_type": "php",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "9776068b-f098-4eb3-9902-c10cb25b45bb"
+  },
+  {
+    "content": "\";\n}\n\nif(isset($_POST['save']) && isset($_POST['psw']) && strlen($_POST['psw']) < 6 && $_POST['psw'] != ''&&$_POST['cpsw']!=''&&isset($_POST['cpsw'])) {\n        echo \"<label id='l1'>Password should have a minimum length of 6 characters</label>\";\n    }\nif(isset($_POST['psw'])&&strlen($_POST['psw'])>=6&&isset($_POST['cpsw'])&&isset($_POST['un'])\n&&isset($_POST['save'])&&$_POST['psw']!=null&&$_POST['cpsw']!=''\n&&$_POST['un']!=''&&$_POST['psw']==$_POST['cpsw'])\n { \n   \n   \n\n  /*$psw=$_POST['psw'];\n ",
+    "metadata": {
+      "file_name": "forgot_pswd_register.php",
+      "file_type": "php",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "1df9e9fb-d13e-4d72-ab90-55dfdccd92e3"
+  },
+  {
+    "content": "cpsw']!=''\n&&$_POST['un']!=''&&$_POST['psw']==$_POST['cpsw'])\n { \n   \n   \n\n  /*$psw=$_POST['psw'];\n  $cpsw=$_POST['cpsw'];\n  $un=$_POST['un'];*/\n $psw=md5(mysqli_real_escape_string($con,$_POST['psw']));\n\n    $cpsw=md5(mysqli_real_escape_string($con,$_POST['cpsw']));\n    $un=mysqli_real_escape_string($con,$_POST['un']);\n \n$res=mysqli_query($con,\"SELECT * FROM user_details1 where username='$un'\") or die(\"<br>query unsuccessful for select\");\n\nmysqli_query($con,\"update user_details1 set password=NUL",
+    "metadata": {
+      "file_name": "forgot_pswd_register.php",
+      "file_type": "php",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "0a6a5761-ff5b-46e2-9579-87ec78838d7d"
+  },
+  {
+    "content": " die(\"<br>query unsuccessful for select\");\n\nmysqli_query($con,\"update user_details1 set password=NULL ,color_pswd=NULL ,img_pswd=NULL where username='$un'\") or die(\"<br>query unsuccessful for insert\");\n\nmysqli_query($con,\"update user_details1 set password='$psw' where username='$un'\") or die(\"<br>query unsuccessful for insert\");\n\necho \"<script>window.location.href='color_password.php';</script>\";\nmysqli_close($con);\n}\n?>",
+    "metadata": {
+      "file_name": "forgot_pswd_register.php",
+      "file_type": "php",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "d5199a1c-0b7d-467c-889a-78b7d14da703"
+  },
+  {
+    "content": "mysqli_close($con);\n}\n?>",
+    "metadata": {
+      "file_name": "forgot_pswd_register.php",
+      "file_type": "php",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "e80942bc-1ddf-4057-9a12-dccfa0f89d93"
+  },
+  {
+    "content": "<?php\n\nsession_start();\nrequire('conn.php');\n\n\n?>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/img_authenticate.css\">\n<script>\nlet d=document.getElementById('d1'); \nd.firstChild.src='<?php echo $new1[0];?>';\n//$(\".read-only\").keydown(function(e){ e.preventDefault();\n//});\n\n</script>\n</head>\n<script>\n\nfunction re(val)\n{\nevent.preventDefault();//if you remove this the value will disappear automatically\n   document.getElementById(\"num\").value=num.value+val;\n\n}\nfunction stop()\n{\n",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "ab81c892-3280-4511-8f45-29a0a514859c"
+  },
+  {
+    "content": "disappear automatically\n   document.getElementById(\"num\").value=num.value+val;\n\n}\nfunction stop()\n{\n var k=document.getElementById('num').value;\n if(k=='')\n{\nalert(\"please set password\");\n return false;\n}\n}\n/*.submit(function() {\nreturn false;\n});*/\nfunction triggerclick(e)\n{\ndocument.querySelector('#img').click();\n}\nfunction displayimage(e)\n{\n\n   if(e.files[0]) \n   {\n   var reader=new FileReader();\n   reader.onload=function(e)\n            { \n              document.querySelector('#profiledisplay",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "77290dd1-cfef-4110-be7f-91218303fc98"
+  },
+  {
+    "content": ");\n   reader.onload=function(e)\n            { \n              document.querySelector('#profiledisplay').setAttribute('src',e.target.result);\n             }\n         reader.readAsDataURL(e.files[0]);\n    }\n      \n\n}\n</script>\n<body>\n<form id='myform' method='post'enctype='multipart/form-data'>\n<div style='position:relative;\n   top:40px;left:120px;height:330px;width:330px;border:2px inset silver;'>\n<img src='croppedimages/img_placeholder.png'id='profiledisplay' onclick='triggerclick()' >\n</div>\n<in",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "68ba1c2c-8a60-462d-8786-e8896e123d08"
+  },
+  {
+    "content": "img src='croppedimages/img_placeholder.png'id='profiledisplay' onclick='triggerclick()' >\n</div>\n<input type='file'name='img'id='img' style='display:none;'accept='image/jpeg'onchange='displayimage(this)'>\n<button name='crop'value=1 id='crop'>crop image</button>\n<input type='password' name='num'id='num'readonly size=20>\n<button name='save' id='save'value=1 onclick='return stop()'>save</button>\n<label id='l1' ></label>\n<button type='button'name='reset' id='reset'value=1 onclick=' document.getEleme",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "cb7ba814-eb3c-4905-86c4-546073543988"
+  },
+  {
+    "content": "el id='l1' ></label>\n<button type='button'name='reset' id='reset'value=1 onclick=' document.getElementById(\"num\").value=null' >reset</button>\n    <div id='d1'></div>\n     <div id='d2'></div>\n   <div id='d3'></div>\n    <div id='d4'></div>\n     <div id='d5'></div>\n <div id='d6'></div>\n    <div id='d7'></div>\n     <div id='d8'></div>\n     <div id='d9'></div>\n</form>\n   \n</body>\n</html>\n<?php\n\necho 'hello';\nif(isset($_SESSION['un']))\n{\n\n$un=$_SESSION['un'];\n\n}\nelse if(isset($_SESSION['un1']))\n{\n$un=",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "9c7ab770-e777-4c70-95d3-e5b0ff2940ac"
+  },
+  {
+    "content": "ello';\nif(isset($_SESSION['un']))\n{\n\n$un=$_SESSION['un'];\n\n}\nelse if(isset($_SESSION['un1']))\n{\n$un=$_SESSION['un1'];\n}\nelse\n{\necho \"not set sesssion\";\n    echo '<script>window.location.href=\"index.html\";</script>';\n}\n\n\n/*if(isset($_POST['save'])&&$_FILES['img']['size']==0&&$_POST['save']=='')\n{ echo 'select';\n    echo \"<label id='l1'>please select an image</label>\";\n    \n}*/\n\nif(isset($_FILES['img'])&&isset($_POST['crop'])&&$_FILES['img']['size']==0)\n{\necho \"<label id='l1'>please select an imag",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "6e4bbc38-2961-4230-9dfa-f8338a2c3618"
+  },
+  {
+    "content": "g'])&&isset($_POST['crop'])&&$_FILES['img']['size']==0)\n{\necho \"<label id='l1'>please select an image</label>\";\n}\n\nif(isset($_FILES['img'])&&isset($_POST['crop'])&&$_FILES['img']['size']!=0) //&&isset($_FILES['img'])&&$_POST['crop']!=''&&$_FILES['img']['size']!=0\n{\n\n  $img=$_FILES['img']['name'];\n//echo \"<script>alert('condition is working');</script>\";\n/*echo \"<script>alert('$img');</script>\";\necho 'jello da';\necho 'hello inside conditi0pn';\necho \"<script>alert('condition is working');</script>",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "37c315e7-cefd-4cee-ade6-a8dadcfbe568"
+  },
+  {
+    "content": "ho 'jello da';\necho 'hello inside conditi0pn';\necho \"<script>alert('condition is working');</script>\";*/\n\n$temp=$_FILES['img']['tmp_name'];\n\n//echo \"<script>alert('$img');</script>\";\n$baseDirectory = __DIR__;\n$target = $baseDirectory . '/useruploadedimages/' . $img;\nif(move_uploaded_file($_FILES['img']['tmp_name'],$target))\n{\n$msg=\"file uploaded\";\n$css_class=\"alert-success\";\necho $msg;\n}\nelse\n{\n$msg= \"error uploading files\";\n$css_class=\"alert-danger\";\necho $msg;\n}\n//echo $_FILES['img']['tmp_name",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "d505397c-6e4d-42b1-afab-22916abf4782"
+  },
+  {
+    "content": "sg= \"error uploading files\";\n$css_class=\"alert-danger\";\necho $msg;\n}\n//echo $_FILES['img']['tmp_name'];\n//echo \"<script>alert('$target');</script>\";\n\n\n}\nif($_POST['num']==''&&isset($_POST['save']))\n{\n//echo \"<script> document.getElementById('myform').submit(false);</script>\";\n//echo \"<label id='l1'>please select password</label>\";\n}\nglobal $currtime;\n $currtime=time();\nif(isset($_POST['save'])&&isset($_POST['num'])&&$_POST['num']!='')//&&isset($_SESSION['un']))\n{ \n$ipsw=md5($_POST['num']);\n\n   \n",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 3200,
+      "end_index": 3700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "2f202071-0a1e-44c1-ac2a-e45a3dbdc1c4"
+  },
+  {
+    "content": "set($_POST['num'])&&$_POST['num']!='')//&&isset($_SESSION['un']))\n{ \n$ipsw=md5($_POST['num']);\n\n   \nmysqli_query($con,\"update user_details1 set img_pswd='$ipsw' where username='$un'\") or die(\"<br>query unsuccessful for insert\");\n\n\n\n\n\nif(isset($_SESSION['un1']))\n{\necho '<script>window.location.href=\" success_msg.php\";</script>';\n}\n// echo '<script>alert(\"working\");</script>';\n    //echo \"<script> alert('registered successfully');   </script>\";\n echo '<script>window.location.href=\"success_msg.php\"",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 3600,
+      "end_index": 4100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "412def80-b05f-4db3-b645-ee0b07e60fca"
+  },
+  {
+    "content": "lert('registered successfully');   </script>\";\n echo '<script>window.location.href=\"success_msg.php\";</script>';\n mysqli_close($con);\n}\n\n\n\nerror_reporting(E_ALL);\nini_set('display_errors', '1');\n// Set maximum post size to 25 megabytes (including file uploads)\nini_set('post_max_size', '40M');\n\n\n\nfunction splitimg($imgname,$username,$currtime)\n{ //$filename='community shadow.jpg';\n\n$baseDirectory= __DIR__;\n  $filename= $baseDirectory . '/useruploadedimages/' .$imgname;\necho $filename;\n  //$newfil",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 4000,
+      "end_index": 4500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "07f27f48-4299-48ec-871b-760552786dcc"
+  },
+  {
+    "content": "__DIR__;\n  $filename= $baseDirectory . '/useruploadedimages/' .$imgname;\necho $filename;\n  //$newfilename='a1.jpg';\n  $new=\"./croppedimages/$username\";  \n   \n/*the $new variable in the code represents the base directory \n    where the dynamically cropped images will be stored. It acts as\n     a prefix for the filenames of the individual cropped images.\n     The loop then appends the loop variable $i to this base\n      directory to generate unique filenames for each of the\n       9 cropped images",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 4400,
+      "end_index": 4900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "f7df57c6-d2f3-4f2b-9e5a-3822cd13f226"
+  },
+  {
+    "content": "$i to this base\n      directory to generate unique filenames for each of the\n       9 cropped images ($new1[0], $new1[1], ..., $new1[8]).\n        This ensures that each cropped image has a distinct\n         filename associated with the user. */\n         \n\n   //$new1=array();\n \n  \n  // Delete previous images for the current username if this function executed again\n    echo \"Deleting previous images for $username...\\n\"; // Debug statement\n    $previousImages = glob(\"$new*.jpg\");\n\n    foreach ($pre",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 4800,
+      "end_index": 5300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "b870003d-f36e-4162-965c-5a96e79790fd"
+  },
+  {
+    "content": " for $username...\\n\"; // Debug statement\n    $previousImages = glob(\"$new*.jpg\");\n\n    foreach ($previousImages as $file) {\n        unlink($file);\n    }\n   \n   \n   // echo \"current time\".$currtime.\"previous timestamp\".$prevtime;\n\n\n  //$newfilename='a1.jpg';\n  \n   \n   \n    //$new1=array();\nrequire('conn.php');\n    for($i=0;$i<9;$i++)\n    {\n        $new1[$i]=\"$new$i\". $currtime.\".jpg\";//time is uttlized to use latest image which was prevented due to browser caching\nmysqli_query($con,\"update user_d",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 5200,
+      "end_index": 5700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "9ecc92e3-fd47-4d3a-80e0-d6c53a266b3b"
+  },
+  {
+    "content": "ized to use latest image which was prevented due to browser caching\nmysqli_query($con,\"update user_details1 set timestamp='$currtime' where username='$username'\") or die(\"<br>query unsuccessful for insert\");\n        // echo $new1[$i];\n\n    }\n\n \n\t/* for displaying file names created after cropping\n        foreach($new1 as $x=>$val){\n\techo $x.\"=>\".$val;\n\techo \"<br>\";}*/\n \n\n\t//getting image size\n\t$imgsize=getimagesize($filename);\n\t$w=$imgsize[0];\n\t$h=$imgsize[1];\n\n\n\t//creating canvas to copy all cr",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 5600,
+      "end_index": 6100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "f549e3a8-dfe8-419c-a73b-6e2b1fc1cd86"
+  },
+  {
+    "content": "gsize=getimagesize($filename);\n\t$w=$imgsize[0];\n\t$h=$imgsize[1];\n\n\n\t//creating canvas to copy all cropped image\n\t$canvas=imagecreatetruecolor($w+50,$h+50);\n\n\n\n\t$currentimage=imagecreatefromjpeg($filename);\n\n\n\n\t$i=0;\n   \tfor($x=0;$x<=2*($w/3);$x=$x+$w/3)\n \t{   \n    \t  $m=20;$n=20;//gap betweem cropped parts or splitted images\n      \n        \t for($y=0;$y<=2*($h/3);$y=$y+$h/3)\n     \t {\n\t\n    \t\t//echo \"x=\".$x .\"y=\".$y.\"   \";\n    \t\t \n              $a=array('x'=>$x,'y'=>$y,'width'=>$w/3,'height'=>$h/",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 6000,
+      "end_index": 6500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "32b270b2-e836-4243-b9a5-3b1cdfecf890"
+  },
+  {
+    "content": "o \"x=\".$x .\"y=\".$y.\"   \";\n    \t\t \n              $a=array('x'=>$x,'y'=>$y,'width'=>$w/3,'height'=>$h/3);\n\n    \t\t $icr=imagecrop($currentimage,$a);\n  \n             imagejpeg($icr,$new1[$i]);\n        \t$i++;\n    \n      \t\t//$newimage=imagecreatefromjpeg($newfilename);\n  \n\n    \n    \n       \t\t$w2=imagesx($icr);\n      \t\t$h2=imagesy($icr);\n     \n     \t\t//imagecopy($canvas,$icr,$x,$y,0+$m,0+$n,$w2,$h2);\n        // imagecopy($canvas,$newimage,$x,$y,0+$m,0+$n,$w2,$h2);\n     // imagejpeg($canvas,$newfilename",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 6400,
+      "end_index": 6900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "63dc122e-84b5-4386-bc79-8a3cb3cf98b9"
+  },
+  {
+    "content": "     // imagecopy($canvas,$newimage,$x,$y,0+$m,0+$n,$w2,$h2);\n     // imagejpeg($canvas,$newfilename);  \n\t\t//echo 'new1'.$new1[0];\n        \n\n    }//for y closing\n         echo \"<br>\";\n    }//for x closing\n mysqli_close($con);\n\n  return $new1;\n}//splitimg()\n\n\n\n\nif(isset($_POST['crop'])&&isset($_FILES['img'])&&$_FILES['img']['size']!=0&&isset($un))\n{  //document.write('$k[0]');\n $imgname=$_FILES['img']['name'];\n\n    $k=splitimg($imgname,$un,$currtime);\n  \n\n \n    if (isset($k)) {\n        echo \"<scr",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 6800,
+      "end_index": 7300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "141aff46-9fc0-4d93-ba89-77d93e8d27d5"
+  },
+  {
+    "content": "g']['name'];\n\n    $k=splitimg($imgname,$un,$currtime);\n  \n\n \n    if (isset($k)) {\n        echo \"<script>\";\n        for ($i = 0; $i < count($k); $i++) {\n            echo \"var img_$i = document.createElement('img');\n                  img_$i.setAttribute('onclick', 're($i)');\n                  img_$i.src = '$k[$i]';\n                  document.getElementById('d' + ($i+1)).appendChild(img_$i);\";\n        }\n        echo \"</script>\";\n    }\n   }\n\n?>\n\n",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 7200,
+      "end_index": 7700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "c5d7bdf3-f26b-402a-b5ea-ef0ae70f79c9"
+  },
+  {
+    "content": "  }\n        echo \"</script>\";\n    }\n   }\n\n?>\n\n",
+    "metadata": {
+      "file_name": "img_authenticate.php",
+      "file_type": "php",
+      "start_index": 7600,
+      "end_index": 8100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "e4190788-38e9-4759-9e70-4107701d13dc"
+  },
+  {
+    "content": "<html>\n<head><meta name=\"viewport\"content=\"width=device-width,initial-scale=1,maximum-scale=1\"/>\n<style>\n/* Default styles */\n\n\nbody {\n    background-image: url('./croppedimages/wallpaperflare.com_wallpaper.jpg');\n    background-repeat: no-repeat;\n    background-size: cover;\n}\n\nbutton {\n    font-size: 20px;\n    border-radius: 10px;\n    background: blue;\n    color: white;\n    position: relative; /* Fixed positioning for button */\n    top: 200px;\n    left: 250px;\n}\n\nbutton:hover {\n    background: ",
+    "metadata": {
+      "file_name": "index.html",
+      "file_type": "text",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "c45e212d-0910-4b5e-993f-4a180a22988f"
+  },
+  {
+    "content": " Fixed positioning for button */\n    top: 200px;\n    left: 250px;\n}\n\nbutton:hover {\n    background: linear-gradient(90deg, black, #2196f3);\n}\n\n/* Media query for screen sizes up to 600px */\n@media only screen and (max-width: 600px) {\n    button {\n        position:relative;\n        top: 250px;\n        left: 120px;\n    }\n}\n</style>\n<script>\n//jsssss code for redirectingg \nfunction reg(event) {\n    event.preventDefault();\n    window.location = \"register.php\";\n}\n\nfunction log(event) {\n    event.prev",
+    "metadata": {
+      "file_name": "index.html",
+      "file_type": "text",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "9971b13f-c0d3-4347-8e04-db292cea835f"
+  },
+  {
+    "content": "vent.preventDefault();\n    window.location = \"register.php\";\n}\n\nfunction log(event) {\n    event.preventDefault();\n    window.location = \"login.php\";\n}\n\n\n</script>\n\n</head>\n<body>\n\n<form action=\"\" method=\"post\">\n<button onclick=\"log(event)\">Login</button>\n<button onclick=\"reg(event)\">Register</button>\n\n\n\n\n</form>\n</body>\n</html>\n<!-- php code for redirectingg -->\n<?php\n/*if(isset($_POST['reg_button']))\n{ \nheader(\"location:register.php\");\n}\nelseif(isset($_POST['log_button']))\n{\nheader(\"location:lo",
+    "metadata": {
+      "file_name": "index.html",
+      "file_type": "text",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "0b9b5357-c7e8-4ebb-af70-17c1e3ebd387"
+  },
+  {
+    "content": "']))\n{ \nheader(\"location:register.php\");\n}\nelseif(isset($_POST['log_button']))\n{\nheader(\"location:login.php\");\n\n}*/\n?>\n\n",
+    "metadata": {
+      "file_name": "index.html",
+      "file_type": "text",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "10a24459-18ae-4573-a5f4-28c48adb0bb1"
+  },
+  {
+    "content": "\n<?php\nsession_start();\nrequire('conn.php');\n//header('content-type:image/jpeg');\n//ini_set('memory_limit','300M');\n?>\n\n\n<html>\n<head><meta name=\"viewport\"content=\"width=device-width,initial-scale=0.5,maximum-scale=1\"/>\n\n<style>\nbody {\n    background-image: url('./croppedimages/wallpaperflare.com_wallpaper.jpg');\n    background-repeat: no-repeat;\n    background-size: cover;\n}\n\np {\n    position: relative;\n    top: 310px;\n}\n\n\nb {\n    position: relative;\n    left: 60px;\n    top: 220px;\n}\n\nform {\n  ",
+    "metadata": {
+      "file_name": "login.php",
+      "file_type": "php",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "e067de4a-d8ef-4b32-b96e-9eb3262f651c"
+  },
+  {
+    "content": "lative;\n    top: 310px;\n}\n\n\nb {\n    position: relative;\n    left: 60px;\n    top: 220px;\n}\n\nform {\n    background: white;\n    padding: 20px;\n    border: 2px double red;\n    display: flex;\n    flex-direction: column;\n    align-content: center;\n    text-align: center;\n    position: relative;\n    top: 70px;\n    left: 300px;\n    height: 200px;\n    width: 300px;\n}\n\ndiv {\n    position: relative;\n    top: 350px;\n    left: 500px;\n}\n\n#save {\n    position: relative;\n    top: 30px;\n    width: 330px;\n    lef",
+    "metadata": {
+      "file_name": "login.php",
+      "file_type": "php",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "e2cd4f10-d8a3-42f3-ac05-6c625ed2bcf3"
+  },
+  {
+    "content": " 350px;\n    left: 500px;\n}\n\n#save {\n    position: relative;\n    top: 30px;\n    width: 330px;\n    left: -15px;\n    font-size: 20px;\n    border-radius: 10px;\n    background: blue;\n    color: white;\n}\n\nbutton {\n    font-size: 20px;\n    border-radius: 10px;\n    background: blue;\n    color: white;\n    position: relative;\n    top: 550px;\n    width: 300px;\n}\n\n#reset {\n    font-size: 20px;\n    border-radius: 10px;\n    background: blue;\n    color: white;\n    position: relative;\n    top: 290px;\n    width:",
+    "metadata": {
+      "file_name": "login.php",
+      "file_type": "php",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "6d6395be-977d-49db-a5e5-1e39e2cf11c2"
+  },
+  {
+    "content": "us: 10px;\n    background: blue;\n    color: white;\n    position: relative;\n    top: 290px;\n    width: 80px;\n}\n\nbutton:hover,\n#reset:hover,\n#save:hover {\n    background: linear-gradient(90deg, black, #2196f3);\n}\n\nheader {\n    color: white;\n    position: relative;\n    top: 20px;\n    left: 300px;\n    font-size: 24px;\n}\n#l1\n{\nposition:fixed;\ntop:280px;\nleft:420px;\n}\n</style>\n<script>\n\nfunction re(val)\n{\nevent.preventDefault();//if you remove this the value will disappear automatically\n   document.get",
+    "metadata": {
+      "file_name": "login.php",
+      "file_type": "php",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "99522670-9959-4858-b16d-bd6a994d03df"
+  },
+  {
+    "content": "{\nevent.preventDefault();//if you remove this the value will disappear automatically\n   document.getElementById(\"num\").value=num.value+val;\n\n}\n\n</script>\n</head>\n\n<body>\n<header>log in</header>\n<form action=\"\"method='post'enctype='multipart/form-data' autocomplete='new-password'>\n\n<!--for username and password-->\nUsername:<input type=\"text\" name='un'placeholder='enter name'value=\"<?php if(isset($_POST['un'])) echo$_POST['un'];?>\"><br>\npassword:<input type='password' name='psw'placeholder='enter ",
+    "metadata": {
+      "file_name": "login.php",
+      "file_type": "php",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "844d791e-3399-44eb-bf02-2de7e2e67200"
+  },
+  {
+    "content": "POST['un'])) echo$_POST['un'];?>\"><br>\npassword:<input type='password' name='psw'placeholder='enter password'\nvalue=\"<?php if(isset($_POST['psw'])) echo$_POST['psw'];?>\"\nautocomplete='new-password' ><br>\n<a href ='forgot_password.php'name='forget'>forgot password</a>\n<br>\n<button id='save'value=1 name='save'>remember me</button>\n\n<label id='l1'></label>\n\n<!--for image  \n<p >select an image</p>\n<img src='images/img_placeholder.png'id='profiledisplay' onclick='triggerclick()' >\n\n\n<input type='file",
+    "metadata": {
+      "file_name": "login.php",
+      "file_type": "php",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "eec4818a-a750-41d0-8cca-394fd4584528"
+  },
+  {
+    "content": "g src='images/img_placeholder.png'id='profiledisplay' onclick='triggerclick()' >\n\n\n<input type='file'name='img'id='img' style='display:none;'accept='image/jpeg'onchange='displayimage(this)' \">\n-->\n</form>\n</body>\n</html>\n\n<?php\n\nif(isset($_POST['forget'])&&$_POST['forget']!='')\n{\n echo \"<script>alert('working');</script>\";\n   $_SESSION['unlog']=$un;//username from login\n}\nif(empty($_POST['un'])&&isset($_POST['save']))\n{\necho \"<label id='l1'>please enter username</label>\";\n}\n\nif(isset($_POST['un'",
+    "metadata": {
+      "file_name": "login.php",
+      "file_type": "php",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "edb14ffc-fe9a-4794-8765-00b57dedbb8b"
+  },
+  {
+    "content": "sset($_POST['save']))\n{\necho \"<label id='l1'>please enter username</label>\";\n}\n\nif(isset($_POST['un'])&&$_POST['un']!=''&&$_POST['psw']==''&&isset($_POST['save']))\n{\necho \"<label id='l1'>please enter password</label>\";\n}\n\n\nif(isset($_POST['un'])&&isset($_POST['psw'])&&$_POST['un']!=''\n&&$_POST['psw']!=''&&isset($_POST['save']))\n {  \n \n   $del=mysqli_query($con,\"delete from user_details1 where img_pswd IS NULL\"); \n   $un=mysqli_real_escape_string($con,$_POST['un']);\n      $psw=mysqli_real_escape_",
+    "metadata": {
+      "file_name": "login.php",
+      "file_type": "php",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "569c821d-e4cd-4e75-83f0-9664cec7d024"
+  },
+  {
+    "content": "pswd IS NULL\"); \n   $un=mysqli_real_escape_string($con,$_POST['un']);\n      $psw=mysqli_real_escape_string($con,$_POST['psw']);\n   /*   $img=$_FILES['img']['name'];    \n      $col=$_POST['col'];\n */\n\n$res=mysqli_query($con,\"select * from user_details1 where username='$un'\");// or die(\"user not found\");\n\nif(mysqli_num_rows($res)>0)\n{  \n   while($row=mysqli_fetch_assoc($res))\n  {  \n      \n   // $v=dirname(__FILE__); \n\n\n    if(md5($psw)==$row['password'])//&&md5($col)==$row['color_pswd']&&$im1==$im",
+    "metadata": {
+      "file_name": "login.php",
+      "file_type": "php",
+      "start_index": 3200,
+      "end_index": 3700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "b40be0e9-3fd1-4a2e-b744-85cd189b7205"
+  },
+  {
+    "content": "irname(__FILE__); \n\n\n    if(md5($psw)==$row['password'])//&&md5($col)==$row['color_pswd']&&$im1==$im2\n    { \n        $_SESSION['unlog']=$un;\n \n  \n\n        echo \"<script>window.location.href='login_color.php'</script>\";\n        //ho'</script> event.preventDefault()window.location=\"success_msg.html\"</script>';\n    }\n   \n   else\n    {\n      echo \"<label id='l1'>invalid credentials</label>\";\n     }\n  }  //while\n}\n  else\n    {\n     echo \"<label id='l1'>username not found</label>\";\n    }\nmysqli_close(",
+    "metadata": {
+      "file_name": "login.php",
+      "file_type": "php",
+      "start_index": 3600,
+      "end_index": 4100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "10138fdd-bdca-4142-8fe7-ecb4d005a2a6"
+  },
+  {
+    "content": "}  //while\n}\n  else\n    {\n     echo \"<label id='l1'>username not found</label>\";\n    }\nmysqli_close($con);\n}\n?>\n\n\n\n<!--/* if($psw!=$row['password']&&$col==$row['color_pswd']&&$im1==$im2)\n {\n echo \"<label id='l1'>password didnt match</label>\";\n}\n if($psw==$row['password']&&$col!=$row['color_pswd']&&$im1==$im2)\n {\n echo \"<label id='l1'>color didnt match</label>\";\n}\n if($psw==$row['password']&&$col==$row['color_pswd']&&$im1!=$im2)\n {\n echo \"<label id='l1'>image didnt match</label>\";\n}*/-->\n\n",
+    "metadata": {
+      "file_name": "login.php",
+      "file_type": "php",
+      "start_index": 4000,
+      "end_index": 4500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "3f400945-ad5c-4efc-b7ec-970a77c89c44"
+  },
+  {
+    "content": "$row['color_pswd']&&$im1!=$im2)\n {\n echo \"<label id='l1'>image didnt match</label>\";\n}*/-->\n\n",
+    "metadata": {
+      "file_name": "login.php",
+      "file_type": "php",
+      "start_index": 4400,
+      "end_index": 4900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "7a3819b4-a818-4b56-9ef7-a2b99f83de70"
+  },
+  {
+    "content": "<?php\nsession_start();\nrequire('conn.php');\n//header('content-type:image/jpeg');\n//ini_set('memory_limit','300M');\n?>\n\n<html>\n<head><meta name=\"viewport\"content=\"width=device-width,initial-scale=1,maximum-scale=1\"/>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/colorpage.css\">\n\n<script>\n\nfunction re(val)\n{\nevent.preventDefault();//if you remove this the value will disappear automatically\n   document.getElementById(\"num\").value=num.value+val;\n\n}\n</script>\n</head>\n<body>\n<form action=\"\"method",
+    "metadata": {
+      "file_name": "login_color.php",
+      "file_type": "php",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "4eebd363-b436-4c2a-8883-0d8e3e5c2e16"
+  },
+  {
+    "content": "ocument.getElementById(\"num\").value=num.value+val;\n\n}\n</script>\n</head>\n<body>\n<form action=\"\"method='post'enctype='multipart/form-data' autocomplete='off'>\n<header>log in</header>\n<!--for color -->\n<button id='red' value='#ff0000' onclick='re(this.value)'>\n\n</button>\n\n<button id='blue'value='#0000ff' onclick=\"re(this.value)\">\n</button>\n\n<button id='green' value='#00ff00' onclick='re(this.value)'>\n</button>\n<b>pattern</b>\n<button id='save'value=1 name='save'>remember me</button>\n<button id='rese",
+    "metadata": {
+      "file_name": "login_color.php",
+      "file_type": "php",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "e0f84042-0ffe-4977-b7b1-702c5e7d2f44"
+  },
+  {
+    "content": "\n</button>\n<b>pattern</b>\n<button id='save'value=1 name='save'>remember me</button>\n<button id='reset'onclick=\"document.getElementById('num').value='';\">reset</button>\n<input type=\"password\" id='num' value=''  size=60 name='col'\nvalue=\"<?php if(isset($_POST['col'])&&$_POST['col']!='') echo $_POST['col'];?>\"\nmultiple readonly>\n</form></body></html>\n<?php\nif(isset($_SESSION['unlog']))//username from login\n{\n\n$un=$_SESSION['unlog'];\n}\nelse {\n   \necho \"not set session\";\n echo '<script>window.locatio",
+    "metadata": {
+      "file_name": "login_color.php",
+      "file_type": "php",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "a9f662ba-3b5e-4e5a-ab7b-79580d352b1f"
+  },
+  {
+    "content": " login\n{\n\n$un=$_SESSION['unlog'];\n}\nelse {\n   \necho \"not set session\";\n echo '<script>window.location.href=\"index.html\";</script>';\n}\nif(isset($_POST['col'])&&$_POST['col']==''&&isset($_POST['save'])&&$_POST['save']!='')\n{\necho \"<label id='l1'>please select color combination</label>\";\n}\nif(isset($_POST['col'])&&$_POST['col']!=''&&isset($_POST['save']))\n {  \n$col=$_POST['col'];\n\n\n   \n  // $un=mysqli_real_escape_string($con,$_POST['un']);\n    //  $psw=mysqli_real_escape_string($con,$_POST['psw']);",
+    "metadata": {
+      "file_name": "login_color.php",
+      "file_type": "php",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "ba080b19-7cb3-47b9-ac20-6e21563fd1a7"
+  },
+  {
+    "content": "i_real_escape_string($con,$_POST['un']);\n    //  $psw=mysqli_real_escape_string($con,$_POST['psw']);\n   /*   $img=$_FILES['img']['name'];    \n      $col=$_POST['col'];\n */\n\n$res=mysqli_query($con,\"select * from user_details1 where username='$un'\");// or die(\"user not found\");\n\nif(mysqli_num_rows($res)>0)\n{  \n   while($row=mysqli_fetch_assoc($res))\n  {  \n      \n   //   echo dirname(__FILE__); //storage/ssd2/093/20690093/public_html\n    $v=dirname(__FILE__); \n//$im1=file_get_contents($_FILES['img'",
+    "metadata": {
+      "file_name": "login_color.php",
+      "file_type": "php",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "aec680ca-0ed9-4cd9-981d-f3f58f29d888"
+  },
+  {
+    "content": "rage/ssd2/093/20690093/public_html\n    $v=dirname(__FILE__); \n//$im1=file_get_contents($_FILES['img']['tmp_name']);//current image selected by user\n/*$c=$row['color_pswd'];\n$i=$row['img_pswd'];\n$p=$row['password'];*/\n//echo $row['color_pswd'],$row['img_pswd'],$row['password'];\n\n   //  $im2=file_get_contents($v.'/images/'.$row['img_pswd']);//stored image \n//echo $im2;\n//echo $im1;\n\n    if(md5($col)==$row['color_pswd'])//&&md5($col)==$row['color_pswd']&&$im1==$im2\n    { \n        \necho \"<script>  s",
+    "metadata": {
+      "file_name": "login_color.php",
+      "file_type": "php",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "d6eaeb14-9785-42d4-89f5-dcb4a0c6342d"
+  },
+  {
+    "content": "==$row['color_pswd'])//&&md5($col)==$row['color_pswd']&&$im1==$im2\n    { \n        \necho \"<script>  setTimeout( function () {window.location.href='login_img.php'; },500);</script>\n \";   \n      \n       // echo \"<script>window.location.href='login_img.php'</script>\";\n    }\n   \n   else\n    {\n      echo \"<label id='l1'>invalid credentials</label>\";\n     }\n  }  //while\n}\n  \nmysqli_close($con);\n}\n?>",
+    "metadata": {
+      "file_name": "login_color.php",
+      "file_type": "php",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "76d7cb6c-1b23-43fb-9e37-c462241a00f4"
+  },
+  {
+    "content": "<?php\n\nsession_start();\n\n\n//$timestamp=0;\nrequire('conn.php');\n\n?>\n<html>\n<head>\n\n<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/login_img.css\">\n</head>\n<script>\nfunction re(val)\n{\n\nevent.preventDefault();//if you remove this the value will disappear automatically\n   document.getElementById(\"num\").value=num.value+val;\n\n}\n\n\n</script>\n<body>\n<form method='post'enctype='multipart/form-data'>\n\n<header>log in</header>\n<input type='password' name='num'id='num'readonly size=20>\n<button name='save' ",
+    "metadata": {
+      "file_name": "login_img.php",
+      "file_type": "php",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "5c02fa11-3bbb-4ae5-a129-007581f0a049"
+  },
+  {
+    "content": "ader>log in</header>\n<input type='password' name='num'id='num'readonly size=20>\n<button name='save' id='save'value=1>save</button>\n<button type='button'name='reset' id='reset'value=1 onclick=' document.getElementById(\"num\").value=null' >reset</button>\n\n</form>\n    \n</body>\n</html>\n<?php\n\n\n\nif(isset($_SESSION['unlog']))//username from login\n{\n\n$un=$_SESSION['unlog'];\n\n}\nelse  {\n   \necho \"not set sesssion\";\n    echo '<script>window.location.href=\"index.html\";</script>';\n}\n$i=array(0,1,2,3,4,5,6,7,",
+    "metadata": {
+      "file_name": "login_img.php",
+      "file_type": "php",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "839677ca-815d-4f95-993e-bb7727e68d85"
+  },
+  {
+    "content": "sssion\";\n    echo '<script>window.location.href=\"index.html\";</script>';\n}\n$i=array(0,1,2,3,4,5,6,7,8);\n//\"$baseDirectory/$username[0-9]_*.jpg\");\n\n $timestamp=null;\n\n    $res=mysqli_query($con,\"select * from user_details1 where username='$un'\"); //or die(\"user not found\");\n      \nif(mysqli_num_rows($res)>0)\n{ \n   while($row=mysqli_fetch_assoc($res))\n  {  \n\n$timestamp=$row['timestamp']; \n  }}\n\n //echo \"<script>alert('$timestamp');</script>\";\n//echo \"<br> image name: \" . $un . $i[0] .$timestamp . ",
+    "metadata": {
+      "file_name": "login_img.php",
+      "file_type": "php",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "dcf87fbb-af21-4593-9949-54bc082485f0"
+  },
+  {
+    "content": "cho \"<script>alert('$timestamp');</script>\";\n//echo \"<br> image name: \" . $un . $i[0] .$timestamp . \".jpg\";//this is how image is stored here ex username with any digits between [0-9] and timestamp.jpg\n\necho \"\n    <div id='d1'><img src='./croppedimages/$un$i[0]$timestamp.jpg'onclick='re(0)'></div>\n          \n    <div id='d2'><img src='./croppedimages/$un$i[1]$timestamp.jpg'onclick='re(1)'></div>\n\n    <div id='d3'><img src='./croppedimages/$un$i[2]$timestamp.jpg'onclick='re(2)'></div>\n     <div i",
+    "metadata": {
+      "file_name": "login_img.php",
+      "file_type": "php",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "87c4e4a4-ceed-4b45-af8b-0c312fa8fba4"
+  },
+  {
+    "content": "    <div id='d3'><img src='./croppedimages/$un$i[2]$timestamp.jpg'onclick='re(2)'></div>\n     <div id='d4'><img src='./croppedimages/$un$i[3]$timestamp.jpg'onclick='re(3)'> </div>\n     <div id='d5'><img src='./croppedimages/$un$i[4]$timestamp.jpg'onclick='re(4)'></div>\n     <div id='d6'><img src='./croppedimages/$un$i[5]$timestamp.jpg'onclick='re(5)'></div>\n    <div id='d7'><img src='./croppedimages/$un$i[6]$timestamp.jpg'onclick='re(6)'></div>\n     <div id='d8'><img src='./croppedimages/$un$i[7",
+    "metadata": {
+      "file_name": "login_img.php",
+      "file_type": "php",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "898e48ef-ac0e-411f-aeaf-9f953e22b594"
+  },
+  {
+    "content": "es/$un$i[6]$timestamp.jpg'onclick='re(6)'></div>\n     <div id='d8'><img src='./croppedimages/$un$i[7]$timestamp.jpg'onclick='re(7)'></div>\n     <div id='d9'><img src='./croppedimages/$un$i[8]$timestamp.jpg'onclick='re(8)'></div>\n\n\";\n\nif(isset($un))echo './croppedimages/'.$un.'0.jpg';\n\n    if(isset($_POST['num'])&&$_POST['num']!='')\n    {\n       // echo \"<script>alert('$ipsw');</script>\";\n    }\n   \nif(isset($_POST['num'])&&$_POST['num']!=''&&isset($_POST['save']))\n{\n$ipsw=md5($_POST['num']);\n\n//m",
+    "metadata": {
+      "file_name": "login_img.php",
+      "file_type": "php",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "51e4980f-e3c1-451b-aee8-9d7769d60a58"
+  },
+  {
+    "content": "\nif(isset($_POST['num'])&&$_POST['num']!=''&&isset($_POST['save']))\n{\n$ipsw=md5($_POST['num']);\n\n//mysqli_query($con,\"update user_details1 set img_pswd='$ipsw'  where username='$un'\") or die(\"<br>query unsuccessful for insert\");\n\n$res=mysqli_query($con,\"select * from user_details1 where username='$un'\");// or die(\"user not found\");\n \n// echo \"<script>alert(<br>data: '$data');</script>\";\nif(mysqli_num_rows($res)>0)\n{  \n   while($row=mysqli_fetch_assoc($res))\n  {  \n    \n\n    if($ipsw==$row['img_ps",
+    "metadata": {
+      "file_name": "login_img.php",
+      "file_type": "php",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "d2266b25-496e-43d4-8b7a-2366635be688"
+  },
+  {
+    "content": "num_rows($res)>0)\n{  \n   while($row=mysqli_fetch_assoc($res))\n  {  \n    \n\n    if($ipsw==$row['img_pswd'])//&&md5($col)==$row['color_pswd']&&$im1==$im2\n    { \n        \n          \necho \"<script>    \n     \n   window.location.href='success_msg.php';</script>\n \";   \n      \n        //ho'</script> event.preventDefault()window.location=\"success_msg.html\"</script>';\n    }\n   \n   else\n    {\n      echo \"<label id='l1'>invalid credentials</label>\";\n     }\n  }  //while\n}\n  else\n    {\n     echo \"<label id='l1",
+    "metadata": {
+      "file_name": "login_img.php",
+      "file_type": "php",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "4b2f49ac-9342-4077-b58d-aef528ecc471"
+  },
+  {
+    "content": "el id='l1'>invalid credentials</label>\";\n     }\n  }  //while\n}\n  else\n    {\n     echo \"<label id='l1'>username not found</label>\";\n    }\necho \"<br> timestamp\".$timestamp;\n mysqli_close($con);\n\n}\n\n/*if(isset($_POST['save'])&&isset($_POST['num'])&&$_POST['num']!='')//&&isset($_SESSION['un']))\n{ \n echo '<script>alert(\"working\");</script>';\n    //echo \"<script> alert('registered successfully');   </script>\";\n echo '<script>window.location.href=\"reg_success.php\";</script>';\n\n}\n*/\n\n\n\n\n\n\n?>",
+    "metadata": {
+      "file_name": "login_img.php",
+      "file_type": "php",
+      "start_index": 3200,
+      "end_index": 3700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "4e57611c-a7a8-48b5-b1a0-0076c71d7bc3"
+  },
+  {
+    "content": "ript>\";\n echo '<script>window.location.href=\"reg_success.php\";</script>';\n\n}\n*/\n\n\n\n\n\n\n?>",
+    "metadata": {
+      "file_name": "login_img.php",
+      "file_type": "php",
+      "start_index": 3600,
+      "end_index": 4100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "e315b0ac-e49a-4406-ace6-384eb369cd5c"
+  },
+  {
+    "content": "# AuthVerse \n# Home page\n![image](https://github.com/rayuga3900/Three_Level_Authentication_System/assets/159263407/7cc44f45-55b6-4935-81e8-3ddd0b790b78)\n\n# Level 1 Plain-Text Password\nIt is a Traditional text-based passwords.\n\n\n![image](https://github.com/rayuga3900/Three_Level_Authentication_System/assets/159263407/3f4f3219-0fb5-4850-8ee3-919d243a52a6)\n\n# Level 2 Color combination\n It Allows users to set passwords with color combinations\n\n \n![image](https://github.com/rayuga3900/Three_Level_Authentication_System/assets/159263407/5371271c-c032-42e8-85b4-a1d39c14a14a)\n\n\n# Level 3 Image Password\nUsers begin by selecting any JPG image of their choice. After selecting the image, they press the \"crop\" button, which divides the image into a grid. Users then see this grid representation of their chosen image. To set their password, users simply click on grid cells in any order they prefer.",
+    "metadata": {
+      "file_name": "README.md",
+      "file_type": "markdown",
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "c15e4dd6-2b90-4917-ab90-65e1147e4759"
+  },
+  {
+    "content": "![image](https://github.com/rayuga3900/Three_Level_Authentication_System/assets/159263407/3b53839e-aa9a-4066-8aed-65b28ad212b8)\n\n# visit the website\nhttps://authverse.infinityfreeapp.com/",
+    "metadata": {
+      "file_name": "README.md",
+      "file_type": "markdown",
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "65ba5d48-f98a-4bd5-8458-084c3eea06c8"
+  },
+  {
+    "content": "<html>\n<head><meta name=\"viewport\"content=\"width=device-width,initial-scale=1\"/>\n<style>\nbody\n{\nbackground-image:url('./croppedimages/wallpaperflare.com_wallpaper.jpg');\nbackground-repeat:no-repeat;\nbackground-size: cover; /* Added to cover the entire page */\n    margin: 0;\n}\nform\n{\npadding:20px;\nborder:2px double red;\ndisplay:flex;\nflex-direction:column;\nalign-content:center;\ntext-align:center;\nposition:fixed;\ntop:100px;\nleft:500px;\nheight:400px;\nwidth:210px;\nbackground:white;\n}\n#l1\n{\nposition:",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "568daf8e-8de5-4e7a-8a9b-af9466b2403f"
+  },
+  {
+    "content": "osition:fixed;\ntop:100px;\nleft:500px;\nheight:400px;\nwidth:210px;\nbackground:white;\n}\n#l1\n{\nposition:fixed;\ntop:470px;\nleft:530px;\nwidth:200px;\nfont-size:20px;\n}\ndiv\n{\nposition:fixed;\ntop:350px;\nleft:500px;\n\n}\nbutton\n{\nfont-size:20px;\nborder-radius:10px;\nbackground:blue;\ncolor:white;\n}\nbutton:hover\n{\n \nbackground:linear-gradient(90deg,black,#2196f3);\n}\n\n@media only screen and (max-width: 600px) {\n            /* Adjustments for mobile devices */\nbody\n{\nbackground-image:url('./croppedimages/wallpap",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "cc663f4e-7943-4e82-ae93-20ec16e344ea"
+  },
+  {
+    "content": "           /* Adjustments for mobile devices */\nbody\n{\nbackground-image:url('./croppedimages/wallpaperflare.com_wallpaper.jpg');\nbackground-repeat:no-repeat;\n}\nform\n{\npadding:20px;\nborder:2px double red;\ndisplay:flex;\nflex-direction:column;\nalign-content:center;\ntext-align:center;\nposition:fixed;\ntop:100px;\nleft:25px;\nheight:480px;\nwidth:200px;\nbackground:white;\n}\n#l1\n{\nposition:fixed;\ntop:510px;\nleft:30px;\nwidth:250px;\nfont-size:20px;\n}\ndiv\n{\nposition:fixed;\ntop:350px;\nleft:500px;\n\n}\nbutton\n{\nf",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "61feaaf7-7a96-435c-b136-0a291f1301d0"
+  },
+  {
+    "content": "left:30px;\nwidth:250px;\nfont-size:20px;\n}\ndiv\n{\nposition:fixed;\ntop:350px;\nleft:500px;\n\n}\nbutton\n{\nfont-size:20px;\nborder-radius:10px;\nbackground:blue;\ncolor:white;\n}\nbutton:hover\n{\n \nbackground:linear-gradient(90deg,black,#2196f3);\n}\n\n\n}\n</style>\n<script>\nfunction redir()\n{\nevent.preventDefault();\nwindow.location=\"color_password.php\";\n}\n\n</script>\n</head>\n\n<body>\n<form action=\"\"method='post'>\nUsername:<input type=\"text\" name='un'value=\"<?php if(isset($_POST['un'])) echo$_POST['un'];?>\"><br>\npas",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "81d1adb2-2e5f-4e1d-b0ab-18af65dc9ab3"
+  },
+  {
+    "content": "rname:<input type=\"text\" name='un'value=\"<?php if(isset($_POST['un'])) echo$_POST['un'];?>\"><br>\npassword:<input type='password' name='psw'id='equi'autocomplete=off> \n<br>\nconfirm password:<input type='password' name='cpsw'id='equi'><br>\nIn case you forget your password<br>\nSecurity Questions:\n<select name='ques'>\n<option value='whats your favourite color?'>whats your favourite color?</option>\n<option value='whats the name of the city where you where born?'>whats the name of the city where you w",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "67db9e7d-bd5d-42aa-b7b2-a356e4272682"
+  },
+  {
+    "content": "tion value='whats the name of the city where you where born?'>whats the name of the city where you where born?</option>\n<option value='whats the name of the first school you attended?'>whats the name of the first school you attended?</option>\n</select><br>\nAnswer:\n<input type='text'name='ans'><br>\n<button name='save'>save</button>\n<label id='l1'></label>\n</form>\n<div>\n<?php\nsession_start();\nrequire('conn.php');\nif(isset($_POST['save'])&&$_POST['psw']==\"\"&&$_POST['un']!=\"\")\n{\n    echo \"<label id=",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "9e320d2f-d10a-4168-8db5-57c8f8066e8c"
+  },
+  {
+    "content": "e('conn.php');\nif(isset($_POST['save'])&&$_POST['psw']==\"\"&&$_POST['un']!=\"\")\n{\n    echo \"<label id='l1'>please provide password</label>\";\n}\n\n\nif(isset($_POST['save']) && isset($_POST['psw']) && strlen($_POST['psw']) < 6 && $_POST['psw'] != ''&&$_POST['cpsw']!=''&&isset($_POST['cpsw'])) {\n        echo \"<label id='l1'>Password should have a minimum length of 6 characters</label>\";\n    }\n  if(isset($_POST['save'])&&$_POST['un']==null)\n{\n    echo \"<label id='l1'>please provide username</label>\";\n}\n",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "35a1f8f1-5656-4a5e-912b-3109d5bdc446"
+  },
+  {
+    "content": "$_POST['save'])&&$_POST['un']==null)\n{\n    echo \"<label id='l1'>please provide username</label>\";\n}\n  if(isset($_POST['save'])&&isset($_POST['psw'])&&isset($_POST['cpsw'])\n&&$_POST['psw']!=$_POST['cpsw']&&$_POST['psw']!=''&& strlen($_POST['psw']) > 6 )\n{\n    echo \"<label id='l1'>password didn't match</label>\";\n}\nif(isset($_POST['psw'])&&strlen($_POST['psw'])>=6&&$_POST['psw']==$_POST['cpsw']&&isset($_POST['cpsw'])&&isset($_POST['un'])\n&&isset($_POST['ans'])&&$_POST['ans']!=''&&isset($_POST['save",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "7d06708d-7c2d-481c-9b74-3f646a25f7e2"
+  },
+  {
+    "content": "t($_POST['cpsw'])&&isset($_POST['un'])\n&&isset($_POST['ans'])&&$_POST['ans']!=''&&isset($_POST['save'])&&$_POST['psw']!=null&&\n$_POST['cpsw']!=''&&$_POST['un']!=''&&isset($_POST['ques'])&&$_POST['ques']!='')\n { \n   \n      \n\n  \n  /*$psw=$_POST['psw'];\n  $cpsw=$_POST['cpsw'];\n  $un=$_POST['un'];*/\n $psw=md5(mysqli_real_escape_string($con,$_POST['psw']));\n\n    $cpsw=md5(mysqli_real_escape_string($con,$_POST['cpsw']));\n    $un=mysqli_real_escape_string($con,$_POST['un']);\n   $ques=mysqli_real_escape",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 3200,
+      "end_index": 3700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "835bb6eb-f147-42d3-938f-7580d5c6f379"
+  },
+  {
+    "content": ",$_POST['cpsw']));\n    $un=mysqli_real_escape_string($con,$_POST['un']);\n   $ques=mysqli_real_escape_string($con,$_POST['ques']);\n$ans=md5(mysqli_real_escape_string($con,$_POST['ans']));\n$res=mysqli_query($con,\"SELECT * FROM user_details1 where username='$un'\") or die(\"<br>query unsuccessful for select\");\n\nif(mysqli_num_rows($res)>0)\n{    echo \"<label id='l1'>username already taken</label>\";\nexit();\n         }\n\nelse{\n mysqli_query($con,\"INSERT INTO user_details1 (username,password,color_pswd,img",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 3600,
+      "end_index": 4100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "07cd8f0c-a8fe-47ab-8bc3-2f5882ea2ca3"
+  },
+  {
+    "content": ");\n         }\n\nelse{\n mysqli_query($con,\"INSERT INTO user_details1 (username,password,color_pswd,img_pswd,timestamp,ques,ans)VALUES ('$un','$psw',NULL,NULL,NULL,'$ques','$ans')\") or die(\"<br>query unsuccessful for insert\");\n}\n   \n\n\n\n\nmysqli_close($con);\n\nif(isset($_POST['save'])&&isset($psw)&&isset($cpsw)&&isset($un)\n&&$psw==$cpsw&&!empty($psw)&&!empty($cpsw))\n{\n $_SESSION['un']=$un;\n$_SESSION['psw']=$psw;\nheader(\"location:color_password.php\");\n}}\n?>\n</div>\n\n</body>\n</html>\n\n\n\n\n\n\n\n\n\n<?php\n/*\n$co",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 4000,
+      "end_index": 4500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "edfa106f-f92d-435b-b0d7-80fcfe006301"
+  },
+  {
+    "content": "w']=$psw;\nheader(\"location:color_password.php\");\n}}\n?>\n</div>\n\n</body>\n</html>\n\n\n\n\n\n\n\n\n\n<?php\n/*\n$con=mysqli_connect(\"localhost\",\"root\",\"\",\"project\");\nif(!$con)\n{\ndie('could not connect'.mysql_error());\n}\necho \"connected successfully <br>\";\n\n//for showing default databases\n$res=mysqli_query($con,\"SELECT DATABASE()\");\n$row=mysqli_fetch_row($res);\nprintf(\"default database:\".$row[0]);\n\n//for showing different databases which current user can access\n$set=mysqli_query($con,\"SHOW DATABASES;\");\n$m=arra",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 4400,
+      "end_index": 4900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "bba87162-a803-40ad-9e84-043513612fdd"
+  },
+  {
+    "content": "different databases which current user can access\n$set=mysqli_query($con,\"SHOW DATABASES;\");\n$m=array();\nwhile($db=mysqli_fetch_row($set))\n{\n$m[]=$db[0];\n}\necho implode(\"<br>\",$m);\n\n//for displaying information entered by user\n$res=mysqli_query($con,\"SELECT * FROM user_details\") or die(\"<br>query unsuccessful\");\nif(mysqli_num_rows($res)>0)\n{\nwhile($row=mysqli_fetch_assoc($res)){\necho \"<br>username:\".$row['username'].\"<br>\";\necho $row['password'];\n}\n\nmysqli_close($con);\n\n\n//$request variable used",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 4800,
+      "end_index": 5300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "d6be38f2-c3b5-4002-9e3f-018467da00db"
+  },
+  {
+    "content": ":\".$row['username'].\"<br>\";\necho $row['password'];\n}\n\nmysqli_close($con);\n\n\n//$request variable used\n\nif($_SERVER['REQUEST_METHOD']=='POST')\n{\n$name=htmlspecialchars($_REQUEST['un']);\nif(empty($name))\n{\n    echo 'name is empty';\n}\nelse\n{\n echo \"name:\".$name;\n}}*/\n?>",
+    "metadata": {
+      "file_name": "register.php",
+      "file_type": "php",
+      "start_index": 5200,
+      "end_index": 5700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "e45d77e2-dcc3-491e-b5a5-474656c771bd"
+  },
+  {
+    "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n<meta name=\"viewport\"content=\"width=device-width,initial-scale=1\"/>\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"./css/success_msg.css\">\n</head>\n<body>\n   \n        <?php\n            session_start();\n\n            if(isset($_SESSION['unlog'])) {\n                $username=$_SESSION['unlog'];\n              echo \" <p>Login successful</p>\n                      \";\n            } elseif(isset($_SESSION['un1'])) {\n                echo \" ",
+    "metadata": {
+      "file_name": "success_msg.php",
+      "file_type": "php",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "66eb1316-c59f-42eb-bc23-f19e683f6b00"
+  },
+  {
+    "content": "/p>\n                      \";\n            } elseif(isset($_SESSION['un1'])) {\n                echo \"    <p>Your password has been changed successfully</p>\n                      \";\n                      echo \"<script>    \n                    setTimeout(function () {\n                        window.location.href = 'index.html';\n                    }, 3000);\n                </script>\";\n            } elseif(isset($_SESSION['un'])) {\n                echo \"   <p>Registered successfully</p>\n             ",
+    "metadata": {
+      "file_name": "success_msg.php",
+      "file_type": "php",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "6dd3a66c-a53d-44b7-9a25-a8091a97a954"
+  },
+  {
+    "content": "seif(isset($_SESSION['un'])) {\n                echo \"   <p>Registered successfully</p>\n                      \";\n                      echo \"<script>    \n                    setTimeout(function () {\n                        window.location.href = 'index.html';\n                    }, 3000);\n                </script>\";\n            } \n\n           session_destroy();\n        ?>\n  \n</body>\n</html>\n",
+    "metadata": {
+      "file_name": "success_msg.php",
+      "file_type": "php",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "ba0f40f3-e5a2-4326-90c7-f223c2ff73e1"
+  },
+  {
+    "content": "\n\n\nCREATE TABLE user_details1 (\n  username varchar(50) NOT NULL,\n  password varchar(50)  NOT NULL,\n  color_pswd varchar(50) DEFAULT NULL,\n  img_pswd varchar(255) DEFAULT NULL,\n  timestamp int DEFAULT NULL,\n  ques varchar(255) NOT NULL,\n  ans varchar(255) NOT NULL\n);",
+    "metadata": {
+      "file_name": "tablestructure.sql",
+      "file_type": "text",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "86c891ef-9a33-49f9-bb54-09f6729e132b"
+  },
+  {
+    "content": "body\n{\nbackground-image:url('../croppedimages/wallpaperflare.com_wallpaper.jpg');\nbackground-repeat:no-repeat;\nbackground-size:cover;\n}\n#red/*red button style*/\n{\nbackground:red;\ndisplay:block;\nheight:60px;\nwidth:60px;\nposition:fixed;\ntop:100px;\nleft:310px;\ncursor:pointer;\n\n}\nheader/*header has login written*/\n{\ncolor:white;\nposition:fixed;\ntop:20px;\nleft:300px;\nfont-size:24px;\n}\n\n#blue /*blue button style*/\n{\nbackground:blue;\ndisplay:block;\nheight:60px;\nwidth:60px;\nposition:fixed;\nleft:440px;\nt",
+    "metadata": {
+      "file_name": "css\\colorpage.css",
+      "file_type": "text",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "a46a7f3e-c091-4082-bbe6-b296ebfb2941"
+  },
+  {
+    "content": "ton style*/\n{\nbackground:blue;\ndisplay:block;\nheight:60px;\nwidth:60px;\nposition:fixed;\nleft:440px;\ntop:100px;\ncursor:pointer;\n\n}\n#num /*input field where password is set when you click the color buttons*/\n{\nposition:fixed;\nleft:320px;\ntop:240px;\npadding:10px;\nwidth:290px;\n}\n#green /*green button style*/\n{\ncursor:pointer;\ndisplay:block;\nheight:60px;\nwidth:60px;\nbackground:green;\nposition:fixed;\nleft:570px;\ntop:100px;\n\n}\n#save\n{\nposition:fixed;\ntop:350px;\nwidth:300px;\nleft:320px;\nfont-size:20px;\nb",
+    "metadata": {
+      "file_name": "css\\colorpage.css",
+      "file_type": "text",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "bdf60982-7947-4b18-8e7a-1db97fa64816"
+  },
+  {
+    "content": "t:570px;\ntop:100px;\n\n}\n#save\n{\nposition:fixed;\ntop:350px;\nwidth:300px;\nleft:320px;\nfont-size:20px;\nborder-radius:10px;\nbackground:blue;\ncolor:white;\n\n}\n#reset\n{\nfont-size:20px;\nborder-radius:10px;\nbackground:blue;\ncolor:white;\nposition:fixed;\ntop:290px;\nwidth:80px;\n}\nform\n{\nbackground:white;\npadding:20px;\nborder:2px double red;\ndisplay:flex;\nflex-direction:column;\nalign-content:center;\ntext-align:center;\nposition:fixed;\ntop:70px;\nleft:300px;\nheight:300px;\nwidth:300px;\n}\nb{\nposition:fixed;\ntop:20",
+    "metadata": {
+      "file_name": "css\\colorpage.css",
+      "file_type": "text",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "91c5c307-0b8f-4131-b1a8-db25272da46d"
+  },
+  {
+    "content": "center;\nposition:fixed;\ntop:70px;\nleft:300px;\nheight:300px;\nwidth:300px;\n}\nb{\nposition:fixed;\ntop:200px;\n}\n#l1 /*label where error or validation message is being displayed*/\n{\n    position:fixed;\n    top:380px;\n    left:370px;\n  font-size:20px;\n   \n}\nbutton:hover,#reset:hover,#save:hover\n{\n \nbackground:linear-gradient(90deg,black,#2196f3);\n}\n\n@media only screen and (max-width: 600px) {\n\n    body\n{\nbackground-image:url('../croppedimages/wallpaperflare.com_wallpaper.jpg');\nbackground-repeat:no-rep",
+    "metadata": {
+      "file_name": "css\\colorpage.css",
+      "file_type": "text",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "fc20ba6c-0cbd-419a-b775-e595ef0524d7"
+  },
+  {
+    "content": "\nbackground-image:url('../croppedimages/wallpaperflare.com_wallpaper.jpg');\nbackground-repeat:no-repeat;\nbackground-size:cover;\n}\n#red/*red button style*/\n{\nbackground:red;\ndisplay:block;\nheight:60px;\nwidth:60px;\nposition:fixed;\ntop:50px;\nleft:20px;\ncursor:pointer;\n\n}\nheader/*header has login written*/\n{\ncolor:white;\nposition:fixed;\ntop:10px;\nleft:10px;\nfont-size:24px;\n}\n\n#blue /*blue button style*/\n{\nbackground:blue;\ndisplay:block;\nheight:60px;\nwidth:60px;\nposition:fixed;\nleft:120px;\ntop:50px;\n",
+    "metadata": {
+      "file_name": "css\\colorpage.css",
+      "file_type": "text",
+      "start_index": 1600,
+      "end_index": 2100,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "82ac56ee-4cb0-46b4-ad76-aeab4be78988"
+  },
+  {
+    "content": "*/\n{\nbackground:blue;\ndisplay:block;\nheight:60px;\nwidth:60px;\nposition:fixed;\nleft:120px;\ntop:50px;\ncursor:pointer;\n\n}\n#num /*input field where password is set when you click the color buttons*/\n{\nposition:fixed;\nleft:20px;\ntop:240px;\npadding:10px;\nwidth:290px;\n}\n#green /*green button style*/\n{\ncursor:pointer;\ndisplay:block;\nheight:60px;\nwidth:60px;\nbackground:green;\nposition:fixed;\nleft:220px;\ntop:50px;\n\n}\n#save\n{\nposition:fixed;\ntop:300px;\nwidth:300px;\nleft:20px;\nfont-size:20px;\nborder-radius:",
+    "metadata": {
+      "file_name": "css\\colorpage.css",
+      "file_type": "text",
+      "start_index": 2000,
+      "end_index": 2500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "e58c70f4-a866-41d0-af02-b5427126815b"
+  },
+  {
+    "content": "p:50px;\n\n}\n#save\n{\nposition:fixed;\ntop:300px;\nwidth:300px;\nleft:20px;\nfont-size:20px;\nborder-radius:10px;\nbackground:blue;\ncolor:white;\n\n}\n#reset\n{\nfont-size:20px;\nborder-radius:10px;\nbackground:blue;\ncolor:white;\nposition:fixed;\nleft:20px;\ntop:130px;\n\nwidth:80px;\n}\nform\n{\nbackground:white;\npadding:20px;\nborder:2px double red;\ndisplay:flex;\nflex-direction:column;\nalign-content:center;\ntext-align:center;\nposition:fixed;\ntop:10px;\nleft:10px;\nheight:300px;\nwidth:300px;\n}\nb{\nposition:fixed;\ntop:180p",
+    "metadata": {
+      "file_name": "css\\colorpage.css",
+      "file_type": "text",
+      "start_index": 2400,
+      "end_index": 2900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "13c6717f-4269-40b7-ba54-468a2b0a08f9"
+  },
+  {
+    "content": "enter;\nposition:fixed;\ntop:10px;\nleft:10px;\nheight:300px;\nwidth:300px;\n}\nb{\nposition:fixed;\ntop:180px;\n}\n#l1 /*label where error or validation message is being displayed*/\n{\n    position:fixed;\n    top:300px;\n    left:15px;\n  font-size:20px;\n   \n}\n}\n",
+    "metadata": {
+      "file_name": "css\\colorpage.css",
+      "file_type": "text",
+      "start_index": 2800,
+      "end_index": 3300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "43b314c8-f5f5-4434-b1f0-f01f008d8a80"
+  },
+  {
+    "content": "body {\nbackground-image:url('../croppedimages/wallpaperflare.com_wallpaper.jpg');\n    background-repeat: no-repeat;\n    background-size:cover;\n}\n\nform {\n    background: white;\n    padding: 20px;\n    border: 2px double red;\n    display: flex;\n    flex-direction: column;\n    align-content: center;\n    text-align: center;\n    position: fixed;\n    top: 100px;\n    left: 500px;\n    height: 230px;\n    width: 210px;\n}\n\n#l1 {\n    position: fixed;\n    top: 325px;\n    left: 495px;\n    width: 250px;\n}\n\ndiv ",
+    "metadata": {
+      "file_name": "css\\forgotpswdpage.css",
+      "file_type": "text",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "1da99ec4-b502-49c0-9e75-4bb3949b25e1"
+  },
+  {
+    "content": "dth: 210px;\n}\n\n#l1 {\n    position: fixed;\n    top: 325px;\n    left: 495px;\n    width: 250px;\n}\n\ndiv {\n    position: fixed;\n    top: 350px;\n    left: 500px;\n}\n\nbutton {\n    font-size: 20px;\n    border-radius: 10px;\n    background: blue;\n    color: white;\n}\n\nbutton:hover {\n    background: linear-gradient(90deg, black, #2196f3);\n}\n@media only screen and (max-width: 600px) {\nbody {\nbackground-image:url('../croppedimages/wallpaperflare.com_wallpaper.jpg');\n    background-repeat: no-repeat;\n    backgr",
+    "metadata": {
+      "file_name": "css\\forgotpswdpage.css",
+      "file_type": "text",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "6ff7b951-b8db-4211-9b62-dc1410202126"
+  },
+  {
+    "content": "l('../croppedimages/wallpaperflare.com_wallpaper.jpg');\n    background-repeat: no-repeat;\n    background-size:cover;\n}\n\nform {\n    background: white;\n    padding: 20px;\n    border: 2px double red;\n    display: flex;\n    flex-direction: column;\n    align-content: center;\n    text-align: center;\n    position: fixed;\n    top: 50px;\n    left: 20px;\n    height: 230px;\n    width: 210px;\n}\n\n#l1 {\n    position: fixed;\n    top: 60px;\n    left: 50px;\n    width: 250px;\n}\n\ndiv {\n    position: fixed;\n    top",
+    "metadata": {
+      "file_name": "css\\forgotpswdpage.css",
+      "file_type": "text",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "a79c1f93-4683-4c98-a603-5568ead3e1ec"
+  },
+  {
+    "content": "ition: fixed;\n    top: 60px;\n    left: 50px;\n    width: 250px;\n}\n\ndiv {\n    position: fixed;\n    top: 100px;\n    left: 50px;\n}\n\nbutton {\n    font-size: 20px;\n    border-radius: 10px;\n    background: blue;\n    color: white;\n}\n\nbutton:hover {\n    background: linear-gradient(90deg, black, #2196f3);\n}\n}",
+    "metadata": {
+      "file_name": "css\\forgotpswdpage.css",
+      "file_type": "text",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "91f9d1b7-5192-4879-b457-35cfadbd35b5"
+  },
+  {
+    "content": "div\n{\nbackground:white;\n}\ndiv img\n{\nwidth:100%;\nheight:100%;\ncursor:pointer;\n\n}\nbody\n{\nbackground-image:url('../croppedimages/wallpaperflare.com_wallpaper.jpg');\nbackground-repeat:no-repeat;\nbackground-size:cover;\n}\n#d1,#d2,#d3\n{\nposition:relative;\ntop:-345px;\nleft:540px;\nborder:2px outset silver;\nheight:100px;\nwidth:100px;\n/*display:inline-block;*/\nmargin:0px;\npadding:0px;\ndisplay:flex;\nflex-direction:row;\n}\n#d4,#d5,#d6\n{\nposition:relative;\ntop:-655px;\nleft:650px;\nborder:2px outset silver;\nheig",
+    "metadata": {
+      "file_name": "css\\img_authenticate.css",
+      "file_type": "text",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "536c90ba-121a-472a-a62c-5eba710b3b41"
+  },
+  {
+    "content": "ction:row;\n}\n#d4,#d5,#d6\n{\nposition:relative;\ntop:-655px;\nleft:650px;\nborder:2px outset silver;\nheight:100px;\nwidth:100px;\n/*display:inline-block;*/\nmargin:0px;\npadding:0px;\ndisplay:flex;\nflex-direction:row;\n}\n\n#d7,#d8,#d9\n{\nposition:relative;\ntop:-970px;\nleft:760px;\nborder:2px outset silver;\nheight:100px;\nwidth:100px;\n/*display:inline-block;*/\nmargin:0px;\npadding:0px;\ndisplay:flex;\nflex-direction:row;\n}\n#save\n{\nposition:relative;\ntop:90px;\nleft:120px;\n}\n#reset\n{\nposition:relative;\ntop:90px;\nlef",
+    "metadata": {
+      "file_name": "css\\img_authenticate.css",
+      "file_type": "text",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "872e759b-2916-4d07-b2ee-1ab4053e5283"
+  },
+  {
+    "content": ":row;\n}\n#save\n{\nposition:relative;\ntop:90px;\nleft:120px;\n}\n#reset\n{\nposition:relative;\ntop:90px;\nleft:120px;\n}\nbutton\n{\nfont-size:20px;\nborder-radius:10px;\nbackground:blue;\ncolor:white;\n}\nbutton:hover\n{\n \nbackground:linear-gradient(90deg,black,#2196f3);\n}\n#crop\n{\nposition:relative;\ntop:80px;\nleft:150px;\n}\n#num\n{\nposition:relative;\ntop:40px;\nleft:420px;\nheight:50px;\nwidth:300px;\n}\n#l1\n{\nposition:relative;\ntop:-850px;\nleft:100px;\ncolor:white;\n}\n",
+    "metadata": {
+      "file_name": "css\\img_authenticate.css",
+      "file_type": "text",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "ccba0d11-2a43-4195-a6fe-b1bf190e632e"
+  },
+  {
+    "content": "lative;\ntop:-850px;\nleft:100px;\ncolor:white;\n}\n",
+    "metadata": {
+      "file_name": "css\\img_authenticate.css",
+      "file_type": "text",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "5518b127-fbe7-4e9d-a41d-b2561996092c"
+  },
+  {
+    "content": "body\n{\nbackground-image:url('../croppedimages/wallpaperflare.com_wallpaper.jpg');\nbackground-repeat:no-repeat;\nbackground-size:cover;\n}\ndiv img\n{\nwidth:100%;\nheight:100%;\ncursor:pointer\n}\n#d1,#d2,#d3\n{\nposition:relative;\ntop:-25px;\nleft:500px;\nborder:2px outset silver;\nheight:100px;\nwidth:100px;\n/*display:inline-block;*/\nmargin:0px;\npadding:0px;\ndisplay:flex;\nflex-direction:row;\n}\n#d4,#d5,#d6\n{\nposition:relative;\ntop:-335px;\nleft:610px;\nborder:2px outset silver;\nheight:100px;\nwidth:100px;\n/*disp",
+    "metadata": {
+      "file_name": "css\\login_img.css",
+      "file_type": "text",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "0ed1a411-6252-439a-a7e1-aa5e5c7969e3"
+  },
+  {
+    "content": "sition:relative;\ntop:-335px;\nleft:610px;\nborder:2px outset silver;\nheight:100px;\nwidth:100px;\n/*display:inline-block;*/\nmargin:0px;\npadding:0px;\ndisplay:flex;\nflex-direction:row;\n}\n#d7,#d8,#d9\n{\nposition:relative;\ntop:-650px;\nleft:720px;\nborder:2px outset silver;\nheight:100px;\nwidth:100px;\n/*display:inline-block;*/\nmargin:0px;\npadding:0px;\ndisplay:flex;\nflex-direction:row;\n}\n#save\n{\nposition:relative;\ntop:450px;\nleft:230px;\n}\n#reset\n{\nposition:relative;\ntop:450px;\nleft:230px;\n}\n#crop\n{\nposition:",
+    "metadata": {
+      "file_name": "css\\login_img.css",
+      "file_type": "text",
+      "start_index": 400,
+      "end_index": 900,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "e0708643-5928-442f-b682-cb923d9c75a1"
+  },
+  {
+    "content": "ive;\ntop:450px;\nleft:230px;\n}\n#reset\n{\nposition:relative;\ntop:450px;\nleft:230px;\n}\n#crop\n{\nposition:relative;\ntop:80px;\nleft:100px;\n}\nheader\n{\ncolor:white;\nposition:fixed;\ntop:20px;\nleft:500px;\nfont-size:24px;\n}\n#num\n{\nposition:relative;\ntop:380px;\nleft:520px;\nheight:50px;\nwidth:300px;\n}\nbutton\n{\nposition:fixed;\ntop:400px;\nwidth:150px;\nleft:450px;\nfont-size:20px;\nborder-radius:10px;\nbackground:blue;\ncolor:white;\n}\nbutton:hover,#save:hover,#reset:hover\n{\n \nbackground:linear-gradient(90deg,black,#",
+    "metadata": {
+      "file_name": "css\\login_img.css",
+      "file_type": "text",
+      "start_index": 800,
+      "end_index": 1300,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "81edc1d9-5d17-47b8-87cf-42a2312badd0"
+  },
+  {
+    "content": "e;\ncolor:white;\n}\nbutton:hover,#save:hover,#reset:hover\n{\n \nbackground:linear-gradient(90deg,black,#2196f3);\n}\n",
+    "metadata": {
+      "file_name": "css\\login_img.css",
+      "file_type": "text",
+      "start_index": 1200,
+      "end_index": 1700,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "416d0450-b80e-44a6-8de3-d3f55fffd897"
+  },
+  {
+    "content": "body\n{\nbackground-image:url('../croppedimages/wallpaperflare.com_wallpaper.jpg');\nbackground-repeat:no-repeat;\nbackground-size:cover;\n}\np\n{\n    font-size:20px;\n    color:white;\n}",
+    "metadata": {
+      "file_name": "css\\success_msg.css",
+      "file_type": "text",
+      "start_index": 0,
+      "end_index": 500,
+      "commit": "363667bc72365d6dd5a902617e1b7139ad4d7ee9",
+      "repo_name": "rayuga3900__three_level_authentication_system"
+    },
+    "id": "cb5a1779-4af9-46b8-acf7-6aa75d1b4d65"
+  }
+]

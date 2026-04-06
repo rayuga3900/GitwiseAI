@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+ 
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - ./qdrant_storage:/qdrant/storage
+    restart: unless-stopped
+
+
+  # volumes become bind mount or named volume
+  # host storage : container -> bind mount [uses local file system, good for development]
+  # docker storage : container -> named volume  [Managed by docker , good for persistent data]
