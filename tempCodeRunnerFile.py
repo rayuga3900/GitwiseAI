@@ -1,1 +1,0 @@
-r.payload.get("content", "")
