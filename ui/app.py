@@ -2,14 +2,14 @@ import streamlit as st
 import requests
 import re
 import time
-from gitwise.config import BASE_URL
+
 import os
 
-try:
-    BASE_URL = st.secrets["backend"]["BASE_URL"]
-except Exception:
-    # fallback for local development
-    BASE_URL = os.environ.get("BASE_URL", "http://localhost:8000")
+BASE_URL = os.getenv("BASE_URL") or st.secrets.get("backend", {}).get("BASE_URL")
+
+# Fallback for local dev if nothing is set
+if BASE_URL is None:
+    BASE_URL = "http://localhost:8000"
  
 st.set_page_config(page_title="GitWise AI", layout="wide")
 st.title("📚 GitWise AI - Repo Chat + Evaluation")
