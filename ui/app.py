@@ -3,9 +3,14 @@ import requests
 import re
 import time
 from gitwise.config import BASE_URL
+import os
+
+try:
+    BASE_URL = st.secrets["backend"]["BASE_URL"]
+except Exception:
+    # fallback for local development
+    BASE_URL = os.environ.get("BASE_URL", "http://localhost:8000")
  
-
-
 st.set_page_config(page_title="GitWise AI", layout="wide")
 st.title("📚 GitWise AI - Repo Chat + Evaluation")
 
