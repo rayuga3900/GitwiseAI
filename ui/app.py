@@ -7,7 +7,7 @@ from gitwise.config import BASE_URL
 
 
 st.set_page_config(page_title="GitWise AI", layout="wide")
-st.title("📚 GitWise - Repo Chat + Evaluation")
+st.title("📚 GitWise AI - Repo Chat + Evaluation")
 
  
 # st.session_state  => streamlit in memory store for current session[data alive while user interacts,
