@@ -26,9 +26,9 @@ def run_retrieval(query: str, chunks: list, vector_store, embedder, rerank_top_k
         dense_store=vector_store,
         dense_embedder=embedder,
         bm25_data=bm25_data,
-        top_k_dense = 50,
-        top_k_sparse = 50,
-        top_k_final = 30
+        top_k_dense = 20,
+        top_k_sparse = 20,
+        top_k_final = 10
     )
     logger.info("Running hybrid dense + sparse retrieval...")
     hybrid_results = hr.retrieve(query)
