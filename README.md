@@ -1,6 +1,6 @@
 # 📚 GitWise AI - Repo Chat + Evaluation
 
-GitWise AI is an intelligent tool that allows you to:
+GitWise AI(https://gitwiseai.streamlit.app/) is an intelligent tool that allows you to:
 
 - Ingest GitHub repositories
 - Ask questions about the code and receive contextual answers using LLMs
