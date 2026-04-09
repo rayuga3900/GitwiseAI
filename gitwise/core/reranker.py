@@ -9,8 +9,8 @@ class Reranker:
 
     Scores (query, document) pairs and returns the best ranked documents.
     """
-
-    def __init__(self, model_name: str = "BAAI/bge-reranker-base", top_k: int = 20):
+    #    BAAI/bge-reranker-base -> old reranker replaced cause of memory issue 
+    def __init__(self, model_name: str = "cross-encoder/ms-marco-MiniLM-L-6-v2", top_k: int = 20):
         self.logger = logging.getLogger(self.__class__.__name__)
 
         self.model_name = model_name
