@@ -9,7 +9,7 @@ import time
 from gitwise.core import DataLoader, Chunker, Embedder, VectorStore
 from qdrant_client import QdrantClient
 from gitwise.utils.helper import extract_repo_info, normalize_repo_id
-from gitwise.config import QDRANT_URL
+from gitwise.config import QDRANT_URL,QDRANT_API_KEY
 from gitwise.utils.logger_config import setup_logging
 
 setup_logging()
@@ -143,7 +143,12 @@ def run_ingestion(repo_url: str, clone_root="data/raw/"):
  
     #  4: Inserting into Vector Store
  
-    client = QdrantClient(url=QDRANT_URL)
+    #client = QdrantClient(url=QDRANT_URL)
+    if QDRANT_API_KEY:
+        client = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
+    else:
+        client = QdrantClient(url=QDRANT_URL)
+        
     vector_store = VectorStore(client, collection_name=collection_name, vector_dim=384)
     logger.info(f"inserting in vector database")
     insert_vectors(vector_store, uuids, embeddings, payloads)
