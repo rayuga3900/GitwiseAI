@@ -10,16 +10,23 @@ class Embedder:
         self.logger.info(f"Loading embedding model: {self.model_name} on {self.device}...")
         self.model = SentenceTransformer(self.model_name, device=self.device)  # Load only once
 
-    def embed_chunks(self, chunks):
+    def embed_chunks(self, chunks, batch_size=32):
         self.logger.info(f"Generating embeddings for {len(chunks)} chunks...")
-        for i, chunk in enumerate(chunks):
-            # Only show first 100 characters to avoid flooding logs
-            self.logger.debug(f"Chunk {i}: {chunk[:20]}{'...' if len(chunk) > 20 else ''}")
-        emb = self.model.encode(
-            chunks,
-            batch_size=16,             # processes 16 chunks at a time
-            show_progress_bar=True,
-            normalize_embeddings=True  # Ensures all vectors have unit length[which makes cosine similarity easier]
-        )
-        self.logger.info(f"Generated embeddings with shape: {emb.shape}")
-        return emb.tolist()
+    
+        all_embeddings = []
+    
+        for i in range(0, len(chunks), batch_size):
+            batch = chunks[i:i+batch_size]
+    
+            self.logger.debug(f"Processing batch {i}-{i+len(batch)}")
+    
+            emb = self.model.encode(
+                batch,
+                show_progress_bar=False,
+                normalize_embeddings=True
+            )
+    
+            all_embeddings.extend(emb.tolist())
+    
+        self.logger.info(f"Generated {len(all_embeddings)} embeddings")
+        return all_embeddings
