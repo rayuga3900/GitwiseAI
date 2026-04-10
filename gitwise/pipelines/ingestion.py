@@ -145,6 +145,7 @@ def run_ingestion(repo_url: str, clone_root="data/raw/"):
  
     client = QdrantClient(url=QDRANT_URL)
     vector_store = VectorStore(client, collection_name=collection_name, vector_dim=384)
+    logger.info(f"inserting in vector database")
     insert_vectors(vector_store, uuids, embeddings, payloads)
 
     logger.info(f"Ingestion completed in {time.time() - start_time:.2f}s")
