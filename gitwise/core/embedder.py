@@ -10,7 +10,7 @@ class Embedder:
         self.logger.info(f"Loading embedding model: {self.model_name} on {self.device}...")
         self.model = SentenceTransformer(self.model_name, device=self.device)  # Load only once
 
-    def embed_chunks(self, chunks, batch_size=32):
+    def embed_chunks(self, chunks, batch_size=16):
         self.logger.info(f"Generating embeddings for {len(chunks)} chunks...")
     
         all_embeddings = []
