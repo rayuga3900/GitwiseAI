@@ -31,5 +31,5 @@ MAX_CHUNK_SIZE = 2 * 1024 * 1024  # 2MB per chunk
 
 
 QDRANT_URL = os.getenv("QDRANT_URL" )
-
+QDRANT_API_KEY = os.getenv("QDRANT_API_KEY", None)
 BASE_URL = os.getenv("BASE_URL" )
