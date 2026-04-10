@@ -24,7 +24,7 @@ class Embedder:
 
         embeddings = self.model.encode(
               chunks,
-                batch_size=4,             # processes 4 chunks at a time
+                batch_size=16,             # processes 16 chunks at a time
                 show_progress_bar=True,
                 normalize_embeddings=True  # Ensures all vectors have unit length[which makes cosine similarity easier]
         )
