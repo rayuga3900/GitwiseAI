@@ -11,5 +11,4 @@ qdrant-client==1.17.1
 pydantic==2.12.5
 langchain_text_splitters==1.1.1
 rank_bm25==0.2.2 
-.
 langchain_groq==1.1.2
